@@ -56,7 +56,7 @@ The host topology and paradigm are hidden, exactly as the specification requires
 
 | RoIS concept | OpenRoIS implementation | Layer |
 |-------------|------------------------|-------|
-| Main HRI Engine | Gateway (Python, asyncio) | 2 |
+| Main HRI Engine | Engine | 2 |
 | Sub HRI Engine | Per-host node (robot node, avatar process, service) | 4 |
 | HRI Component | In-process object, gRPC service, or ROS 2 node | 4 |
 | Service Application | Client SDK (C#, TypeScript, or Python) | 1 |
