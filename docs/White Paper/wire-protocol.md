@@ -5,9 +5,9 @@ sidebar_position: 9
 
 # The Wire Protocol: JSON-RPC 2.0
 
-The remote client talks to the gateway over **WebSocket** using **JSON-RPC 2.0** as
+The remote client talks to the engine over **WebSocket** using **JSON-RPC 2.0** as
 the message envelope. Every RoIS interface operation maps to a JSON-RPC method in a
-namespaced hierarchy. The gateway processes requests and sends responses, and also
+namespaced hierarchy. The engine processes requests and sends responses, and also
 pushes asynchronous notifications (events, command completions, errors) to the client
 as JSON-RPC notifications (messages with no `id` field).
 
@@ -146,7 +146,7 @@ Client sends `rois.system.connect` (after WebSocket upgrade with JWT):
 }
 ```
 
-Gateway responds:
+Engine responds:
 
 ```json
 {
@@ -169,7 +169,7 @@ Gateway responds:
 }
 ```
 
-Gateway responds with matching component references:
+Engine responds with matching component references:
 
 ```json
 {
@@ -261,7 +261,7 @@ Gateway responds with matching component references:
 }
 ```
 
-### Step 6: Gateway pushes a person_detected event (notification, no id)
+### Step 6: Engine pushes a person_detected event (notification, no id)
 
 ```json
 {
@@ -363,7 +363,7 @@ Set the navigation parameters:
 }
 ```
 
-### Step 9: Gateway pushes command completion (notification)
+### Step 9: Engine pushes command completion (notification)
 
 ```json
 {
@@ -376,7 +376,7 @@ Set the navigation parameters:
 }
 ```
 
-### Step 10: Gateway pushes reached_target event (notification)
+### Step 10: Engine pushes reached_target event (notification)
 
 ```json
 {
@@ -464,7 +464,7 @@ Set the navigation parameters:
 ## Error handling
 
 Errors use standard JSON-RPC 2.0 error objects with RoIS-specific return codes. The
-gateway also pushes asynchronous error notifications via `rois.system.notify_error`.
+engine also pushes asynchronous error notifications via `rois.system.notify_error`.
 
 Example: binding a component outside the caller's scope:
 
@@ -489,7 +489,7 @@ Example: binding a component outside the caller's scope:
 }
 ```
 
-Example: asynchronous error notification pushed by the gateway:
+Example: asynchronous error notification pushed by the engine:
 
 ```json
 {
@@ -581,7 +581,7 @@ SpeechSynthesis execute concurrently.
 ```mermaid
 sequenceDiagram
     participant Client as Operator App (SDK)
-    participant GW as Gateway
+    participant GW as Engine
     participant Robot as ROS 2 Robot
 
     Client->>GW: WS upgrade + JWT

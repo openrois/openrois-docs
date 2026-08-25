@@ -38,8 +38,8 @@ flowchart LR
     C6 -.->|"corresponds to"| D6
 ```
 
-WebRTC signaling travels over the existing WebSocket RoIS connection (passed as
-`set_parameter` arguments), so no separate signaling server is required.
+WebRTC signaling is handled by the application layer. The engine brokers media
+descriptor exchange via the RoIS streaming interface but never touches media data.
 
 An important distinction the specification preserves: Speech Synthesis is a
 **command** component (text to robot speaker locally), not a stream. Audio and Video
@@ -51,4 +51,4 @@ WebRTC.
 - **Fleet of 1 to 3 robots**: peer-to-peer WebRTC is sufficient.
 - **Larger fleets**: route media through a Selective Forwarding Unit (mediasoup,
   LiveKit). The RoIS streaming control interface is identical either way. The SFU is
-  an implementation detail of the gateway.
+  an implementation detail of the application layer.

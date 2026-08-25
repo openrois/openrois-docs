@@ -62,7 +62,7 @@ flowchart TB
 | Video Streaming | camera to WebRTC | rendered frames to WebRTC | diff source |
 | System Information | battery, CPU, joints | FPS, memory, avatar state | diff state |
 
-The component's logic is the same across adapters. Only the binding differs. The
+The component's logic is the same across sub-engines. Only the binding differs. The
 spec also supports user-defined components beyond the basic 17, reusing `RoIS_Common`
 and the profile mechanism. An HRI Component Profile can include another profile via
 `sub_component`, so an extended component can reuse a base component's messages and

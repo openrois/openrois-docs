@@ -12,23 +12,19 @@ used at each boundary rather than forcing one everywhere.
 flowchart LR
     subgraph Boundaries["Transport per boundary"]
         direction TB
-        B1["Remote client to Gateway<br/>WebSocket + TLS<br/>NAT/firewall friendly, browser-native"]
-        B2["Gateway to avatar (same process)<br/>In-process calls<br/>Zero serialization, zero latency"]
-        B3["Gateway to distributed services<br/>gRPC<br/>Typed, cross-language, efficient"]
-        B4["Gateway to robot fleet<br/>ROS 2 / DDS<br/>Reliable pub/sub, QoS, discovery"]
+        B1["Remote client to Engine<br/>WebSocket + TLS<br/>NAT/firewall friendly, browser-native"]
+        B4["Engine to Sub-engines<br/>WebSocket + TLS<br/>JSON-RPC 2.0"]
         B5["Media (camera/mic or rendered)<br/>WebRTC (SRTP/DTLS)<br/>NAT traversal, adaptive bitrate"]
     end
 ```
 
 | Boundary | Transport | Rationale |
 |----------|-----------|-----------|
-| Remote client to Gateway | WebSocket + TLS | NAT/firewall friendly, browser-native, easy auth, async events. Matches the spec's Annex F.2.3 WebSocket example. |
-| Gateway to avatar (same process) | In-process calls | Zero serialization and latency. Ideal for Unity, Godot, or Web hosts. |
-| Gateway to distributed services | gRPC | Typed, cross-language, efficient. Good for GPU/AI services. |
-| Gateway to robot fleet | ROS 2 / DDS | Reliable pub/sub, QoS, discovery, ecosystem (Nav2, perception). |
+| Remote client to Engine | WebSocket + TLS | NAT/firewall friendly, browser-native, easy auth, async events. Matches the spec's Annex F.2.3 WebSocket example. |
+| Engine to Sub-engine | WebSocket + TLS | The engine-to-sub-engine boundary is always WebSocket + JSON-RPC. The sub-engine's internal transport is chosen by the sub-engine. |
 | Media (camera/mic or rendered) | WebRTC (SRTP/DTLS) | Built-in NAT traversal (ICE/STUN/TURN), adaptive bitrate, encrypted, browser-native. |
 
-These are complementary, not competing. In-process, gRPC, and DDS each solve a
-different host boundary. WebSocket solves the remote control boundary. WebRTC
-solves real-time media. Each is selected by the active BusAdapter at Layer 3, except
-WebSocket (always the remote edge) and WebRTC (always the media plane).
+These are complementary, not competing. The engine-to-sub-engine boundary is always
+WebSocket + JSON-RPC. The sub-engine's internal transport (DDS, gRPC, animation API) is
+chosen by the sub-engine, not the engine. WebSocket solves the remote control boundary.
+WebRTC solves real-time media.

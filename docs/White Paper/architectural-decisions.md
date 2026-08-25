@@ -11,15 +11,15 @@ extensible without rewrites.
 
 ## Paradigm-neutral core
 
-The engine, gateway, and client SDK never assume hardware, a world model, or any
-specific middleware. A single `BusAdapter` abstraction decouples the core from ROS 2,
-in-process runtimes, gRPC services, or any future paradigm. Adding a new paradigm is
-an additive adapter, never a rewrite.
+The engine and client SDK never assume hardware, a world model, or any
+specific middleware. A single `SubEngine` interface decouples the core from ROS 2,
+virtual avatars, AI services, or any future paradigm. Adding a new paradigm is
+an additive sub-engine, never a rewrite.
 
 This decision is enforced structurally, not by convention. The engine has zero
 references to ROS, DDS, gRPC, or any game engine. A grep for transport-specific
 symbols in the engine source returns nothing. The same contract test suite runs
-against every adapter, catching paradigm leakage.
+against every sub-engine, catching paradigm leakage.
 
 ## Spec-first, symbolic data only
 
@@ -43,7 +43,7 @@ Python Pydantic models are the source of truth. JSON Schema is the canonical wir
 format. C# and TypeScript types are **generated, never hand-written**, so all three
 language stacks stay consistent. A schema-drift test in CI verifies that committed
 schemas match Pydantic output. This eliminates an entire class of bugs: type
-mismatches between the SDK and the gateway.
+mismatches between the SDK and the engine.
 
 ## Transport-appropriate, not transport-uniform
 
@@ -57,16 +57,16 @@ boundary.
 ## Vertical slices over horizontal layers
 
 Each milestone delivers a working end-to-end path, not an isolated layer. M0
-through M5 culminate in a usable robot demo (the MVP). The in-process adapter is
+through M5 culminate in a usable robot demo (the MVP). The simplest sub-engine is
 built first because it is the simplest. This ordering is a guard against DDS
-assumptions leaking into the core: if the simplest adapter works, and the engine
-depends only on the `BusAdapter` contract, then adding DDS later cannot retroactively
+assumptions leaking into the core: if the simplest sub-engine works, and the engine
+depends only on the `SubEngine` contract, then adding DDS later cannot retroactively
 introduce coupling.
 
 ## The SDK is the product
 
 Adoption is driven by how easy it is to write a scenario. The SDK is identical
 whether the host is a physical robot, a virtual avatar, or a distributed service.
-The host paradigm is hidden behind the gateway. A researcher who writes a scenario
+The host paradigm is hidden behind the engine. A researcher who writes a scenario
 against the SDK does not need to know whether the target is a ROS 2 robot or a
-Unity avatar. Only the gateway configuration changes.
+Unity avatar. Only the engine configuration changes.

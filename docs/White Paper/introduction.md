@@ -24,7 +24,7 @@ structured messages: "a person was detected", "approach the person", "say this
 message". All hardware-specific concerns are hidden behind standardized interfaces.
 
 A specification alone does not drive adoption. Researchers and engineers need a
-usable implementation: a clean SDK, reference adapters for real robotics ecosystems,
+usable implementation: a clean SDK, reference sub-engines for real robotics ecosystems,
 a gateway that bridges the spec's interfaces to the network, and a component library
 that demonstrates the full stack working end to end.
 
@@ -38,8 +38,8 @@ through a single, paradigm-neutral SDK.
 This white paper describes the following contributions:
 
 1. A **paradigm-neutral architecture** for RoIS 2.0 that decouples the engine,
-   gateway, and client SDK from any specific middleware through a five-method
-   `BusAdapter` contract ([BusAdapter Contract](/docs/White%20Paper/busadapter-contract)).
+   and client SDK from any specific middleware through a five-method
+   `SubEngine` contract ([SubEngine Contract](/docs/White%20Paper/busadapter-contract)).
 2. A **single-source-of-truth type pipeline** that authors interfaces as Python
    Pydantic models and generates C# and TypeScript types from a canonical JSON
    Schema, keeping three language stacks consistent without manual synchronization
@@ -48,10 +48,10 @@ This white paper describes the following contributions:
    WebSocket, with full message examples for every interface operation
    ([Wire Protocol](/docs/White%20Paper/wire-protocol)).
 4. Three **client SDKs** (C# for Unity, TypeScript for web, Python for scripting)
-   that expose identical behavior regardless of the host paradigm behind the gateway
+   that expose identical behavior regardless of the host paradigm behind the engine
    ([Developer Experience](/docs/White%20Paper/developer-experience)).
-5. Four **deployment topologies** that compose the same layers into physical robots,
-   mixed fleets, single-process avatars, and distributed services
+5. Four **deployment topologies** that compose the same processes into single-host,
+   LAN fleet, distributed, and cloud-hosted component deployments
    ([Deployment Topologies](/docs/White%20Paper/deployment-topologies)).
 6. A **transport strategy** that selects the right transport at each boundary rather
    than forcing one everywhere
@@ -71,5 +71,5 @@ This document is written for:
 ## Status
 
 Alpha, pre-1.0, unstable API. Only the interfaces layer (M0) is complete. The
-engine, gateway, bus adapters, components, and SDKs are planned or under
+The engine, sub-engines, components, and SDKs are planned or under
 construction. The OMG RoIS Framework is at version 2.0-beta2 and may change.

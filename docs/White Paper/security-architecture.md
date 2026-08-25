@@ -5,7 +5,7 @@ sidebar_position: 13
 
 # Security Architecture
 
-Security is phased but never bolted on. Auth hooks exist from M2 (the gateway
+Security is phased but never bolted on. Auth hooks exist from M2 (the engine
 milestone). Full multi-tenant enforcement lands in M9.
 
 ## Authentication flow
@@ -17,16 +17,16 @@ WebSocket upgrade.
 ```mermaid
 sequenceDiagram
     participant Client
-    participant Gateway
+    participant Engine
 
-    Client->>Gateway: POST /auth/token {client_id, ...}
-    Gateway-->>Client: {access_token (JWT), expires}
+    Client->>Engine: POST /auth/token {client_id, ...}
+    Engine-->>Client: {access_token (JWT), expires}
 
-    Client->>Gateway: WS upgrade, Authorization: Bearer <token>
-    Gateway-->>Client: 101 Switching Protocols (or 401 if invalid)
+    Client->>Engine: WS upgrade, Authorization: Bearer <token>
+    Engine-->>Client: 101 Switching Protocols (or 401 if invalid)
 
-    Client->>Gateway: rois.system.connect()
-    Gateway-->>Client: {return_code: "OK"}
+    Client->>Engine: rois.system.connect()
+    Engine-->>Client: {return_code: "OK"}
 ```
 
 Example JWT claims used downstream for authorization:
@@ -44,7 +44,7 @@ Example JWT claims used downstream for authorization:
 
 ## Authorization model (RBAC)
 
-Authorization is enforced per RoIS operation inside the gateway. The spec's
+Authorization is enforced per RoIS operation inside the engine. The spec's
 `Condition_t` (an ISO 19143 filter expression) and `component_ref` are the natural
 enforcement points.
 
@@ -67,7 +67,7 @@ enforcement points.
 | `subscribe(event_type, condition)` | Deliver `notify_event` only for authorized sources. |
 | `connect_stream()` | Require streaming scope. SFU enforces per-stream ACL. |
 
-Because the gateway filters at `search()`, robots outside a caller's scope are
+Because the engine filters at `search()`, robots outside a caller's scope are
 invisible. The caller cannot discover or address them.
 
 ## Defense in depth

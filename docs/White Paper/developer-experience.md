@@ -8,7 +8,7 @@ sidebar_position: 8
 OpenRoIS ships three client SDKs, each targeting a different developer audience.
 All three expose the same five RoIS interfaces (System, Command, Query, Event,
 Streaming) and produce identical behavior regardless of the host paradigm behind the
-gateway.
+engine.
 
 ```mermaid
 flowchart TB
@@ -19,22 +19,22 @@ flowchart TB
         Py["Python SDK<br/>Scripting, E2E testing<br/>(secondary client)"]
     end
 
-    SDKs -->|"WebSocket + JSON-RPC 2.0"| Gateway["Gateway"]
-    Gateway --> BusAdapter["BusAdapter"]
-    BusAdapter --> Hosts["Robots, Avatars, Services"]
+    SDKs -->|"WebSocket + JSON-RPC 2.0"| Engine["Engine"]
+    Engine --> SubEngine["SubEngine"]
+    SubEngine --> SubEngines["Robots, Avatars, Services"]
 ```
 
 ## C# SDK for Unity (secondary client)
 
 The C# SDK (`OpenRoIS.Sdk` / `org.openrois.sdk`) is a secondary client SDK, targeting
-Unity operator applications. It connects to the gateway over WebSocket using
+Unity operator applications. It connects to the engine over WebSocket using
 JSON-RPC 2.0, with async connect, auto-reconnect, token handling, heartbeat, and
 typed errors. Component proxies provide typed access to each RoIS component with
 event handlers.
 
 ```csharp
 var engine = await RoISEngine.ConnectAsync(
-    "wss://gateway.example.com",
+    "wss://engine.example.com",
     new ConnectOptions { Token = token });
 
 var pd = await engine.BindAsync("PersonDetection");
@@ -59,12 +59,14 @@ Key characteristics:
 
 The TypeScript SDK (`@openrois/sdk`) is the primary client SDK for web applications:
 operator dashboards, monitoring tools, configuration UIs, and automated testing. It
-runs in both browsers and Node.js.
+runs in both browsers and Node.js. The Hub (`apps/hub/`) is the primary consumer of
+this SDK: it uses `@openrois/sdk` with `WebSocketTransport` to connect to the Engine
+and visualize its state. The Hub is a visualizer, not a service application.
 
 ```ts
 import { RoISEngine } from "@openrois/sdk";
 
-const engine = await RoISEngine.connect("wss://gateway.example.com", {
+const engine = await RoISEngine.connect("wss://engine.example.com", {
   token: await getAccessToken(),
 });
 
@@ -85,12 +87,12 @@ Key characteristics:
 - Runtime validation via zod schemas imported from `@openrois/interfaces`.
 - Dual ESM/CJS output (tsup), browser and Node.js compatible.
 - Auto-reconnect with exponential backoff, heartbeat, typed error hierarchy.
-- Ships with a mock gateway (`integration/mock-gateway/`) for testing all SDKs.
+- Ships with a mock engine (`integration/mock-gateway/`) for testing all SDKs.
 
 ## Python SDK for scripting (secondary client)
 
 The Python SDK (`openrois-sdk`) mirrors the core API for scripting, automated
-testing of the gateway and ROS 2 adapter, and E2E validation. It reuses the same
+testing of the engine and ROS 2 sub-engine, and E2E validation. It reuses the same
 protocol surface defined by the other SDKs.
 
 ```python
@@ -99,7 +101,7 @@ from openrois.sdk import RoISEngine
 
 async def main():
     engine = await RoISEngine.connect(
-        "wss://gateway.example.com",
+        "wss://engine.example.com",
         token=get_access_token(),
     )
 
@@ -117,8 +119,8 @@ Key characteristics:
 
 - Built on the same Pydantic types that are the source of truth for the entire
   project, so there is no type bridge needed.
-- Used for E2E testing of the gateway and ROS 2 adapter.
-- Async-first (asyncio), mirroring the engine and gateway runtime.
+- Used for E2E testing of the engine and ROS 2 sub-engine.
+- Async-first (asyncio), mirroring the engine runtime.
 
 ## SDK interface mapping
 
@@ -138,6 +140,6 @@ specification: `notify_error`, `completed`, and `notify_event`.
 ## Paradigm transparency
 
 The same SDK calls drive a real ROS 2 robot and an in-process avatar. Only the host
-behind the gateway changes. This is the core value proposition for researchers: a
+behind the engine changes. This is the core value proposition for researchers: a
 scenario written once can be tested against a mock robot, deployed against a real
 ROS 2 robot, and reused against a virtual avatar without code changes.
