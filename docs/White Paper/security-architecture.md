@@ -5,10 +5,10 @@ sidebar_position: 13
 
 # Security Architecture
 
-Security is phased but never bolted on. Auth hooks exist from M2 (the engine
-milestone). Full multi-tenant enforcement lands in M9.
+Security is phased. Auth hooks exist in the engine. Full multi-tenant
+enforcement is a roadmap phase.
 
-## Authentication flow
+## 13.1 Authentication flow
 
 The specification's `connect()` takes no parameters (it assumes a trusted LAN). For
 remote access, OpenRoIS authenticates before any RoIS message is processed, at the
@@ -17,16 +17,16 @@ WebSocket upgrade.
 ```mermaid
 sequenceDiagram
     participant Client
-    participant Engine
+    participant Gateway
 
-    Client->>Engine: POST /auth/token {client_id, ...}
-    Engine-->>Client: {access_token (JWT), expires}
+    Client->>Gateway: POST /auth/token {client_id, ...}
+    Gateway-->>Client: {access_token (JWT), expires}
 
-    Client->>Engine: WS upgrade, Authorization: Bearer <token>
-    Engine-->>Client: 101 Switching Protocols (or 401 if invalid)
+    Client->>Gateway: WS upgrade, Authorization: Bearer <token>
+    Gateway-->>Client: 101 Switching Protocols (or 401 if invalid)
 
-    Client->>Engine: rois.system.connect()
-    Engine-->>Client: {return_code: "OK"}
+    Client->>Gateway: rois.system.connect()
+    Gateway-->>Client: {return_code: "OK"}
 ```
 
 Example JWT claims used downstream for authorization:
@@ -42,9 +42,9 @@ Example JWT claims used downstream for authorization:
 }
 ```
 
-## Authorization model (RBAC)
+## 13.2 Authorization model (RBAC)
 
-Authorization is enforced per RoIS operation inside the engine. The spec's
+Authorization is enforced per RoIS operation inside the gateway. The spec's
 `Condition_t` (an ISO 19143 filter expression) and `component_ref` are the natural
 enforcement points.
 
@@ -55,11 +55,11 @@ enforcement points.
 | viewer | assigned | detection + streaming only |
 | maintenance | assigned | system_information |
 
-## Enforcement points
+## 13.3 Enforcement points
 
 | Interface / operation | Enforcement |
 |-----------------------|-------------|
-| `connect()` | Verify JWT. Expose only sub-engines within `fleet_scope`. |
+| `connect()` | Verify JWT. Expose only adapters within `fleet_scope`. |
 | `search(condition)` | Filter `component_ref_list` to authorized fleet and components. |
 | `bind(component_ref)` | Reject refs outside scope. |
 | `execute(command_unit_list)` | Validate every `component_ref` in the sequence. |
@@ -67,10 +67,10 @@ enforcement points.
 | `subscribe(event_type, condition)` | Deliver `notify_event` only for authorized sources. |
 | `connect_stream()` | Require streaming scope. SFU enforces per-stream ACL. |
 
-Because the engine filters at `search()`, robots outside a caller's scope are
+Because the gateway filters at `search()`, robots outside a caller's scope are
 invisible. The caller cannot discover or address them.
 
-## Defense in depth
+## 13.4 Defense in depth
 
 ```mermaid
 flowchart LR

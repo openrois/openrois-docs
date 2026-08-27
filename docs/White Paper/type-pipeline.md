@@ -19,7 +19,7 @@ flowchart LR
     end
 
     subgraph Generated["Generated language stacks"]
-        CS["interfaces/csharp/<br/>OpenRoIS.Interfaces<br/>(netstandard2.1)"]
+        CS["interfaces/csharp/<br/>OpenRoIS.Interfaces<br/>(netstandard2.1 / net10.0)"]
         TS["interfaces/typescript/<br/>@openrois/interfaces<br/>(ESM + zod schemas)"]
     end
 
@@ -28,7 +28,7 @@ flowchart LR
     Schema -->|"npx tsx scripts/generate.ts"| TS
 ```
 
-## Pipeline steps
+## 7.1 Pipeline steps
 
 1. **Author** Pydantic models in `interfaces/python/src/openrois/interfaces/`.
 2. **Export** to JSON Schema: `cd python && python scripts/export_schema.py`.
@@ -39,15 +39,15 @@ The pipeline runs in CI on every change to `interfaces/**`. A schema-drift test
 verifies that committed JSON Schema files match the current Pydantic output. C# and
 TypeScript types are never hand-written.
 
-## Packages
+## 7.2 Packages
 
 | Package | Language | Registry | Status |
 |---------|----------|----------|--------|
-| `openrois-interfaces` | Python 3.12+ | PyPI | Source of truth (M0 complete) |
-| `OpenRoIS.Interfaces` | C# (netstandard2.1) | NuGet / UPM | Generated (M0 complete) |
-| `@openrois/interfaces` | TypeScript (ESM) | npm | Generated (M0 complete) |
+| `openrois-interfaces` | Python 3.12+ | PyPI | Source of truth (done) |
+| `OpenRoIS.Interfaces` | C# (netstandard2.1) | NuGet / UPM | Generated (done) |
+| `@openrois/interfaces` | TypeScript (ESM) | npm | Generated (done) |
 
-## Typed message pattern
+## 7.3 Typed message pattern
 
 Instead of using the generic `Result(value=str)` for all event payloads, OpenRoIS
 defines typed Pydantic models per component. For example, the PersonDetection
@@ -63,7 +63,7 @@ This provides compile-time safety in all three language stacks. The generic `Res
 type remains available as a JSON fallback for genuinely dynamic payloads, but the
 preferred path is typed messages per component.
 
-## Cross-validation
+## 7.4 Cross-validation
 
 Types are cross-checked against the normative XML profiles
 (`PersonDetection.xml`, `Navigation.xml`, `SystemInformation.xml`) and validated

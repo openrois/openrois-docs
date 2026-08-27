@@ -38,7 +38,7 @@ flowchart LR
     C6 -.->|"corresponds to"| D6
 ```
 
-WebRTC signaling is handled by the application layer. The engine brokers media
+WebRTC signaling is handled by the application layer. The gateway brokers media
 descriptor exchange via the RoIS streaming interface but never touches media data.
 
 An important distinction the specification preserves: Speech Synthesis is a
@@ -46,9 +46,9 @@ An important distinction the specification preserves: Speech Synthesis is a
 Streaming are **stream-control** components (live media robot to operator), using
 WebRTC.
 
-## P2P vs. SFU
+## 12.1 P2P vs. SFU
 
 - **Fleet of 1 to 3 robots**: peer-to-peer WebRTC is sufficient.
 - **Larger fleets**: route media through a Selective Forwarding Unit (mediasoup,
   LiveKit). The RoIS streaming control interface is identical either way. The SFU is
-  an implementation detail of the application layer.
+  an implementation detail of the gateway, not the engine.

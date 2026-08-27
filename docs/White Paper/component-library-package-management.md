@@ -1,9 +1,11 @@
 ---
-sidebar_label: Component Library
+sidebar_label: Component Library and Package Management
 sidebar_position: 14
 ---
 
-# Component Library
+# Component Library and Package Management
+
+## 14.1 The 17 basic components
 
 RoIS defines 17 basic HRI components. Every component (except System Information)
 shares the `RoIS_Common` interface: `start`, `stop`, `suspend`, `resume`, and
@@ -62,8 +64,43 @@ flowchart TB
 | Video Streaming | camera to WebRTC | rendered frames to WebRTC | diff source |
 | System Information | battery, CPU, joints | FPS, memory, avatar state | diff state |
 
-The component's logic is the same across sub-engines. Only the binding differs. The
-spec also supports user-defined components beyond the basic 17, reusing `RoIS_Common`
-and the profile mechanism. An HRI Component Profile can include another profile via
-`sub_component`, so an extended component can reuse a base component's messages and
-add new ones.
+The component's logic is the same across adapters. Only the binding differs.
+
+## 14.2 User-defined and non-canonical components
+
+The spec supports user-defined components beyond the basic 17, reusing
+`RoIS_Common` and the profile mechanism (spec section 12). An HRI Component Profile
+can include another profile via `sub_component`, so an extended component can reuse
+a base component's messages and add new ones.
+
+OpenRoIS uses this mechanism for robot-specific components that are not in the 17
+basic components. For example, a `NavigationInformation` component provides
+destination lists and map data for a specific robot. It is user-defined,
+non-canonical, and valid per the spec.
+
+## 14.3 Component packages and multiple backends
+
+Components are distributed as packages (e.g., `openrois_components.kachaka`). When a
+component supports multiple backends (e.g., gRPC and ROS 2), the package ships one
+class per backend: `GrpcNavigation` and `Ros2Navigation`. Both are decorated
+`@component("Navigation")`. The adapter imports the one it needs. Selection happens
+at import time, not at runtime. No factory, no Protocol, no runtime selection.
+
+## 14.4 Package management boundary
+
+The engine stays pure. It routes, aggregates profiles, tracks binds. It never
+installs packages, resolves dependencies, or manages component lifecycle setup.
+Package management is a process feature:
+
+- The gateway `Api` exposes management endpoints: list installed component
+  packages, enable or disable a package for a fleet, configure a package,
+  health-check. This is the foundation for the management surface.
+- The adapter `ComponentRegistry` loads component packages from a configured source
+  (local path, git URL, or a registry endpoint). The adapter imports the package,
+  instantiates components, and registers them with the gateway over the
+  `Component Contract`. Dependency setup (Python venv, ROS 2 workspace, model
+  weights) is the adapter's job, not the engine's.
+
+The exact mechanism is undecided, but the boundary is decided: package management
+lives in the `Api` (gateway) and the `ComponentRegistry` loader (adapter), never in
+the `Engine`.

@@ -96,8 +96,12 @@ const config: Config = {
               to: '/docs/White%20Paper/introduction',
             },
             {
-              label: 'Architecture',
-              to: '/docs/White%20Paper/layered-architecture',
+              label: 'Recursive Engine',
+              to: '/docs/White%20Paper/recursive-engine',
+            },
+            {
+              label: 'Component Contract',
+              to: '/docs/White%20Paper/component-contract',
             },
             {
               label: 'Wire Protocol',

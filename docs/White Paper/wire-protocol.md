@@ -5,17 +5,17 @@ sidebar_position: 9
 
 # The Wire Protocol: JSON-RPC 2.0
 
-The remote client talks to the engine over **WebSocket** using **JSON-RPC 2.0** as
+The remote client talks to the gateway over **WebSocket** using **JSON-RPC 2.0** as
 the message envelope. Every RoIS interface operation maps to a JSON-RPC method in a
-namespaced hierarchy. The engine processes requests and sends responses, and also
+namespaced hierarchy. The gateway processes requests and sends responses, and also
 pushes asynchronous notifications (events, command completions, errors) to the client
 as JSON-RPC notifications (messages with no `id` field).
 
-## Method namespaces
+## 9.1 Method namespaces
 
 ```
 rois.system.*     SystemIF:    connect, disconnect, get_profile, get_error_detail
-rois.command.*    CommandIF:   search, bind, bind_any, release, get_parameter, set_parameter, execute, get_command_result
+rois.command.*    CommandIF:   search, bind, release, get_parameter, set_parameter, execute, get_command_result
 rois.query.*      QueryIF:     query
 rois.event.*      EventIF:     subscribe, unsubscribe, get_event_detail
 rois.stream.*     Streaming:   connect_stream, disconnect_stream, suspend_stream, resume_stream, query_stream_status
@@ -30,7 +30,7 @@ rois.command.completed     completed(command_id, status)
 rois.stream.notify_status  notify_stream_status(stream_id, status)
 ```
 
-## Full method catalog
+## 9.2 Full method catalog
 
 ### System interface (`rois.system.*`)
 
@@ -47,11 +47,10 @@ rois.stream.notify_status  notify_stream_status(stream_id, status)
 |--------|--------|----------|
 | `rois.command.search` | `{condition: string}` | `{return_code, component_ref_list: string[]}` |
 | `rois.command.bind` | `{component_ref: string}` | `{return_code}` |
-| `rois.command.bind_any` | `{condition: string}` | `{return_code, component_ref: string}` |
 | `rois.command.release` | `{component_ref: string}` | `{return_code}` |
-| `rois.command.get_parameter` | `{component_ref: string}` | `{return_code, parameters: Parameter[]}` |
-| `rois.command.set_parameter` | `{component_ref, parameters: Parameter[]}` | `{return_code, command_id: string}` |
-| `rois.command.execute` | `{command_unit_list: CommandUnitSequence}` | `{return_code, command_id: string}` |
+| `rois.command.get_parameter` | `{component_ref, parameter_names: string[]}` | `{return_code, parameters: Parameter[]}` |
+| `rois.command.set_parameter` | `{component_ref, parameters: Parameter[]}` | `{return_code}` |
+| `rois.command.execute` | `{component_ref, command_unit_list: CommandUnitSequence}` | `{return_code, command_id: string}` |
 | `rois.command.get_command_result` | `{command_id: string}` | `{return_code, results: Result[]}` |
 
 ### Query interface (`rois.query.*`)
@@ -78,7 +77,7 @@ rois.stream.notify_status  notify_stream_status(stream_id, status)
 | `rois.stream.resume_stream` | `{stream_id: string}` | `{return_code}` |
 | `rois.stream.query_stream_status` | `{stream_id: string}` | `{return_code, status: StreamStatus}` |
 
-## Core data types on the wire
+## 9.3 Core data types on the wire
 
 All payloads use the types generated from the canonical JSON Schema. The key
 structures:
@@ -127,11 +126,11 @@ structures:
 **StreamStatus** values: `STREAMING_NOT_CONNECTED`, `STREAMING_NOT_RUNNING`,
 `STREAMING_RUNNING`, `STREAMING_SUSPENDED`, `STREAMING_RESUMED`.
 
-## End-to-end message flow examples
+## 9.4 End-to-end message flow examples
 
 The following examples show the actual JSON-RPC messages exchanged during a
-complete operator session: connect, search, bind, subscribe, execute, receive
-events, query, and disconnect.
+complete service application session: connect, search, bind, subscribe, execute,
+receive events, query, and disconnect.
 
 ### Step 1: Connect
 
@@ -146,7 +145,7 @@ Client sends `rois.system.connect` (after WebSocket upgrade with JWT):
 }
 ```
 
-Engine responds:
+Gateway responds:
 
 ```json
 {
@@ -169,7 +168,7 @@ Engine responds:
 }
 ```
 
-Engine responds with matching component references:
+Gateway responds with matching component references:
 
 ```json
 {
@@ -237,6 +236,7 @@ Engine responds with matching component references:
   "id": 5,
   "method": "rois.command.execute",
   "params": {
+    "component_ref": "robot-a1/PersonDetection",
     "command_unit_list": {
       "command_unit_list": [
         {
@@ -261,7 +261,7 @@ Engine responds with matching component references:
 }
 ```
 
-### Step 6: Engine pushes a person_detected event (notification, no id)
+### Step 6: Gateway pushes a person_detected event (notification, no id)
 
 ```json
 {
@@ -335,6 +335,7 @@ Set the navigation parameters:
   "id": 8,
   "method": "rois.command.execute",
   "params": {
+    "component_ref": "robot-a1/Navigation",
     "command_unit_list": {
       "command_unit_list": [
         {
@@ -363,7 +364,7 @@ Set the navigation parameters:
 }
 ```
 
-### Step 9: Engine pushes command completion (notification)
+### Step 9: Gateway pushes command completion (notification)
 
 ```json
 {
@@ -376,7 +377,7 @@ Set the navigation parameters:
 }
 ```
 
-### Step 10: Engine pushes reached_target event (notification)
+### Step 10: Gateway pushes reached_target event (notification)
 
 ```json
 {
@@ -461,10 +462,10 @@ Set the navigation parameters:
 }
 ```
 
-## Error handling
+## 9.5 Error handling
 
 Errors use standard JSON-RPC 2.0 error objects with RoIS-specific return codes. The
-engine also pushes asynchronous error notifications via `rois.system.notify_error`.
+gateway also pushes asynchronous error notifications via `rois.system.notify_error`.
 
 Example: binding a component outside the caller's scope:
 
@@ -489,7 +490,7 @@ Example: binding a component outside the caller's scope:
 }
 ```
 
-Example: asynchronous error notification pushed by the engine:
+Example: asynchronous error notification pushed by the gateway:
 
 ```json
 {
@@ -527,7 +528,7 @@ The client can then fetch details with `rois.system.get_error_detail`:
 }
 ```
 
-## Concurrent commands
+## 9.6 Concurrent commands
 
 The `CommandUnitSequence` supports both sequential and concurrent execution. A
 `ConcurrentCommands` group wraps multiple `CommandMessage` entries that execute in
@@ -539,30 +540,34 @@ parallel:
   "id": 13,
   "method": "rois.command.execute",
   "params": {
+    "component_ref": "robot-a1/Navigation",
     "command_unit_list": {
       "command_unit_list": [
         {
-          "component_ref": "robot-a1/PersonDetection",
-          "command_type": "start",
-          "command_id": "cmd-pd-start"
+          "command_message": {
+            "component_ref": "robot-a1/PersonDetection",
+            "command_type": "start",
+            "command_id": "cmd-pd-start"
+          }
         },
         {
-          "command_list": [
-            {
-              "component_ref": "robot-a1/Navigation",
-              "command_type": "execute",
-              "command_id": "cmd-nav-002",
-              "arguments": [
-                {"name": "target_positions", "data_type_ref": "string[]", "value": "[\"3.0,1.5,0.0\"]"}
-              ]
-            },
-            {
-              "component_ref": "robot-a1/SpeechSynthesis",
-              "command_type": "set_parameter",
-              "command_id": "cmd-speech-001",
-              "arguments": [
-                {"name": "speech_text", "data_type_ref": "string", "value": "Moving to target"}
-              ]
+          "concurrent_commands": {
+            "command_list": [
+              {
+                "component_ref": "robot-a1/Navigation",
+                "command_type": "execute",
+                "command_id": "cmd-nav-002",
+                "arguments": [
+                  {"name": "target_positions", "data_type_ref": "string[]", "value": "[\"3.0,1.5,0.0\"]"}
+                ]
+              },
+              {
+                "component_ref": "robot-a1/SpeechSynthesis",
+                "command_type": "set_parameter",
+                "command_id": "cmd-speech-001",
+                "arguments": [
+                  {"name": "speech_text", "data_type_ref": "string", "value": "Moving to target"}
+                ]
               }
             ]
           }
@@ -576,13 +581,13 @@ parallel:
 In this example, PersonDetection starts first (sequential), then Navigation and
 SpeechSynthesis execute concurrently.
 
-## Complete session as a sequence diagram
+## 9.7 Complete session as a sequence diagram
 
 ```mermaid
 sequenceDiagram
-    participant Client as Operator App (SDK)
-    participant GW as Engine
-    participant Robot as ROS 2 Robot
+    participant Client as Service Application (SDK)
+    participant GW as Gateway
+    participant Robot as Robot Adapter
 
     Client->>GW: WS upgrade + JWT
     GW-->>Client: 101 Switching Protocols
@@ -602,7 +607,7 @@ sequenceDiagram
     Client->>GW: rois.command.execute {command_type: "start"}
     GW-->>Client: {command_id: "cmd-start-pd"}
 
-    Robot-->>GW: person_detected (ROS 2 topic)
+    Robot-->>GW: person_detected (adapter event)
     GW-->>Client: rois.event.notify {event_type: "person_detected", number: 2}
 
     Client->>GW: rois.command.bind {component_ref: "robot-a1/Navigation"}
@@ -614,7 +619,7 @@ sequenceDiagram
     Client->>GW: rois.command.execute {command_type: "execute"}
     GW-->>Client: {command_id: "cmd-nav-001"}
 
-    Robot-->>GW: navigation action completes (ROS 2 action)
+    Robot-->>GW: navigation action completes (adapter event)
     GW-->>Client: rois.command.completed {command_id: "cmd-nav-001", status: "OK"}
     GW-->>Client: rois.event.notify {event_type: "reached_target"}
 

@@ -35,38 +35,40 @@ const artifacts = [
       'Transport-independent types derived from the OMG IDL. Authored as Python (Pydantic), exported to JSON Schema, generated into C# and TypeScript.',
   },
   {
-    title: 'RoIS Engine + Gateway',
+    title: 'Recursive Engine',
     description:
-      'Bus-independent runtime (Python) that manages components and exposes them remotely over WebSocket.',
+      'One Engine class used by both the gateway and adapters. The gateway has child engines, the adapter has local components. Python (openrois_core, planned). TypeScript POC exists today.',
   },
   {
-    title: 'RoIS BusAdapters',
+    title: 'Component Contract',
     description:
-      'Pluggable bindings: ROS 2 (robot), InProcess (avatar), gRPC (services). All implement one four-method contract.',
+      'A five-method contract (discover, invoke, query, subscribe, unsubscribe) that decouples the engine from any specific middleware. SubEngine proxy implements it remotely, ComponentRegistry locally.',
   },
   {
     title: 'RoIS Components',
     description:
-      'The 17 basic HRI components with per-paradigm backends (YOLO, MediaPipe, Whisper, Nav2, Piper).',
+      'The 17 basic HRI components with per-paradigm backends (YOLO, MediaPipe, Whisper, Nav2, Piper). Plus user-defined non-canonical components per spec section 12.',
   },
   {
     title: 'RoIS Client SDKs',
     description:
-      'C# for Unity (primary), TypeScript for web, Python for scripting. Identical behavior regardless of host paradigm.',
+      'TypeScript for web (primary), C# for Unity (primary), Python for scripting (secondary). Identical behavior regardless of host paradigm.',
   },
 ];
 
-const milestones = [
-  {id: 'M0', theme: 'Paradigm-Neutral Interfaces', status: 'done'},
-  {id: 'M1', theme: 'Engine and In-Process Bus', status: 'todo'},
-  {id: 'M2', theme: 'Remote Gateway', status: 'todo'},
-  {id: 'M3', theme: 'ROS 2 Bus Adapter', status: 'todo'},
-  {id: 'M4', theme: 'Mock ROS 2 Robot Components', status: 'todo'},
-  {id: 'M5', theme: 'SDK and Robot MVP (v0.1.0)', status: 'todo'},
-  {id: 'M8', theme: 'Real Component and Mixed Paradigm', status: 'todo'},
-  {id: 'M9', theme: 'Auth and Bus Security', status: 'todo'},
-  {id: 'M10', theme: 'WebRTC Media', status: 'todo'},
-  {id: 'M11', theme: 'Full Component Library (v1.0)', status: 'todo'},
+const phases = [
+  {id: '0', theme: 'Paradigm-Neutral Interfaces', status: 'done'},
+  {id: '1', theme: 'Engine and Sub-engine (TypeScript POC)', status: 'done'},
+  {id: '2', theme: 'Adapter Framework and Components', status: 'done'},
+  {id: '3', theme: 'Client SDKs and MVP (v0.1.0)', status: 'done'},
+  {id: '4', theme: 'Recursive Core Refactor (Python openrois_core)', status: 'todo'},
+  {id: '5', theme: 'Solidify the Core', status: 'todo'},
+  {id: '6', theme: 'Gateway Process', status: 'todo'},
+  {id: '7', theme: 'Adapter Process', status: 'todo'},
+  {id: '8', theme: 'Real Component and Mixed Paradigm', status: 'todo'},
+  {id: '9', theme: 'Auth, Security, Media', status: 'todo'},
+  {id: '10', theme: 'Full Component Library (v1.0)', status: 'todo'},
+  {id: '11', theme: 'Hub and Component Marketplace', status: 'parked'},
 ];
 
 function ArtifactCard({title, description}: {title: string; description: string}) {
@@ -94,13 +96,13 @@ export default function Home(): ReactNode {
         <section className="text--center margin-bottom--xl">
           <Heading as="h2">What is OpenRoIS?</Heading>
           <p>
-            OpenRoIS lets operator applications control robots, avatars, and digital
+            OpenRoIS lets service applications control robots, avatars, and digital
             agents over the internet through a single SDK. The host paradigm is hidden
             behind a gateway. A scenario written once can drive a ROS 2 robot, a Unity
             avatar, or a distributed AI service without code changes.
           </p>
           <p>
-            The primary demonstrated path is a Unity operator application controlling a
+            The primary demonstrated path is a web service application controlling a
             ROS 2 robot over WebSocket. The same interfaces also drive in-process
             avatars and distributed services.
           </p>
@@ -124,22 +126,24 @@ export default function Home(): ReactNode {
             Status
           </Heading>
           <p className="text--center">
-            <strong>Alpha, pre-1.0, unstable API.</strong> The interface types (M0) are
-            complete and stable. The engine, gateway, bus adapters, components, and
-            SDKs are under construction.
+            <strong>Alpha, pre-1.0, unstable API.</strong> Phases 0 to 3 are
+            complete: the type pipeline, engine (TypeScript POC), adapter framework,
+            reference components, and all three client SDKs are built and working
+            against a real robot. The recursive core refactor (migration to Python
+            <code>openrois_core</code>) is the next phase.
           </p>
           <div className="row">
             <div className="col col--6 col--offset-3">
               <table>
                 <thead>
                   <tr>
-                    <th>Milestone</th>
+                    <th>Phase</th>
                     <th>Theme</th>
                     <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {milestones.map((m) => (
+                  {phases.map((m) => (
                     <tr key={m.id}>
                       <td><strong>{m.id}</strong></td>
                       <td>{m.theme}</td>

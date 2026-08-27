@@ -1,11 +1,11 @@
 ---
 sidebar_label: Background
-sidebar_position: 3
+sidebar_position: 2
 ---
 
 # Background: The RoIS Framework
 
-## What RoIS is
+## 2.1 What RoIS is
 
 RoIS defines a **platform-independent model (PIM)** of a framework that handles the
 messages and data exchanged between HRI service components and service
@@ -20,7 +20,7 @@ current version is **2.0-beta2** (OMG document dtc/2025-09-22). The normative
 machine-readable files include IDL/HPP headers, component XML profiles, an
 XML-Profiles schema, and an OWL ontology.
 
-## Framework structure
+## 2.2 Framework structure
 
 The framework is organized in three conceptual layers:
 
@@ -44,7 +44,7 @@ Key rules from the specification:
 - One physical unit can host more than one function, so physical units and
   functional units are defined separately (no one-to-one mapping).
 
-## The five interfaces
+## 2.3 The five interfaces
 
 RoIS exposes one System interface plus three information-exchange interfaces, plus a
 Streaming interface layered on the others.
@@ -57,7 +57,7 @@ Streaming interface layered on the others.
 | Event | Engine to App, async notifications | `subscribe`, `unsubscribe`, `get_event_detail`, `notify_event` |
 | Streaming | Two-way stream control | `connect_stream`, `disconnect_stream`, `suspend_stream`, `resume_stream`, `query_stream_status`, `notify_stream_status` |
 
-## Command execution model
+## 2.4 Command execution model
 
 Because a component may be shared by multiple applications, command usage follows a
 three-step reservation pattern:
@@ -74,7 +74,7 @@ The `command_unit_list` can express **sequential and parallel** command operatio
 through `CommandUnitSequence` containing `CommandMessage` and `ConcurrentCommands`
 entries.
 
-## What RoIS does not define
+## 2.5 What RoIS does not define
 
 RoIS defines messages, not transport. The C++ and CORBA platform-specific models
 (PSMs) define method signatures only. RoIS messages can run over CORBA, RTC,
