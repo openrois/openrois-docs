@@ -78,14 +78,20 @@ flowchart TB
     Adapter2 --> Robot2["Service Robot 2"]
 ```
 
-## 10.4 Topology D: Cloud perception (separate adapter)
+## 10.4 Topology D: Cloud perception (separate adapter or local components)
 
 Perception components (PersonDetection, SpeechRecognition) may need more compute
-than the robot has. These run as a **separate adapter process** with its own
-profile, connecting to the gateway over WebSocket like any other adapter. The
-components run on the adapter (the translation layer) and connect to cloud-based
-implementations (GPU inference services, TTS/STT APIs). The gateway is always a
-pure router. It never hosts components directly.
+than the robot has. These can run in two ways:
+
+1. **As a separate adapter process** with its own profile, connecting to the
+   gateway over WebSocket like any other adapter. The components run on the
+   adapter (the translation layer) and connect to cloud-based implementations
+   (GPU inference services, TTS/STT APIs).
+2. **As local components in the gateway process**. The main engine's
+   `ComponentRegistry` is populated with perception components. No separate
+   process is needed. This is simpler for small deployments.
+
+In both cases, the gateway routes RoIS calls to the right component.
 
 ```mermaid
 flowchart TB
@@ -93,7 +99,7 @@ flowchart TB
     App -->|"WebSocket / TLS<br/>JSON-RPC 2.0"| GW
 
     subgraph Cloud["Gateway Host (cloud)"]
-        GW["Gateway<br/>(pure router)"]
+        GW["Gateway"]
     end
 
     GW -->|"WebSocket / TLS<br/>JSON-RPC 2.0"| PerceptionAdapter["Perception Adapter<br/>(separate process, own profile)"]
@@ -103,7 +109,8 @@ flowchart TB
     RobotAdapter --> Robot["Service Robot<br/>(gRPC, ROS 2, etc.)<br/>Implementation Layer"]
 ```
 
-The gateway is a pure router in all topologies. Cloud perception is a separate
-adapter process, not a `runtime` field in a robot's profile. The service application
-does not know or care where a component's implementation lives: `search()` returns
-components from all adapters, and `bind()` / `execute()` work identically.
+The gateway routes RoIS calls in all topologies. Cloud perception can be a
+separate adapter process or local components in the gateway, not a `runtime`
+field in a robot's profile. The service application does not know or care where
+a component's implementation lives: `search()` returns components from all
+adapters and local components, and `bind()` / `execute()` work identically.

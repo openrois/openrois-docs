@@ -34,11 +34,14 @@ flowchart TB
     end
 ```
 
-When acting as the **main engine** (gateway), the `ComponentRegistry` is empty and
-the sub-engine registry holds child engines connected over WebSocket. When acting
-as a **sub-engine** (adapter), the sub-engine registry is empty and the
-`ComponentRegistry` holds local components. The design supports nesting (child
-engines with their own child engines), but this is not used today.
+When acting as the **main engine** (gateway), the sub-engine registry typically
+holds child engines connected over WebSocket. The `ComponentRegistry` may also be
+populated with local components (e.g., cloud perception components running in the
+same process). When acting as a **sub-engine** (adapter), the `ComponentRegistry`
+typically holds local components. The sub-engine registry may also be populated
+with nested child engines (supported by design but not used in current
+deployments). The design supports nesting, but only the main engine and one level
+of sub-engines are used today.
 
 ## 4.2 Processes are compositions
 
@@ -46,7 +49,7 @@ engines with their own child engines), but this is not used today.
 flowchart TB
     subgraph Gateway["Gateway Process"]
         direction TB
-        EngineG["Engine (main)<br/>child engines, no local components"]
+        EngineG["Engine (main)<br/>child engines, optional local components"]
         WsServer["WsServer<br/>WebSocket + JSON-RPC"]
         Api["Api<br/>REST, health, management"]
         Auth["Auth<br/>JWT, RBAC (future)"]
@@ -107,5 +110,5 @@ The adapter process owns three concerns:
    `connect()` and torn down in `disconnect()`.
 
 The adapter is an engine. It dispatches RoIS calls to its local components. It
-does not route calls between sub-engines (its sub-engine registry is empty). It
-registers with the parent engine over WebSocket.
+typically does not route calls between sub-engines (its sub-engine registry is
+typically empty). It registers with the parent engine over WebSocket.
