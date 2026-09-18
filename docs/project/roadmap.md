@@ -66,15 +66,18 @@ TypeScript proof of concept is retired.
 ### Phase 5: Hardening the Core
 
 - **Done:** control-plane [latency benchmarks](../reference/benchmarks.md).
-- **Planned:** graceful shutdown, reconnection behavior, loading component packages from a
-  local path or a Git URL, and minimal health and status endpoints.
+- **Done:** a `GET /health` liveness endpoint on the gateway port.
+- **Planned:** graceful shutdown, reconnection behavior, and loading component packages
+  from a local path or a Git URL.
 
 ### Phase 6: Gateway Process
 
 - **Done:** the `openrois-gateway` process and its container image, composed from `Engine`
   and `WsServer`, with command-line configuration, logging, signal handling, and
   `docker compose up`.
-- **In progress:** configuration files and health endpoints.
+- **Done:** a YAML configuration file (`--config`, `OPENROIS_GATEWAY_CONFIG`) below the
+  command line and the environment in precedence, and `GET /health` as the container's
+  health check.
 
 ### Phase 7: Adapter Process
 
@@ -86,10 +89,13 @@ configured by the adapter profile.
 - **Done:** the mixed-paradigm demonstration, `examples/mixed-paradigm`: a simulated robot
   and a text-based virtual agent behind one gateway, driven by one application with
   identical calls. See [deployment topologies](../concepts/deployment-topologies.md#physical-robots-and-virtual-agents-together).
-- **Planned:** a reference platform based on the open-source Pollen Robotics Reachy Mini,
-  shipped with OpenRoIS so anyone can try the full stack on affordable hardware, and the
-  demonstration repeated with that robot and a rendered avatar. Completing this phase
-  starts the transfer of OpenRoIS to a neutral open-source foundation.
+- **In progress:** a reference platform based on the open-source Pollen Robotics Reachy
+  Mini, shipped with OpenRoIS so anyone can try the full stack on affordable hardware. The
+  adapter, a simulated backend, and a one-command bring-up pass the conformance suite in
+  simulation; verification on a robot is pending.
+- **Planned:** the demonstration repeated with that robot and a rendered avatar.
+  Completing this phase starts the transfer of OpenRoIS to a neutral open-source
+  foundation.
 
 ### Phase 9: Authentication, Security, and Media
 

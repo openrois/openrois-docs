@@ -33,6 +33,19 @@ and, when configured, the issuer and audience.
 openrois-gateway --auth-key "$SECRET" --auth-issuer my-issuer --tls-cert cert.pem --tls-key key.pem
 ```
 
+The same options can live in a configuration file (`openrois-gateway --config gateway.yaml`),
+which keeps secrets and key paths out of the process list:
+
+```yaml
+auth:
+  key: /run/secrets/jwt-public.pem
+  algorithm: RS256
+  issuer: my-issuer
+tls:
+  cert: /etc/openrois/cert.pem
+  key: /etc/openrois/key.pem
+```
+
 ```ts
 const client = await RoISClient.connect("wss://gateway.example.org", { token });
 ```

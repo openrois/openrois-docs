@@ -185,20 +185,20 @@ const STATUS: StatusGroup[] = [
       'Reference components for the Preferred Robotics Kachaka (gRPC, ROS 2)',
       'Authentication (JWT), authorization (RBAC), and TLS at the gateway',
       'Streaming Interface control plane',
+      'Gateway configuration file and health endpoint',
     ],
   },
   {
     label: 'In Progress',
     kind: 'progress',
     items: [
-      'Gateway configuration files and health endpoints',
+      'Open reference platform on the Pollen Robotics Reachy Mini (simulated first)',
     ],
   },
   {
     label: 'Planned',
     kind: 'planned',
     items: [
-      'Open reference platform based on the Pollen Robotics Reachy Mini',
       'Packages on PyPI, npm, NuGet, and UPM',
       'All 17 basic RoIS HRI Components (v1.0)',
     ],
