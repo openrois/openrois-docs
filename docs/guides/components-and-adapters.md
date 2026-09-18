@@ -109,6 +109,21 @@ await self.parent.emit_async(
 From a thread that is not the asyncio event loop, such as a ROS 2 callback, use the
 thread-safe `self.parent.emit(...)` with the same arguments.
 
+## Report Completion
+
+A command handler returns as soon as the command is accepted, with a `command_id`. When
+the work behind it finishes, report it, and the application that issued the command
+receives `rois.command.completed` with the status and any final results:
+
+```python
+await self.parent.complete_async(command_id, "OK", results.reached_target(target, True))
+```
+
+The thread-safe form is `self.parent.complete(command_id, "OK")`. The status is one of the
+RoIS completed statuses: `OK`, `ERROR`, `ABORT`, `OUT_OF_RESOURCES`, or `TIMEOUT`. A handler
+that raises an exception answers `ERROR` and the caller receives `rois.system.notify_error`
+with a `COMPONENT_INTERNAL_ERROR`, retrievable later through `rois.system.get_error_detail`.
+
 ## Write the Adapter
 
 The adapter creates a sub HRI Engine, registers the components, and connects to the

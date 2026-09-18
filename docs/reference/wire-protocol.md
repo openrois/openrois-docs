@@ -39,7 +39,7 @@ specification and on the [roadmap](../project/roadmap.md).
 | `rois.system.connect` | none | `return_code` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.system.disconnect` | none | `return_code` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.system.get_profile` | `condition` | `return_code`, `profile` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.system.get_error_detail` | `error_id` | `return_code`, `results` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.system.get_error_detail` | `error_id` | `return_code`, `results` | <span className="status-pill status-pill--available">Available</span> |
 
 ### Command Interface
 
@@ -47,12 +47,12 @@ specification and on the [roadmap](../project/roadmap.md).
 |--------|--------|--------|--------|
 | `rois.command.search` | `condition` | `return_code`, `component_ref_list` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.command.bind` | `component_ref` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.command.bind_any` | `condition` | `return_code`, `component_ref` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.command.bind_any` | `condition` | `return_code`, `component_ref` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.command.release` | `component_ref` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.command.set_parameter` | `component_ref`, `parameters` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.command.get_parameter` | `component_ref`, `names` (optional, all when omitted) | `return_code`, `results` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.command.get_parameter` | `component_ref`, `names` (optional, all when omitted) | `return_code`, `results` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.command.execute` | `component_ref`, `command_unit_list` | `return_code`, `command_id` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.command.get_command_result` | `command_id` | `return_code`, `results` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.command.get_command_result` | `command_id` | `return_code`, `results` | <span className="status-pill status-pill--available">Available</span> |
 
 ### Query Interface
 
@@ -66,7 +66,7 @@ specification and on the [roadmap](../project/roadmap.md).
 |--------|--------|--------|--------|
 | `rois.event.subscribe` | `component_ref`, `event_type`, `condition` | `return_code`, `subscribe_id` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.event.unsubscribe` | `subscribe_id` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.event.get_event_detail` | `event_id` | `return_code`, `results` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.event.get_event_detail` | `event_id` | `return_code`, `results` | <span className="status-pill status-pill--available">Available</span> |
 
 ### Streaming Interface
 
@@ -84,8 +84,8 @@ specification and on the [roadmap](../project/roadmap.md).
 |--------|---------|--------|
 | `rois.event.notify` | `event_id`, `subscribe_id`, `component_ref`, `event_type`, `expire`, `results` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.system.profile_changed` | none (OpenRoIS extension: refresh the profile) | <span className="status-pill status-pill--available">Available</span> |
-| `rois.command.completed` | `command_id`, `status` | <span className="status-pill status-pill--planned">Planned</span> |
-| `rois.system.notify_error` | `error_id`, `error_type` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.command.completed` | `command_id`, `status`, `results` | <span className="status-pill status-pill--available">Available</span> |
+| `rois.system.notify_error` | `error_id`, `error_type`, `command_id`, `message` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.stream.notify_status` | `stream_id`, `status` | <span className="status-pill status-pill--planned">Planned</span> |
 
 ## Data Types
