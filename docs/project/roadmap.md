@@ -18,8 +18,8 @@ criteria. Until version 1.0, releases are **alpha, with an unstable API**.
 | 2 | Adapter framework and reference components | <span className="status-pill status-pill--available">Done</span> |
 | 3 | Client SDKs and first end-to-end demonstration | <span className="status-pill status-pill--progress">In Progress</span> |
 | 4 | Recursive core in Python | <span className="status-pill status-pill--available">Done</span> |
-| 5 | Hardening the core | <span className="status-pill status-pill--planned">Planned</span> |
-| 6 | Gateway process | <span className="status-pill status-pill--progress">In Progress</span> |
+| 5 | Hardening the core | <span className="status-pill status-pill--progress">In Progress</span> |
+| 6 | Gateway process | <span className="status-pill status-pill--available">Done</span> |
 | 7 | Adapter process | <span className="status-pill status-pill--planned">Planned</span> |
 | 8 | Open reference platform and mixed paradigms | <span className="status-pill status-pill--progress">In Progress</span> |
 | 9 | Authentication, security, and media | <span className="status-pill status-pill--progress">In Progress</span> |
@@ -65,7 +65,8 @@ TypeScript proof of concept is retired.
 
 ### Phase 5: Hardening the Core
 
-- **Done:** control-plane [latency benchmarks](../reference/benchmarks.md).
+- **Done:** control-plane [latency benchmarks](../reference/benchmarks.md) on loopback with the
+  mock adapter; LAN and Kachaka numbers are still to be measured.
 - **Done:** a `GET /health` liveness endpoint on the gateway port.
 - **Planned:** graceful shutdown, reconnection behavior, and loading component packages
   from a local path or a Git URL.

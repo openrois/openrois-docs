@@ -189,10 +189,12 @@ switches.
 `openrois_components_core.conformance` drives your engine through the RoIS operations
 the way an application would and lists every rule a component breaks: the profile must
 validate against the normative models, every declared query must answer with well-formed
-results, every basic component must answer `component_status`, actuation components must
-accept `start`, `stop`, `suspend`, and `resume`, `set_parameter` must round-trip through
-`get_parameter`, every event must accept a subscription, and a basic component must not
-invent message names.
+results (`get_stream_status` excepted, since it needs an open stream), every basic
+component except System Information must answer `component_status`, actuation components
+must accept `start`, `stop`, `suspend`, and `resume`, `set_parameter` must round-trip
+through `get_parameter`, every event must accept a subscription, and a basic component
+whose messages OpenRoIS has typed (Person Detection, Navigation, Reaction, System
+Information, Audio Streaming, Video Streaming) must not invent message names.
 
 ```python
 from openrois_components_core.conformance import assert_conformant

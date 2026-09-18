@@ -45,7 +45,7 @@ specification and on the [roadmap](../project/roadmap.md).
 
 | Method | Params | Result | Status |
 |--------|--------|--------|--------|
-| `rois.command.search` | `condition` | `return_code`, `component_ref_list` | <span className="status-pill status-pill--available">Available</span> |
+| `rois.command.search` | `condition` (matched against the refs, case-insensitively, as a substring or a glob) | `return_code`, `component_ref_list` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.command.bind` | `component_ref` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.command.bind_any` | `condition` | `return_code`, `component_ref` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.command.release` | `component_ref` | `return_code` | <span className="status-pill status-pill--available">Available</span> |

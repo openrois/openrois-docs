@@ -47,7 +47,7 @@ which:
 - **notifies** clients with `rois.system.profile_changed` when an adapter connects or
   leaves, so they refresh their view without polling.
 
-Authentication and authorization at the gateway are [planned](security.md).
+Authentication and authorization at the gateway are [available and off by default](security.md).
 
 ### Adapters
 
