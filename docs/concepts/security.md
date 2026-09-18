@@ -74,7 +74,7 @@ components inside the scope.
 2. JWT authentication at the WebSocket upgrade.
 3. RBAC authorization for each RoIS operation, with scopes.
 4. DDS Security or separate DDS domains inside ROS 2 based adapters (planned).
-5. DTLS and SRTP encryption for WebRTC media (planned, with the Streaming Interface).
+5. DTLS and SRTP encryption for WebRTC media (planned, with the media data plane).
 
 ## Reporting a Vulnerability
 

@@ -31,8 +31,8 @@ flow directly between the source and the consumer over WebRTC.
 
 | RoIS stream control | WebRTC counterpart |
 |---------------------|--------------------|
-| `set_parameter` for encoding and transport | SDP offer and answer |
-| `connect_stream` | Peer connection established |
+| `set_parameter` for encoding and transport | SDP offer |
+| `connect_stream` and its results | Peer connection established, SDP answer or media URL |
 | `notify_stream_status` | Connection state changes |
 | `suspend_stream`, `resume_stream` | Track disabled or enabled |
 | `disconnect_stream` | Peer connection closed |
@@ -42,8 +42,11 @@ service. Peer-to-peer WebRTC is sufficient for a handful of robots, and a select
 forwarding unit can serve larger fleets without any change to the RoIS interface.
 
 :::note Status
-The Streaming Interface is [planned](../project/roadmap.md). The design above is the
-target, and it is not implemented in the engine or the SDKs yet.
+The control plane is available: the engine routes every `rois.stream.*` operation to the
+streaming component and its `notify_stream_status` events back to the application, and
+the SDKs expose them. WebRTC media on the data plane is
+[planned](../project/roadmap.md): today the mock adapter's `VideoStreaming` answers a
+placeholder `media_url` and no reference component moves real media yet.
 :::
 
 ## Commands Versus Streams

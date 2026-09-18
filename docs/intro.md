@@ -56,7 +56,7 @@ OpenRoIS provides them, developed in the open under the Apache License 2.0.
 OpenRoIS is **alpha software with an unstable API**. The interface types, the recursive
 engine, the adapter SDK, the TypeScript SDK, and reference components for a
 commercial robot are available and have been demonstrated with a physical robot.
-Authentication, media streaming, published packages, and the full component library are
+Media transport, published packages, and the full component library are
 on the [roadmap](project/roadmap.md).
 
 ## Where to Go Next

@@ -167,8 +167,7 @@ const INTERFACES: RoisInterface[] = [
   {
     name: 'Streaming',
     ns: 'rois.stream.*',
-    ops: ['connect_stream', 'suspend_stream'],
-    planned: true,
+    ops: ['connect_stream', 'suspend_stream', 'notify_status'],
   },
 ];
 
@@ -185,6 +184,7 @@ const STATUS: StatusGroup[] = [
       'C# client SDK for Unity and .NET',
       'Reference components for the Preferred Robotics Kachaka (gRPC, ROS 2)',
       'Authentication (JWT), authorization (RBAC), and TLS at the gateway',
+      'Streaming Interface control plane',
     ],
   },
   {
@@ -192,7 +192,6 @@ const STATUS: StatusGroup[] = [
     kind: 'progress',
     items: [
       'Gateway configuration files and health endpoints',
-      'Streaming Interface with WebRTC media',
     ],
   },
   {

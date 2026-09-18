@@ -72,11 +72,11 @@ specification and on the [roadmap](../project/roadmap.md).
 
 | Method | Params | Result | Status |
 |--------|--------|--------|--------|
-| `rois.stream.connect_stream` | `component_ref`, `parameters` | `return_code`, `stream_id` | <span className="status-pill status-pill--planned">Planned</span> |
-| `rois.stream.disconnect_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--planned">Planned</span> |
-| `rois.stream.suspend_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--planned">Planned</span> |
-| `rois.stream.resume_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--planned">Planned</span> |
-| `rois.stream.query_stream_status` | `stream_id` | `return_code`, `status` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.stream.connect_stream` | `component_ref`, `parameters` | `return_code`, `stream_id`, `results` (transport descriptor) | <span className="status-pill status-pill--available">Available</span> |
+| `rois.stream.disconnect_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
+| `rois.stream.suspend_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
+| `rois.stream.resume_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
+| `rois.stream.query_stream_status` | `stream_id` | `return_code`, `status` | <span className="status-pill status-pill--available">Available</span> |
 
 ### Notifications
 
@@ -86,7 +86,7 @@ specification and on the [roadmap](../project/roadmap.md).
 | `rois.system.profile_changed` | none (OpenRoIS extension: refresh the profile) | <span className="status-pill status-pill--available">Available</span> |
 | `rois.command.completed` | `command_id`, `status`, `results` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.system.notify_error` | `error_id`, `error_type`, `command_id`, `message` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.stream.notify_status` | `stream_id`, `status` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.stream.notify_status` | `stream_id`, `status`, `timestamp`, `component_ref` | <span className="status-pill status-pill--available">Available</span> |
 
 ## Data Types
 
@@ -233,6 +233,18 @@ TypeScript SDK uses. Full sequences are on the [roadmap](../project/roadmap.md).
   }
 }
 ```
+
+## Streaming
+
+The stream operations act on a streaming component (`AudioStreaming`, `VideoStreaming`)
+through the messages its normative profile declares: `connect_stream`, `disconnect_stream`,
+`suspend_stream`, and `resume_stream` are its commands, `get_stream_status` its query, and
+`notify_stream_status` its event. `connect_stream` answers a `stream_id` and, in `results`,
+whatever the transport needs to attach to the media, for example a `media_url` for a WHEP
+endpoint or an SDP answer. The gateway then routes the stream's `notify_stream_status`
+events to the application that connected it, as `rois.stream.notify_status`. The media
+itself never crosses the gateway: it flows on the data plane between the application and
+the component's host. See [transports and media](../concepts/transports-and-media.md).
 
 ## Gateway to Adapter
 

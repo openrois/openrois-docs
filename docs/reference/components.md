@@ -58,7 +58,7 @@ published components that run against real hardware.
 | Sound Detection, Sound Localization | <span className="status-pill status-pill--planned">Planned</span> | <span className="status-pill status-pill--planned">Planned</span> |
 | Gesture Recognition | <span className="status-pill status-pill--planned">Planned</span> | <span className="status-pill status-pill--planned">Planned</span> |
 | Follow, Move | <span className="status-pill status-pill--planned">Planned</span> | <span className="status-pill status-pill--planned">Planned</span> |
-| Audio Streaming, Video Streaming | <span className="status-pill status-pill--planned">Planned</span> | <span className="status-pill status-pill--planned">Planned</span> |
+| Audio Streaming, Video Streaming | <span className="status-pill status-pill--planned">Planned</span> | <span className="status-pill status-pill--planned">Planned</span> (control plane demonstrated by the mock adapter's `VideoStreaming`) |
 
 A reference platform based on the open-source Pollen Robotics Reachy Mini is planned
 ([Phase 8 of the roadmap](../project/roadmap.md)), so that every basic component can be

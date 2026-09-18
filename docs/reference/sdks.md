@@ -28,7 +28,7 @@ ESM and CommonJS builds and runs in browsers and in Node.js.
 | Command | `search()`, `bind()`, `bindAny()`, `release()`, `getParameter()`, `setParameter()`, `execute()`, `getCommandResult()` |
 | Query | `query()` |
 | Event | `subscribe()`, `unsubscribe()`, `getEventDetail()` |
-| Streaming | <span className="status-pill status-pill--planned">Planned</span> |
+| Streaming | `connectStream()`, `disconnectStream()`, `suspendStream()`, `resumeStream()`, `queryStreamStatus()` |
 
 Pass `{ token }` to `RoISClient.connect()` when the gateway authenticates; the SDK presents it
 at the WebSocket upgrade as the `token` query parameter.
@@ -75,7 +75,7 @@ var executed = await client.ExecuteAsync(nav);
 | Command | `SearchAsync()`, `BindAsync()`, `BindAnyAsync()`, `ReleaseAsync()`, `GetParameterAsync()`, `SetParameterAsync()`, `ExecuteAsync()`, `GetCommandResultAsync()` |
 | Query | `QueryAsync()` |
 | Event | `SubscribeAsync()`, `UnsubscribeAsync()`, `GetEventDetailAsync()` |
-| Streaming | <span className="status-pill status-pill--planned">Planned</span> |
+| Streaming | `ConnectStreamAsync()`, `DisconnectStreamAsync()`, `SuspendStreamAsync()`, `ResumeStreamAsync()`, `QueryStreamStatusAsync()` |
 
 The client is verified outside the Unity editor by a plain .NET test project against an
 in-process fake gateway. WebGL builds need a browser transport, which is planned.
