@@ -63,6 +63,8 @@ claims in the token.
 
 ## Reporting a Vulnerability
 
-Please report security issues privately through
-[GitHub private vulnerability reporting](https://github.com/openrois/openrois/security)
-rather than in public issues.
+Please report security issues privately by email to **info@coarobo.com** with the subject
+"OpenRoIS security report", rather than in public issues. GitHub private vulnerability
+reporting will be enabled together with authentication and session management (Phase 9),
+since the alpha implements the message-passing framework only. See the
+[security policy](https://github.com/openrois/openrois/blob/dev/SECURITY.md).
