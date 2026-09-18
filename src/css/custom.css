@@ -1,30 +1,291 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * OpenRoIS theme.
+ *
+ * Colors come from the OpenRoIS logo (#0070C0 to #57D2FF). The role colors
+ * used in diagrams (application, core, adapter, host) match the figures of
+ * the OpenRoIS paper so that the website and the publications read as one.
  */
 
-/* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #0070c0;
   --ifm-color-primary-dark: #0065ad;
   --ifm-color-primary-darker: #005fa3;
-  --ifm-color-primary-darkest: #004e88;
-  --ifm-color-primary-light: #1a7ec9;
-  --ifm-color-primary-lighter: #2685cd;
-  --ifm-color-primary-lightest: #4d9bd4;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-color-primary-darkest: #004e86;
+  --ifm-color-primary-light: #0a7ed2;
+  --ifm-color-primary-lighter: #1f8ad8;
+  --ifm-color-primary-lightest: #4ba3e3;
+
+  --openrois-accent: #00b0f0;
+  --openrois-accent-soft: #57d2ff;
+  --openrois-ink: #0b1f33;
+  --openrois-muted: #56657a;
+  --openrois-surface: #ffffff;
+  --openrois-surface-2: #f6f8fb;
+  --openrois-border: #e3e8ef;
+  --openrois-grid: rgba(0, 112, 192, 0.06);
+
+  --openrois-role-app: #2e5c8a;
+  --openrois-role-core: #4e7a38;
+  --openrois-role-adapter: #a6821a;
+  --openrois-role-host: #707070;
+
+  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+    sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
+  --ifm-heading-font-weight: 650;
+  --ifm-code-font-size: 88%;
+  --ifm-line-height-base: 1.65;
+  --ifm-navbar-height: 64px;
+  --ifm-global-radius: 8px;
+  --ifm-code-border-radius: 6px;
+  --ifm-card-border-radius: 12px;
+  --ifm-toc-border-color: var(--openrois-border);
+  --ifm-hr-border-color: var(--openrois-border);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 112, 192, 0.1);
+  --docusaurus-announcement-bar-height: auto;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #4d9bd4;
-  --ifm-color-primary-dark: #3d8bc9;
-  --ifm-color-primary-darker: #3883c2;
-  --ifm-color-primary-darkest: #2d6ca1;
-  --ifm-color-primary-light: #62a9d9;
-  --ifm-color-primary-lighter: #6db0dc;
-  --ifm-color-primary-lightest: #8fc3e4;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #4ba3e3;
+  --ifm-color-primary-dark: #3497df;
+  --ifm-color-primary-darker: #2891dd;
+  --ifm-color-primary-darkest: #1e78ba;
+  --ifm-color-primary-light: #62afe7;
+  --ifm-color-primary-lighter: #6eb5e9;
+  --ifm-color-primary-lightest: #92c8ef;
+
+  --openrois-ink: #e8eef6;
+  --openrois-muted: #9aa8ba;
+  --openrois-surface: #111823;
+  --openrois-surface-2: #0c121b;
+  --openrois-border: #243142;
+  --openrois-grid: rgba(75, 163, 227, 0.07);
+
+  --ifm-background-color: #0b1017;
+  --ifm-background-surface-color: #0f1620;
+  --ifm-navbar-background-color: rgba(11, 16, 23, 0.85);
+  --docusaurus-highlighted-code-line-bg: rgba(75, 163, 227, 0.18);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.015em;
+}
+
+/* Navbar */
+.navbar {
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  background-color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid var(--openrois-border);
+  box-shadow: none;
+}
+
+[data-theme='dark'] .navbar {
+  background-color: var(--ifm-navbar-background-color);
+}
+
+.navbar__title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.navbar__logo {
+  height: 1.9rem;
+}
+
+.navbar__link {
+  font-weight: 500;
+  font-size: 0.94rem;
+}
+
+.header-github-link::before {
+  content: '';
+  width: 22px;
+  height: 22px;
+  display: flex;
+  background-color: var(--ifm-navbar-link-color);
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  transition: background-color var(--ifm-transition-fast);
+}
+
+.header-github-link:hover::before {
+  background-color: var(--ifm-color-primary);
+}
+
+/* Announcement bar */
+.theme-announcement-bar {
+  background: linear-gradient(90deg, #0b3b64, #0070c0);
+  color: #eaf5ff;
+  font-size: 0.88rem;
+  border-bottom: none;
+}
+
+.theme-announcement-bar a {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Docs content */
+.markdown {
+  --ifm-h1-font-size: 2.35rem;
+  --ifm-h2-font-size: 1.6rem;
+  --ifm-h3-font-size: 1.2rem;
+}
+
+.markdown h1:first-child {
+  margin-bottom: 1rem;
+}
+
+.markdown > p:first-of-type {
+  font-size: 1.08rem;
+  color: var(--openrois-muted);
+}
+
+.markdown table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.93rem;
+}
+
+.markdown table thead tr {
+  background: var(--openrois-surface-2);
+  border-bottom: 1px solid var(--openrois-border);
+}
+
+.markdown table th,
+.markdown table td {
+  border: 1px solid var(--openrois-border);
+  padding: 0.55rem 0.8rem;
+}
+
+.markdown table tr:nth-child(2n) {
+  background: transparent;
+}
+
+.markdown img {
+  border-radius: 12px;
+}
+
+.theme-doc-sidebar-menu .menu__link {
+  font-size: 0.93rem;
+}
+
+.menu__list-item-collapsible .menu__link--sublist {
+  font-weight: 600;
+}
+
+.theme-admonition {
+  border-radius: 10px;
+}
+
+code {
+  border: 1px solid var(--openrois-border);
+  background-color: var(--openrois-surface-2);
+}
+
+.prism-code {
+  font-size: 0.86rem;
+}
+
+/* Diagrams keep a white card in dark mode so their role colors stay legible. */
+.openrois-figure {
+  display: block;
+  margin: 1.5rem auto;
+  max-width: 100%;
+}
+
+.openrois-figure img {
+  width: 100%;
+  border-radius: 14px;
+}
+
+.openrois-figure figcaption {
+  margin-top: 0.6rem;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--openrois-muted);
+}
+
+/* Status pills, usable from Markdown via the Status component. */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.status-pill::before {
+  content: '';
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-pill--available {
+  color: #1f7a3a;
+  background: rgba(46, 160, 67, 0.12);
+  border-color: rgba(46, 160, 67, 0.3);
+}
+
+.status-pill--progress {
+  color: #9a6700;
+  background: rgba(212, 167, 44, 0.14);
+  border-color: rgba(212, 167, 44, 0.35);
+}
+
+.status-pill--planned {
+  color: #4a5a6e;
+  background: rgba(110, 125, 145, 0.12);
+  border-color: rgba(110, 125, 145, 0.3);
+}
+
+[data-theme='dark'] .status-pill--available {
+  color: #56d364;
+}
+
+[data-theme='dark'] .status-pill--progress {
+  color: #e3b341;
+}
+
+[data-theme='dark'] .status-pill--planned {
+  color: #9aa8ba;
+}
+
+/* Footer */
+.footer--dark {
+  --ifm-footer-background-color: #07111c;
+  --ifm-footer-link-color: #b5c3d4;
+  --ifm-footer-title-color: #ffffff;
+  border-top: 1px solid #16273a;
+}
+
+.footer__copyright {
+  font-size: 0.8rem;
+  color: #7f91a6;
+  line-height: 1.6;
+}
+
+/* Inline code inside code blocks must not inherit the inline-code border. */
+pre code,
+.prism-code code {
+  border: none;
+  background: transparent;
 }

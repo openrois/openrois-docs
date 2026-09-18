@@ -1,41 +1,54 @@
-# Website
+<p align="center">
+  <a href="https://openrois.org/">
+    <img src="static/img/logo.svg" alt="OpenRoIS logo" width="88" height="88">
+  </a>
+</p>
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+<h1 align="center">openrois.org</h1>
 
-## Installation
+<p align="center">
+  Source of the <a href="https://openrois.org/">OpenRoIS website and documentation</a>.
+</p>
 
-```bash
-yarn
-```
+---
 
-## Local Development
+The site is built with [Docusaurus](https://docusaurus.io/) and deployed to GitHub Pages
+on every push to `main`. The OpenRoIS middleware itself lives in
+[openrois/openrois](https://github.com/openrois/openrois).
 
-```bash
-yarn start
-```
+## Develop Locally
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-## Build
-
-```bash
-yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-## Deployment
-
-Using SSH:
+Requires [Node.js](https://nodejs.org/) 20 or later.
 
 ```bash
-USE_SSH=true yarn deploy
+npm ci
+npm start          # development server with live reload on http://localhost:3000
+npm run build      # production build into build/, fails on broken links
+npm run serve      # serve the production build locally
 ```
 
-Not using SSH:
+## Structure
 
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
+| Path | Contents |
+|------|----------|
+| `src/pages/index.tsx` | Homepage |
+| `src/css/custom.css` | Theme: colors, typography, status pills |
+| `docs/` | Documentation, organized as Getting started, Concepts, Guides, Reference, and Project |
+| `sidebars.ts` | Documentation navigation |
+| `static/img/` | Logo, diagrams (light and dark variants), and screenshots |
+| `docusaurus.config.ts` | Site configuration, including redirects from former URLs |
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+## Writing Guidelines
+
+- Write in a technical, precise voice. State what the software does, and mark anything
+  not yet implemented as in progress or planned.
+- Use "OpenRoIS" for the project, "RoIS 2.0" or "OMG RoIS Framework 2.0" for the
+  specification, and "Apache-2.0" for the license.
+- Avoid em dashes, en dashes, and semicolons in prose.
+- Keep diagrams consistent with the colors of the OpenRoIS publications: blue for
+  applications, green for the OpenRoIS core, amber for adapters, and gray for hosts.
+
+## License
+
+Content and code in this repository are licensed under the
+[Apache License 2.0](LICENSE). Copyright 2026 Coarobo GK.
