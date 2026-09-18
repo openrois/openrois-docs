@@ -30,6 +30,9 @@ ESM and CommonJS builds and runs in browsers and in Node.js.
 | Event | `subscribe()`, `unsubscribe()`, `getEventDetail()` |
 | Streaming | <span className="status-pill status-pill--planned">Planned</span> |
 
+Pass `{ token }` to `RoISClient.connect()` when the gateway authenticates; the SDK presents it
+at the WebSocket upgrade as the `token` query parameter.
+
 | Client event | Emitted for |
 |--------------|-------------|
 | `<event_type>` | Each RoIS event, under its own type, for example `reached_target` |

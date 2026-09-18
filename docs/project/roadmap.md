@@ -22,7 +22,7 @@ criteria. Until version 1.0, releases are **alpha, with an unstable API**.
 | 6 | Gateway process | <span className="status-pill status-pill--progress">In Progress</span> |
 | 7 | Adapter process | <span className="status-pill status-pill--planned">Planned</span> |
 | 8 | Open reference platform and mixed paradigms | <span className="status-pill status-pill--planned">Planned</span> |
-| 9 | Authentication, security, and media | <span className="status-pill status-pill--planned">Planned</span> |
+| 9 | Authentication, security, and media | <span className="status-pill status-pill--progress">In Progress</span> |
 | 10 | Full component library (v1.0) | <span className="status-pill status-pill--planned">Planned</span> |
 | 11 | Component registry and Hub | <span className="status-pill status-pill--planned">After 1.0</span> |
 
@@ -90,8 +90,10 @@ neutral open-source foundation.
 
 ### Phase 9: Authentication, Security, and Media
 
-JWT authentication at the WebSocket upgrade, role-based authorization per RoIS operation,
-the RoIS Streaming Interface with WebRTC media, and DDS Security for ROS 2 based adapters.
+- **Done:** JWT authentication at the WebSocket upgrade, role-based authorization per RoIS
+  operation with scopes, and TLS at the gateway.
+- **Planned:** the RoIS Streaming Interface with WebRTC media, and DDS Security for ROS 2
+  based adapters.
 See [security](../concepts/security.md) and [transports and media](../concepts/transports-and-media.md).
 
 ### Phase 10: Full Component Library

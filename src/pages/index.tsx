@@ -183,6 +183,7 @@ const STATUS: StatusGroup[] = [
       'Recursive engine, gateway process, WebSocket server and client, and adapter SDK (Python)',
       'TypeScript client SDK and profile-driven web inspector',
       'Reference components for the Preferred Robotics Kachaka (gRPC, ROS 2)',
+      'Authentication (JWT), authorization (RBAC), and TLS at the gateway',
     ],
   },
   {
@@ -191,6 +192,7 @@ const STATUS: StatusGroup[] = [
     items: [
       'C# client SDK for Unity',
       'Gateway configuration files and health endpoints',
+      'Streaming Interface with WebRTC media',
     ],
   },
   {
@@ -198,8 +200,6 @@ const STATUS: StatusGroup[] = [
     kind: 'planned',
     items: [
       'Open reference platform based on the Pollen Robotics Reachy Mini',
-      'Authentication (JWT) and authorization (RBAC)',
-      'Streaming Interface with WebRTC media',
       'Packages on PyPI, npm, NuGet, and UPM',
       'All 17 basic RoIS HRI Components (v1.0)',
     ],
