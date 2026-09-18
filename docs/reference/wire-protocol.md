@@ -238,6 +238,6 @@ TypeScript SDK uses. Full sequences are on the [roadmap](../project/roadmap.md).
 
 The gateway speaks the same JSON-RPC methods to adapters, over the connection that each
 adapter opens on `/adapter`. When an adapter connects, the gateway sends
-`rois.command.search` to learn its engine identifier and components, then forwards
+`rois.system.get_profile` to learn its engine identifier and components, then forwards
 queries, commands, and subscriptions to it. Adapters push `rois.event.notify`
 notifications, which the gateway delivers to the subscribed applications.
