@@ -18,17 +18,6 @@ const ROIS_SPEC = 'https://www.omg.org/spec/RoIS/2.0';
 // (submitted 2026-09-17 as arXiv:submit/8095926), which renders "coming soon".
 const PAPER_URL = '';
 
-const HERO_CODE = `import { RoISClient } from "@openrois/sdk";
-
-const client = await RoISClient.connect("wss://example.org");
-
-// Same calls for a robot, an avatar, or a service.
-const refs = await client.search();
-const nav = refs.find((ref) => ref.includes("Navigation"))!;
-await client.subscribe(nav, "reached_target");
-await client.bind(nav);
-await client.execute(nav, { command_type: "start" });`;
-
 const APP_CODE = `import { RoISClient } from "@openrois/sdk";
 
 const client = await RoISClient.connect("ws://localhost:8765");
@@ -316,6 +305,20 @@ function DemoVideo(): ReactNode {
     video.defaultMuted = true;
     const attempt = video.play();
     if (attempt) attempt.catch(() => setBlocked(true));
+    // Some browsers accept a source, then never advance (decode failure or a
+    // policy that rejects silently). Retry once, then offer the play button.
+    const retry = window.setTimeout(() => {
+      if (video.currentTime > 0.1) return;
+      const again = video.play();
+      if (again) again.catch(() => setBlocked(true));
+    }, 2000);
+    const check = window.setTimeout(() => {
+      if (video.currentTime <= 0.1) setBlocked(true);
+    }, 4500);
+    return () => {
+      window.clearTimeout(retry);
+      window.clearTimeout(check);
+    };
   }, []);
 
   const play = () => {
@@ -336,9 +339,10 @@ function DemoVideo(): ReactNode {
         playsInline
         preload="auto"
         poster={poster}
-        aria-label="Screen recording of the OpenRoIS HRI Client connecting to the mock engine, querying components, subscribing to events, and executing a command.">
-        <source src={webm} type="video/webm" />
+        aria-label="Screen recording of the OpenRoIS HRI Client connecting to the mock engine, querying components, subscribing to events, and executing a command."
+        onError={() => setBlocked(true)}>
         <source src={mp4} type="video/mp4" />
+        <source src={webm} type="video/webm" />
       </video>
       {blocked && (
         <button type="button" className={styles.playButton} onClick={play} aria-label="Play the recording">
@@ -384,17 +388,6 @@ function Hero(): ReactNode {
           <HeroLinks />
         </div>
         <div className={styles.heroCode}>
-          <div className={styles.window}>
-            <div className={styles.windowBar}>
-              <span />
-              <span />
-              <span />
-              <em>app.ts</em>
-            </div>
-            <CodeBlock language="ts" className={styles.windowCode}>
-              {HERO_CODE}
-            </CodeBlock>
-          </div>
           <figure className={styles.heroVideo}>
             <div className={styles.window}>
               <div className={styles.windowBar}>
