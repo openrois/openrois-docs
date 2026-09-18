@@ -39,20 +39,20 @@ specification and on the [roadmap](../project/roadmap.md).
 | `rois.system.connect` | none | `return_code` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.system.disconnect` | none | `return_code` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.system.get_profile` | `condition` | `return_code`, `profile` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.system.get_error_detail` | `error_id` | `return_code`, `results` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.system.get_error_detail` | `error_id` | `return_code`, `results` | <span className="status-pill status-pill--available">Available</span> |
 
 ### Command Interface
 
 | Method | Params | Result | Status |
 |--------|--------|--------|--------|
-| `rois.command.search` | `condition` | `return_code`, `component_ref_list` | <span className="status-pill status-pill--available">Available</span> |
+| `rois.command.search` | `condition` (matched against the refs, case-insensitively, as a substring or a glob) | `return_code`, `component_ref_list` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.command.bind` | `component_ref` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.command.bind_any` | `condition` | `return_code`, `component_ref` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.command.bind_any` | `condition` | `return_code`, `component_ref` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.command.release` | `component_ref` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.command.set_parameter` | `component_ref`, `parameters` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.command.get_parameter` | `component_ref`, `names` (optional, all when omitted) | `return_code`, `results` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.command.get_parameter` | `component_ref`, `names` (optional, all when omitted) | `return_code`, `results` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.command.execute` | `component_ref`, `command_unit_list` | `return_code`, `command_id` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.command.get_command_result` | `command_id` | `return_code`, `results` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.command.get_command_result` | `command_id` | `return_code`, `results` | <span className="status-pill status-pill--available">Available</span> |
 
 ### Query Interface
 
@@ -66,17 +66,17 @@ specification and on the [roadmap](../project/roadmap.md).
 |--------|--------|--------|--------|
 | `rois.event.subscribe` | `component_ref`, `event_type`, `condition` | `return_code`, `subscribe_id` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.event.unsubscribe` | `subscribe_id` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.event.get_event_detail` | `event_id` | `return_code`, `results` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.event.get_event_detail` | `event_id` | `return_code`, `results` | <span className="status-pill status-pill--available">Available</span> |
 
 ### Streaming Interface
 
 | Method | Params | Result | Status |
 |--------|--------|--------|--------|
-| `rois.stream.connect_stream` | `component_ref`, `parameters` | `return_code`, `stream_id` | <span className="status-pill status-pill--planned">Planned</span> |
-| `rois.stream.disconnect_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--planned">Planned</span> |
-| `rois.stream.suspend_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--planned">Planned</span> |
-| `rois.stream.resume_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--planned">Planned</span> |
-| `rois.stream.query_stream_status` | `stream_id` | `return_code`, `status` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.stream.connect_stream` | `component_ref`, `parameters` | `return_code`, `stream_id`, `results` (transport descriptor) | <span className="status-pill status-pill--available">Available</span> |
+| `rois.stream.disconnect_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
+| `rois.stream.suspend_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
+| `rois.stream.resume_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
+| `rois.stream.query_stream_status` | `stream_id` | `return_code`, `status` | <span className="status-pill status-pill--available">Available</span> |
 
 ### Notifications
 
@@ -84,9 +84,9 @@ specification and on the [roadmap](../project/roadmap.md).
 |--------|---------|--------|
 | `rois.event.notify` | `event_id`, `subscribe_id`, `component_ref`, `event_type`, `expire`, `results` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.system.profile_changed` | none (OpenRoIS extension: refresh the profile) | <span className="status-pill status-pill--available">Available</span> |
-| `rois.command.completed` | `command_id`, `status` | <span className="status-pill status-pill--planned">Planned</span> |
-| `rois.system.notify_error` | `error_id`, `error_type` | <span className="status-pill status-pill--planned">Planned</span> |
-| `rois.stream.notify_status` | `stream_id`, `status` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.command.completed` | `command_id`, `status`, `results` | <span className="status-pill status-pill--available">Available</span> |
+| `rois.system.notify_error` | `error_id`, `error_type`, `command_id`, `message` | <span className="status-pill status-pill--available">Available</span> |
+| `rois.stream.notify_status` | `stream_id`, `status`, `timestamp`, `component_ref` | <span className="status-pill status-pill--available">Available</span> |
 
 ## Data Types
 
@@ -234,10 +234,22 @@ TypeScript SDK uses. Full sequences are on the [roadmap](../project/roadmap.md).
 }
 ```
 
+## Streaming
+
+The stream operations act on a streaming component (`AudioStreaming`, `VideoStreaming`)
+through the messages its normative profile declares: `connect_stream`, `disconnect_stream`,
+`suspend_stream`, and `resume_stream` are its commands, `get_stream_status` its query, and
+`notify_stream_status` its event. `connect_stream` answers a `stream_id` and, in `results`,
+whatever the transport needs to attach to the media, for example a `media_url` for a WHEP
+endpoint or an SDP answer. The gateway then routes the stream's `notify_stream_status`
+events to the application that connected it, as `rois.stream.notify_status`. The media
+itself never crosses the gateway: it flows on the data plane between the application and
+the component's host. See [transports and media](../concepts/transports-and-media.md).
+
 ## Gateway to Adapter
 
 The gateway speaks the same JSON-RPC methods to adapters, over the connection that each
 adapter opens on `/adapter`. When an adapter connects, the gateway sends
-`rois.command.search` to learn its engine identifier and components, then forwards
+`rois.system.get_profile` to learn its engine identifier and components, then forwards
 queries, commands, and subscriptions to it. Adapters push `rois.event.notify`
 notifications, which the gateway delivers to the subscribed applications.

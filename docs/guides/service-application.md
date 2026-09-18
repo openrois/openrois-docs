@@ -136,6 +136,6 @@ its transport options for this purpose. See [security](../concepts/security.md).
 
 ## Other Languages
 
-The C# SDK for Unity applications is [in progress](../project/roadmap.md). Any language
+The [C# SDK](../reference/sdks.md#c) covers Unity and .NET applications. Any language
 with a WebSocket client can use OpenRoIS directly through the
 [wire protocol](../reference/wire-protocol.md).

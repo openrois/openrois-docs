@@ -37,7 +37,7 @@ const whitePaperRedirects: Array<{from: string; to: string}> = [
 const config: Config = {
   title: 'OpenRoIS',
   tagline:
-    'Open-source middleware implementing the OMG Robotic Interaction Service (RoIS) Framework 2.0',
+    'A community-driven open-source middleware implementing the OMG Robotic Interaction Service (RoIS) Framework 2.0',
   favicon: 'img/favicon.ico',
 
   future: {
@@ -88,7 +88,7 @@ const config: Config = {
         name: 'OpenRoIS',
         url: 'https://openrois.org/',
         description:
-          'Open-source middleware implementing the OMG Robotic Interaction Service (RoIS) Framework 2.0.',
+          'A community-driven open-source middleware implementing the OMG Robotic Interaction Service (RoIS) Framework 2.0.',
         codeRepository: GITHUB_REPO,
         license: 'https://www.apache.org/licenses/LICENSE-2.0',
         programmingLanguage: ['Python', 'TypeScript', 'C#'],
@@ -129,7 +129,7 @@ const config: Config = {
       {
         name: 'keywords',
         content:
-          'OpenRoIS, RoIS, Robotic Interaction Service, OMG, human-robot interaction, HRI, middleware, ROS 2, Unity, JSON-RPC, WebSocket, open source',
+          'OpenRoIS, RoIS, Robotic Interaction Service, OMG, human-robot interaction, HRI, middleware, ROS 2, Unity, JSON-RPC, WebSocket, open-source, community-driven',
       },
       {name: 'author', content: 'OpenRoIS Community'},
       {name: 'twitter:card', content: 'summary_large_image'},

@@ -2,14 +2,14 @@
 slug: /intro
 sidebar_label: Introduction
 sidebar_position: 1
-description: OpenRoIS is an open-source middleware implementing the OMG Robotic Interaction Service (RoIS) Framework 2.0 for physical robots, virtual avatars, and AI services.
+description: OpenRoIS is a community-driven open-source middleware implementing the OMG Robotic Interaction Service (RoIS) Framework 2.0 for physical robots, virtual avatars, and AI services.
 ---
 
 import ThemedImage from '@theme/ThemedImage';
 
 # Introduction
 
-OpenRoIS is an open-source middleware that implements the
+OpenRoIS is a community-driven open-source middleware that implements the
 [OMG Robotic Interaction Service (RoIS) Framework 2.0](https://www.omg.org/spec/RoIS/2.0).
 It lets service applications control physical robots, virtual avatars, and AI services
 through the standard RoIS interfaces, on a single machine, across a local network, or
@@ -49,14 +49,14 @@ OpenRoIS provides them, developed in the open under the Apache License 2.0.
 | [Component Contract](concepts/component-contract.md) | A five-method internal contract (`discover`, `invoke`, `query`, `subscribe`, `unsubscribe`) that keeps the engine independent of ROS 2, gRPC, game engines, or any other middleware. |
 | [Wire protocol](reference/wire-protocol.md) | A mapping of the five RoIS interfaces onto JSON-RPC 2.0 over WebSocket, usable from browsers and across the internet. |
 | [Type pipeline](concepts/type-pipeline.md) | RoIS types authored once as Python models, exported to JSON Schema, and generated into TypeScript and C#. |
-| [SDKs](reference/sdks.md) | A TypeScript client SDK for web applications, a C# client SDK for Unity (in progress), and a Python adapter SDK (the component framework) with ROS 2 support. |
+| [SDKs](reference/sdks.md) | A TypeScript client SDK for web applications, a C# client SDK for Unity, and a Python adapter SDK (the component framework) with ROS 2 support. |
 
 ## Project Status
 
 OpenRoIS is **alpha software with an unstable API**. The interface types, the recursive
 engine, the adapter SDK, the TypeScript SDK, and reference components for a
 commercial robot are available and have been demonstrated with a physical robot.
-Authentication, media streaming, published packages, and the full component library are
+Media transport, published packages, and the full component library are
 on the [roadmap](project/roadmap.md).
 
 ## Where to Go Next

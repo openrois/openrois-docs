@@ -70,5 +70,14 @@ flowchart LR
 
 The same architecture serves virtual agents. An avatar rendered in a game engine gets its
 own adapter, and the application addresses it with the same calls it uses for a physical
-robot. A mixed demonstration, with a physical robot and a virtual agent behind one
-gateway, is on the [roadmap](../project/roadmap.md).
+robot.
+
+[`examples/mixed-paradigm`](https://github.com/openrois/openrois/tree/dev/examples/mixed-paradigm)
+shows it: one script starts a gateway, connects the mock robot adapter and the
+[avatar adapter](https://github.com/openrois/openrois/tree/dev/examples/avatar-adapter)
+(a text-based virtual agent with `SpeechSynthesis` and `Reaction`), then plays an
+application that discovers both, queries both positions, and makes both say the same
+sentence with identical `set_parameter` and `execute` calls, waiting for both
+`rois.command.completed`. The application's code addresses components by ref only. Both
+sides are simulated so the demonstration runs on any laptop; the same script runs against
+real adapters.

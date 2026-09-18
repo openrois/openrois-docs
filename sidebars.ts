@@ -37,7 +37,12 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Reference',
       collapsed: false,
-      items: ['reference/wire-protocol', 'reference/components', 'reference/sdks'],
+      items: [
+        'reference/wire-protocol',
+        'reference/components',
+        'reference/sdks',
+        'reference/benchmarks',
+      ],
     },
     {
       type: 'category',

@@ -16,7 +16,7 @@ are reserved for that purpose.
 |-------|---------|
 | Python | 3.12 or later |
 | Node.js | 22 or later |
-| .NET | .NET Standard 2.1 (Unity 6.3 or later) |
+| .NET | .NET Standard 2.1 (Unity 6.5 or later) |
 | ROS 2 (optional) | Jazzy Jalisco, for ROS 2 based components |
 
 ## Python
@@ -68,7 +68,15 @@ The generated C# types target .NET Standard 2.1. Reference the project directly:
 </ItemGroup>
 ```
 
-The C# client SDK for Unity is [in progress](../project/roadmap.md).
+The C# client SDK for Unity installs from a Git URL:
+
+```json title="Packages/manifest.json"
+{
+  "dependencies": {
+    "org.openrois.sdk": "https://github.com/openrois/openrois.git?path=sdk/csharp"
+  }
+}
+```
 
 ## Package Names
 

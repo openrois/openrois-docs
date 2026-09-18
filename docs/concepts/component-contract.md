@@ -61,6 +61,13 @@ leak one paradigm into the engine. Keeping the contract minimal lets the same
 control-plane code drive a gRPC robot, a ROS 2 fleet, a virtual avatar, or a set of AI
 services. Backend-specific concerns stay inside the adapter that needs them.
 
+## Conformance
+
+The contract is what a conformance suite can check. `openrois_components_core.conformance`
+drives an engine through the RoIS operations and reports every component whose profile,
+queries, lifecycle commands, parameters, or events break a rule. See
+[check conformance](../guides/components-and-adapters.md#check-conformance).
+
 ## Partial Implementations
 
 A component may implement only part of the normative interface for its type. A robot

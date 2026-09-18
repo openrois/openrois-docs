@@ -17,16 +17,16 @@ criteria. Until version 1.0, releases are **alpha, with an unstable API**.
 | 1 | Engine and sub HRI Engine proof of concept | <span className="status-pill status-pill--available">Done</span> |
 | 2 | Adapter framework and reference components | <span className="status-pill status-pill--available">Done</span> |
 | 3 | Client SDKs and first end-to-end demonstration | <span className="status-pill status-pill--progress">In Progress</span> |
-| 4 | Recursive core in Python | <span className="status-pill status-pill--progress">In Progress</span> |
-| 5 | Hardening the core | <span className="status-pill status-pill--planned">Planned</span> |
-| 6 | Gateway process | <span className="status-pill status-pill--planned">Planned</span> |
+| 4 | Recursive core in Python | <span className="status-pill status-pill--available">Done</span> |
+| 5 | Hardening the core | <span className="status-pill status-pill--progress">In Progress</span> |
+| 6 | Gateway process | <span className="status-pill status-pill--available">Done</span> |
 | 7 | Adapter process | <span className="status-pill status-pill--planned">Planned</span> |
-| 8 | Open reference platform and mixed paradigms | <span className="status-pill status-pill--planned">Planned</span> |
-| 9 | Authentication, security, and media | <span className="status-pill status-pill--planned">Planned</span> |
+| 8 | Open reference platform and mixed paradigms | <span className="status-pill status-pill--progress">In Progress</span> |
+| 9 | Authentication, security, and media | <span className="status-pill status-pill--progress">In Progress</span> |
 | 10 | Full component library (v1.0) | <span className="status-pill status-pill--planned">Planned</span> |
 | 11 | Component registry and Hub | <span className="status-pill status-pill--planned">After 1.0</span> |
 
-Phase 3 continues alongside phase 4. Phases 8 and 9 can proceed in parallel once the gateway and adapter processes exist.
+Phase 3 continues alongside phases 5 and 6. Phases 8 and 9 can proceed in parallel once the gateway and adapter processes exist.
 
 ## Phase Details
 
@@ -52,27 +52,33 @@ with gRPC and ROS 2 backends.
 - **Done:** the TypeScript SDK, the profile-driven web client, the mock engine, and an
   end-to-end demonstration of a web application controlling a physical robot through the
   gateway and an adapter.
-- **In progress:** the C# client SDK for Unity.
+- **Done:** the C# client SDK for Unity (`RoISClient`, callbacks on the main thread).
 - **Exit:** tagged release `v0.1.0`.
 
 ### Phase 4: Recursive Core in Python
 
-- **Done:** the `openrois-core` package with the recursive `Engine`, the component
-  registry, the sub HRI Engine proxy, and the WebSocket server and client used by existing
-  adapters.
-- **In progress:** gateway reliability fixes for adapter discovery and event delivery, and
-  a regression test suite for the core.
-- **Exit:** one dispatch implementation, the TypeScript proof of concept retired.
+The `openrois-core` package: the recursive `Engine`, the component registry and the child
+engine proxy implementing the typed Component Contract, the WebSocket server and client,
+every Command, Query, and Event operation except streaming, command completion and error
+notifications, and a regression test suite with a gateway plus adapter round trip. The
+TypeScript proof of concept is retired.
 
 ### Phase 5: Hardening the Core
 
-Graceful shutdown, reconnection behavior, loading component packages from a local path or
-a Git URL, and minimal health and status endpoints.
+- **Done:** control-plane [latency benchmarks](../reference/benchmarks.md) on loopback with the
+  mock adapter; LAN and Kachaka numbers are still to be measured.
+- **Done:** a `GET /health` liveness endpoint on the gateway port.
+- **Planned:** graceful shutdown, reconnection behavior, and loading component packages
+  from a local path or a Git URL.
 
 ### Phase 6: Gateway Process
 
-A standalone gateway process and container image composed from `Engine` and `WsServer`,
-with configuration, logging, and one-command bring-up.
+- **Done:** the `openrois-gateway` process and its container image, composed from `Engine`
+  and `WsServer`, with command-line configuration, logging, signal handling, and
+  `docker compose up`.
+- **Done:** a YAML configuration file (`--config`, `OPENROIS_GATEWAY_CONFIG`) below the
+  command line and the environment in precedence, and `GET /health` as the container's
+  health check.
 
 ### Phase 7: Adapter Process
 
@@ -81,16 +87,26 @@ configured by the adapter profile.
 
 ### Phase 8: Open Reference Platform and Mixed Paradigms
 
-A reference platform based on the open-source Pollen Robotics Reachy Mini, shipped with
-OpenRoIS so anyone can try the full stack on affordable hardware. A demonstration of a
-physical robot and a virtual agent behind one gateway, controlled by one application that
-does not know which is which. Completing this phase starts the transfer of OpenRoIS to a
-neutral open-source foundation.
+- **Done:** the mixed-paradigm demonstration, `examples/mixed-paradigm`: a simulated robot
+  and a text-based virtual agent behind one gateway, driven by one application with
+  identical calls. See [deployment topologies](../concepts/deployment-topologies.md#physical-robots-and-virtual-agents-together).
+- **In progress:** a reference platform based on the open-source Pollen Robotics Reachy
+  Mini, shipped with OpenRoIS so anyone can try the full stack on affordable hardware. The
+  adapter, a simulated backend, and a one-command bring-up pass the conformance suite in
+  simulation; verification on a robot is pending.
+- **Planned:** the demonstration repeated with that robot and a rendered avatar.
+  Completing this phase starts the transfer of OpenRoIS to a neutral open-source
+  foundation.
 
 ### Phase 9: Authentication, Security, and Media
 
-JWT authentication at the WebSocket upgrade, role-based authorization per RoIS operation,
-the RoIS Streaming Interface with WebRTC media, and DDS Security for ROS 2 based adapters.
+- **Done:** JWT authentication at the WebSocket upgrade, role-based authorization per RoIS
+  operation with scopes, and TLS at the gateway.
+- **Done:** the Streaming Interface control plane: `rois.stream.*` operations routed to
+  streaming components, stream status events routed back to the application that
+  connected the stream, and stream methods in the TypeScript and C# SDKs.
+- **Planned:** WebRTC media on the data plane, with the transport descriptor exchanged
+  through `connect_stream` results, and DDS Security for ROS 2 based adapters.
 See [security](../concepts/security.md) and [transports and media](../concepts/transports-and-media.md).
 
 ### Phase 10: Full Component Library

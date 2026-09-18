@@ -109,6 +109,21 @@ await self.parent.emit_async(
 From a thread that is not the asyncio event loop, such as a ROS 2 callback, use the
 thread-safe `self.parent.emit(...)` with the same arguments.
 
+## Report Completion
+
+A command handler returns as soon as the command is accepted, with a `command_id`. When
+the work behind it finishes, report it, and the application that issued the command
+receives `rois.command.completed` with the status and any final results:
+
+```python
+await self.parent.complete_async(command_id, "OK", results.reached_target(target, True))
+```
+
+The thread-safe form is `self.parent.complete(command_id, "OK")`. The status is one of the
+RoIS completed statuses: `OK`, `ERROR`, `ABORT`, `OUT_OF_RESOURCES`, or `TIMEOUT`. A handler
+that raises an exception answers `ERROR` and the caller receives `rois.system.notify_error`
+with a `COMPONENT_INTERNAL_ERROR`, retrievable later through `rois.system.get_error_detail`.
+
 ## Write the Adapter
 
 The adapter creates a sub HRI Engine, registers the components, and connects to the
@@ -168,6 +183,29 @@ all decorated with the same component name. The reference components for the Pre
 Robotics Kachaka provide `GrpcNavigation` and `Ros2Navigation`. Each adapter imports the
 class it needs, so the backend is selected at import time, without factories or runtime
 switches.
+
+## Check Conformance
+
+`openrois_components_core.conformance` drives your engine through the RoIS operations
+the way an application would and lists every rule a component breaks: the profile must
+validate against the normative models, every declared query must answer with well-formed
+results (`get_stream_status` excepted, since it needs an open stream), every basic
+component except System Information must answer `component_status`, actuation components
+must accept `start`, `stop`, `suspend`, and `resume`, `set_parameter` must round-trip
+through `get_parameter`, every event must accept a subscription, and a basic component
+whose messages OpenRoIS has typed (Person Detection, Navigation, Reaction, System
+Information, Audio Streaming, Video Streaming) must not invent message names.
+
+```python
+from openrois_components_core.conformance import assert_conformant
+
+
+async def test_my_adapter() -> None:
+    await assert_conformant(engine)
+```
+
+Run it in your adapter's test suite. The reference components and the mock adapter pass it
+in the OpenRoIS continuous integration.
 
 ## Next Steps
 

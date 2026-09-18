@@ -167,8 +167,7 @@ const INTERFACES: RoisInterface[] = [
   {
     name: 'Streaming',
     ns: 'rois.stream.*',
-    ops: ['connect_stream', 'suspend_stream'],
-    planned: true,
+    ops: ['connect_stream', 'suspend_stream', 'notify_status'],
   },
 ];
 
@@ -180,27 +179,26 @@ const STATUS: StatusGroup[] = [
     kind: 'available',
     items: [
       'RoIS interface types in Python, JSON Schema, TypeScript, and C#',
-      'Recursive engine, WebSocket server and client, and component framework (Python)',
+      'Recursive engine, gateway process, WebSocket server and client, and adapter SDK (Python)',
       'TypeScript client SDK and profile-driven web inspector',
+      'C# client SDK for Unity and .NET',
       'Reference components for the Preferred Robotics Kachaka (gRPC, ROS 2)',
+      'Authentication (JWT), authorization (RBAC), and TLS at the gateway',
+      'Streaming Interface control plane',
+      'Gateway configuration file and health endpoint',
     ],
   },
   {
     label: 'In Progress',
     kind: 'progress',
     items: [
-      'C# client SDK for Unity',
-      'Reliability fixes for adapter discovery and event delivery in the gateway',
-      'Regression test suite for the engine core',
+      'Open reference platform on the Pollen Robotics Reachy Mini (simulated first)',
     ],
   },
   {
     label: 'Planned',
     kind: 'planned',
     items: [
-      'Open reference platform based on the Pollen Robotics Reachy Mini',
-      'Authentication (JWT) and authorization (RBAC)',
-      'Streaming Interface with WebRTC media',
       'Packages on PyPI, npm, NuGet, and UPM',
       'All 17 basic RoIS HRI Components (v1.0)',
     ],
@@ -370,12 +368,14 @@ function Hero(): ReactNode {
             <span className={styles.eyebrowItem}>Alpha</span>
           </div>
           <Heading as="h1" className={styles.heroTitle}>
-            One Standard Interface for <span className={styles.gradient}>Robots, Avatars, and AI Services</span>
+            <span className={styles.gradient}>OpenRoIS</span>: One Standard Interface for Robots,
+            Avatars, and AI Services
           </Heading>
           <p className={styles.heroLead}>
-            OpenRoIS is open-source middleware implementing the OMG Robotic Interaction Service
-            (RoIS) Framework 2.0. Service applications control physical robots, virtual avatars,
-            and AI services through standard, symbolic interfaces, locally or over the internet.
+            A community-driven open-source middleware implementing the OMG Robotic Interaction
+            Service (RoIS) Framework 2.0. Service applications control physical robots, virtual
+            avatars, and AI services through standard, symbolic interfaces, locally or over the
+            internet.
           </p>
           <div className={styles.heroButtons}>
             <Link className={clsx('button button--primary button--lg', styles.cta)} to="/docs/getting-started/quickstart">
@@ -543,7 +543,7 @@ function Code(): ReactNode {
           </p>
           <ul className={styles.checkList}>
             <li>TypeScript SDK for web and Node.js applications</li>
-            <li>C# SDK for Unity applications (in progress)</li>
+            <li>C# SDK for Unity and .NET applications</li>
             <li>Python adapter SDK with ROS 2 support</li>
           </ul>
           <Link className="button button--primary" to="/docs/getting-started/quickstart">
@@ -608,7 +608,8 @@ function Community(): ReactNode {
           <span className={styles.kicker}>Get Involved</span>
           <Heading as="h2">Help Carry RoIS into Practice</Heading>
           <p>
-            OpenRoIS is developed in the open under the Apache License 2.0. Components for new robots
+            OpenRoIS is community-driven and developed in the open under the Apache License 2.0.
+            Components for new robots
             are the natural entry point, and the roadmap lists work that can be picked up in
             parallel.
           </p>
