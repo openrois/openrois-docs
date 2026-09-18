@@ -184,6 +184,27 @@ Robotics Kachaka provide `GrpcNavigation` and `Ros2Navigation`. Each adapter imp
 class it needs, so the backend is selected at import time, without factories or runtime
 switches.
 
+## Check Conformance
+
+`openrois_components_core.conformance` drives your engine through the RoIS operations
+the way an application would and lists every rule a component breaks: the profile must
+validate against the normative models, every declared query must answer with well-formed
+results, every basic component must answer `component_status`, actuation components must
+accept `start`, `stop`, `suspend`, and `resume`, `set_parameter` must round-trip through
+`get_parameter`, every event must accept a subscription, and a basic component must not
+invent message names.
+
+```python
+from openrois_components_core.conformance import assert_conformant
+
+
+async def test_my_adapter() -> None:
+    await assert_conformant(engine)
+```
+
+Run it in your adapter's test suite. The reference components and the mock adapter pass it
+in the OpenRoIS continuous integration.
+
 ## Next Steps
 
 - Start from the adapter template in
