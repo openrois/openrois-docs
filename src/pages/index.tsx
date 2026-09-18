@@ -1,4 +1,4 @@
-import type {ReactNode} from 'react';
+import {useEffect, useRef, useState, type ReactNode} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -17,17 +17,6 @@ const ROIS_SPEC = 'https://www.omg.org/spec/RoIS/2.0';
 // The arXiv abstract URL of the paper. Empty until the preprint is announced
 // (submitted 2026-09-17 as arXiv:submit/8095926), which renders "coming soon".
 const PAPER_URL = '';
-
-const HERO_CODE = `import { RoISClient } from "@openrois/sdk";
-
-const client = await RoISClient.connect("wss://example.org");
-
-// Same calls for a robot, an avatar, or a service.
-const refs = await client.search();
-const nav = refs.find((ref) => ref.includes("Navigation"))!;
-await client.subscribe(nav, "reached_target");
-await client.bind(nav);
-await client.execute(nav, { command_type: "start" });`;
 
 const APP_CODE = `import { RoISClient } from "@openrois/sdk";
 
@@ -298,6 +287,74 @@ function HeroLinks(): ReactNode {
   );
 }
 
+function DemoVideo(): ReactNode {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [blocked, setBlocked] = useState(false);
+  const poster = useBaseUrl('/video/hri-client-demo-poster.jpg');
+  const webm = useBaseUrl('/video/hri-client-demo.webm');
+  const mp4 = useBaseUrl('/video/hri-client-demo.mp4');
+
+  // Browsers only autoplay muted media, and React does not always reflect the
+  // muted prop as an attribute after hydration or client-side navigation, so
+  // set it from script and start playback explicitly. If the browser still
+  // refuses, show a play button, which counts as the user gesture it wants.
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    video.muted = true;
+    video.defaultMuted = true;
+    const attempt = video.play();
+    if (attempt) attempt.catch(() => setBlocked(true));
+    // Some browsers accept a source, then never advance (decode failure or a
+    // policy that rejects silently). Retry once, then offer the play button.
+    const retry = window.setTimeout(() => {
+      if (video.currentTime > 0.1) return;
+      const again = video.play();
+      if (again) again.catch(() => setBlocked(true));
+    }, 2000);
+    const check = window.setTimeout(() => {
+      if (video.currentTime <= 0.1) setBlocked(true);
+    }, 4500);
+    return () => {
+      window.clearTimeout(retry);
+      window.clearTimeout(check);
+    };
+  }, []);
+
+  const play = () => {
+    const video = ref.current;
+    if (!video) return;
+    video.muted = true;
+    video.play().then(() => setBlocked(false)).catch(() => setBlocked(true));
+  };
+
+  return (
+    <div className={styles.videoWrap}>
+      <video
+        ref={ref}
+        className={styles.demoVideo}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster={poster}
+        aria-label="Screen recording of the OpenRoIS HRI Client connecting to the mock engine, querying components, subscribing to events, and executing a command."
+        onError={() => setBlocked(true)}>
+        <source src={mp4} type="video/mp4" />
+        <source src={webm} type="video/webm" />
+      </video>
+      {blocked && (
+        <button type="button" className={styles.playButton} onClick={play} aria-label="Play the recording">
+          <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+            <path d="M8 5v14l11-7z" fill="currentColor" />
+          </svg>
+        </button>
+      )}
+    </div>
+  );
+}
+
 function Hero(): ReactNode {
   return (
     <header className={styles.hero}>
@@ -331,46 +388,22 @@ function Hero(): ReactNode {
           <HeroLinks />
         </div>
         <div className={styles.heroCode}>
-          <div className={styles.window}>
-            <div className={styles.windowBar}>
-              <span />
-              <span />
-              <span />
-              <em>app.ts</em>
+          <figure className={styles.heroVideo}>
+            <div className={styles.window}>
+              <div className={styles.windowBar}>
+                <span />
+                <span />
+                <span />
+                <em>examples/hri-client</em>
+              </div>
+              <DemoVideo />
             </div>
-            <CodeBlock language="ts" className={styles.windowCode}>
-              {HERO_CODE}
-            </CodeBlock>
-          </div>
+            <figcaption>
+              The HRI client against the mock engine, no robot attached.{' '}
+              <Link to="/docs/getting-started/quickstart">Run It Yourself →</Link>
+            </figcaption>
+          </figure>
         </div>
-      </div>
-      <div className={clsx('container', styles.heroDemo)}>
-        <figure className={styles.demoFigure}>
-          <div className={styles.window}>
-            <div className={styles.windowBar}>
-              <span />
-              <span />
-              <span />
-              <em>examples/hri-client</em>
-            </div>
-            <video
-              className={styles.demoVideo}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster={useBaseUrl('/video/hri-client-demo-poster.jpg')}
-              aria-label="Screen recording of the OpenRoIS HRI Client connecting to the mock engine, querying components, subscribing to events, and executing a command.">
-              <source src={useBaseUrl('/video/hri-client-demo.webm')} type="video/webm" />
-              <source src={useBaseUrl('/video/hri-client-demo.mp4')} type="video/mp4" />
-            </video>
-          </div>
-          <figcaption>
-            Recorded from the quickstart setup, with no robot attached.{' '}
-            <Link to="/docs/getting-started/quickstart">Run It Yourself in a Few Minutes →</Link>
-          </figcaption>
-        </figure>
       </div>
     </header>
   );
@@ -625,8 +658,8 @@ export default function Home(): ReactNode {
       description="OpenRoIS implements the OMG Robotic Interaction Service (RoIS) Framework 2.0. Control physical robots, virtual avatars, and AI services through standard interfaces. Apache-2.0.">
       <Hero />
       <main>
-        <Architecture />
         <Why />
+        <Architecture />
         <Features />
         <Interfaces />
         <Code />
