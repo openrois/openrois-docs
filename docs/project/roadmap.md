@@ -52,7 +52,7 @@ with gRPC and ROS 2 backends.
 - **Done:** the TypeScript SDK, the profile-driven web client, the mock engine, and an
   end-to-end demonstration of a web application controlling a physical robot through the
   gateway and an adapter.
-- **In progress:** the C# client SDK for Unity.
+- **Done:** the C# client SDK for Unity (`RoISClient`, callbacks on the main thread).
 - **Exit:** tagged release `v0.1.0`.
 
 ### Phase 4: Recursive Core in Python

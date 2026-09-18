@@ -182,6 +182,7 @@ const STATUS: StatusGroup[] = [
       'RoIS interface types in Python, JSON Schema, TypeScript, and C#',
       'Recursive engine, gateway process, WebSocket server and client, and adapter SDK (Python)',
       'TypeScript client SDK and profile-driven web inspector',
+      'C# client SDK for Unity and .NET',
       'Reference components for the Preferred Robotics Kachaka (gRPC, ROS 2)',
       'Authentication (JWT), authorization (RBAC), and TLS at the gateway',
     ],
@@ -190,7 +191,6 @@ const STATUS: StatusGroup[] = [
     label: 'In Progress',
     kind: 'progress',
     items: [
-      'C# client SDK for Unity',
       'Gateway configuration files and health endpoints',
       'Streaming Interface with WebRTC media',
     ],
@@ -543,7 +543,7 @@ function Code(): ReactNode {
           </p>
           <ul className={styles.checkList}>
             <li>TypeScript SDK for web and Node.js applications</li>
-            <li>C# SDK for Unity applications (in progress)</li>
+            <li>C# SDK for Unity and .NET applications</li>
             <li>Python adapter SDK with ROS 2 support</li>
           </ul>
           <Link className="button button--primary" to="/docs/getting-started/quickstart">
