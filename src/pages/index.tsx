@@ -180,7 +180,7 @@ const STATUS: StatusGroup[] = [
     kind: 'available',
     items: [
       'RoIS interface types in Python, JSON Schema, TypeScript, and C#',
-      'Recursive engine, WebSocket server and client, and component framework (Python)',
+      'Recursive engine, gateway process, WebSocket server and client, and adapter SDK (Python)',
       'TypeScript client SDK and profile-driven web inspector',
       'Reference components for the Preferred Robotics Kachaka (gRPC, ROS 2)',
     ],
@@ -190,8 +190,7 @@ const STATUS: StatusGroup[] = [
     kind: 'progress',
     items: [
       'C# client SDK for Unity',
-      'Reliability fixes for adapter discovery and event delivery in the gateway',
-      'Regression test suite for the engine core',
+      'Gateway configuration files and health endpoints',
     ],
   },
   {
