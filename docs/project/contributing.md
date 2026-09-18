@@ -6,7 +6,8 @@ description: How to contribute to OpenRoIS, from reporting issues to adding comp
 
 # Contributing
 
-OpenRoIS is developed in the open, and contributions of every size are welcome.
+OpenRoIS is a community-driven open-source project, and contributions of every size are
+welcome.
 
 ## Ways to Contribute
 

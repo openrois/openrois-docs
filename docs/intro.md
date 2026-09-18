@@ -2,14 +2,14 @@
 slug: /intro
 sidebar_label: Introduction
 sidebar_position: 1
-description: OpenRoIS is an open-source middleware implementing the OMG Robotic Interaction Service (RoIS) Framework 2.0 for physical robots, virtual avatars, and AI services.
+description: OpenRoIS is a community-driven open-source middleware implementing the OMG Robotic Interaction Service (RoIS) Framework 2.0 for physical robots, virtual avatars, and AI services.
 ---
 
 import ThemedImage from '@theme/ThemedImage';
 
 # Introduction
 
-OpenRoIS is an open-source middleware that implements the
+OpenRoIS is a community-driven open-source middleware that implements the
 [OMG Robotic Interaction Service (RoIS) Framework 2.0](https://www.omg.org/spec/RoIS/2.0).
 It lets service applications control physical robots, virtual avatars, and AI services
 through the standard RoIS interfaces, on a single machine, across a local network, or

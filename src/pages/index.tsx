@@ -373,7 +373,8 @@ function Hero(): ReactNode {
             One Standard Interface for <span className={styles.gradient}>Robots, Avatars, and AI Services</span>
           </Heading>
           <p className={styles.heroLead}>
-            OpenRoIS is open-source middleware implementing the OMG Robotic Interaction Service
+            OpenRoIS is a community-driven open-source middleware implementing the OMG Robotic
+            Interaction Service
             (RoIS) Framework 2.0. Service applications control physical robots, virtual avatars,
             and AI services through standard, symbolic interfaces, locally or over the internet.
           </p>
@@ -608,7 +609,8 @@ function Community(): ReactNode {
           <span className={styles.kicker}>Get Involved</span>
           <Heading as="h2">Help Carry RoIS into Practice</Heading>
           <p>
-            OpenRoIS is developed in the open under the Apache License 2.0. Components for new robots
+            OpenRoIS is community-driven and developed in the open under the Apache License 2.0.
+            Components for new robots
             are the natural entry point, and the roadmap lists work that can be picked up in
             parallel.
           </p>
