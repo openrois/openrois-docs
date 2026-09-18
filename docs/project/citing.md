@@ -36,7 +36,6 @@ turns into a "Cite this repository" button.
   title   = {{OpenRoIS}: Open-Source Middleware Implementing the {OMG}
              Robotic Interaction Service ({RoIS}) Framework 2.0},
   url     = {https://openrois.org/},
-  version = {0.1.0-alpha.2},
   license = {Apache-2.0},
   year    = {2026}
 }

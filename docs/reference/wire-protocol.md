@@ -50,7 +50,7 @@ specification and on the [roadmap](../project/roadmap.md).
 | `rois.command.bind_any` | `condition` | `return_code`, `component_ref` | <span className="status-pill status-pill--planned">Planned</span> |
 | `rois.command.release` | `component_ref` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.command.set_parameter` | `component_ref`, `parameters` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.command.get_parameter` | `component_ref` | `return_code`, `parameters` | <span className="status-pill status-pill--planned">Planned</span> |
+| `rois.command.get_parameter` | `component_ref`, `names` (optional, all when omitted) | `return_code`, `results` | <span className="status-pill status-pill--planned">Planned</span> |
 | `rois.command.execute` | `component_ref`, `command_unit_list` | `return_code`, `command_id` | <span className="status-pill status-pill--available">Available</span> |
 | `rois.command.get_command_result` | `command_id` | `return_code`, `results` | <span className="status-pill status-pill--planned">Planned</span> |
 

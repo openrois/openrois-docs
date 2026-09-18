@@ -18,7 +18,19 @@ import websockets
 
 URL, OUT = sys.argv[1], sys.argv[2]
 W, H, SCALE, FPS = 1440, 920, 2, 12
-CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+def find_chrome():
+    """Resolve the Chrome binary: $CHROME, then PATH, then the macOS bundle."""
+    import shutil
+    if os.environ.get("CHROME"):
+        return os.environ["CHROME"]
+    for name in ("google-chrome", "google-chrome-stable", "chromium", "chromium-browser", "chrome"):
+        found = shutil.which(name)
+        if found:
+            return found
+    return "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+
+
+CHROME = find_chrome()
 PORT = 9334
 
 CURSOR_JS = r"""

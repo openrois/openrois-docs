@@ -23,7 +23,8 @@ const HERO_CODE = `import { RoISClient } from "@openrois/sdk";
 const client = await RoISClient.connect("wss://example.org");
 
 // Same calls for a robot, an avatar, or a service.
-const [nav] = await client.search();
+const refs = await client.search();
+const nav = refs.find((ref) => ref.includes("Navigation"))!;
 await client.subscribe(nav, "reached_target");
 await client.bind(nav);
 await client.execute(nav, { command_type: "start" });`;
@@ -31,10 +32,10 @@ await client.execute(nav, { command_type: "start" });`;
 const APP_CODE = `import { RoISClient } from "@openrois/sdk";
 
 const client = await RoISClient.connect("ws://localhost:8765");
-const nav = "robot_1/Navigation";
 
-// Discover components across every connected robot.
+// Discover components across every connected robot, then pick one by type.
 const refs = await client.search();
+const nav = refs.find((ref) => ref.includes("Navigation"))!;
 
 // Read state synchronously.
 const status = await client.query(nav, "component_status");
@@ -236,7 +237,6 @@ const BIBTEX = `@software{openrois,
   title   = {{OpenRoIS}: Open-Source Middleware Implementing the {OMG}
              Robotic Interaction Service ({RoIS}) Framework 2.0},
   url     = {https://openrois.org/},
-  version = {0.1.0-alpha.2},
   license = {Apache-2.0},
   year    = {2026}
 }`;

@@ -31,6 +31,9 @@ Component references have the form `engine_id/ComponentName`, for example
 // All component references, across every connected robot.
 const refs = await client.search();
 
+// Pick a component by type. The engine ID in front of it does not matter.
+const nav = refs.find((ref) => ref.includes("Navigation"))!;
+
 // The full engine profile: components with their queries, commands, and events.
 const profile = await client.getProfile();
 ```
@@ -55,7 +58,7 @@ client.on("notification", async (n) => {
 Queries are synchronous and do not require a reservation.
 
 ```ts
-const results = await client.query("robot_1/Navigation", "component_status");
+const results = await client.query(nav, "component_status");
 // [{ name: "status", data_type_ref: "Component_Status", value: "1" }]
 ```
 
@@ -69,7 +72,7 @@ client.on("reached_target", (notification) => {
   console.log("Arrived:", notification.params.results);
 });
 
-const subscriptionId = await client.subscribe("robot_1/Navigation", "reached_target");
+const subscriptionId = await client.subscribe(nav, "reached_target");
 
 // Later:
 await client.unsubscribe(subscriptionId);
@@ -85,8 +88,6 @@ component, configure it, execute, and release it when done. While you hold the
 reservation, other applications receive `OUT_OF_RESOURCES` if they try to bind it.
 
 ```ts
-const nav = "robot_1/Navigation";
-
 await client.bind(nav);
 await client.setParameter(nav, [
   { name: "target_positions", data_type_ref: "string[]", value: '["kitchen"]' },

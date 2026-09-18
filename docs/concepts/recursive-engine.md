@@ -50,10 +50,19 @@ compositions of the same class:
 | Adapter | `Engine` + local components + `WsClient`, connecting to the gateway |
 
 ```python title="gateway.py"
+import asyncio
+
 from openrois_core import Engine, WsServer
 
-server = WsServer(Engine(enforce_bindings=True))
-await server.start("0.0.0.0", 8765)
+
+async def main() -> None:
+    server = WsServer(Engine(enforce_bindings=True))
+    await server.start("0.0.0.0", 8765)
+    # start() returns once the server is listening, so keep the loop alive.
+    await asyncio.Event().wait()
+
+
+asyncio.run(main())
 ```
 
 ```python title="adapter.py"
