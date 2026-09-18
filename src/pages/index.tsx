@@ -368,13 +368,14 @@ function Hero(): ReactNode {
             <span className={styles.eyebrowItem}>Alpha</span>
           </div>
           <Heading as="h1" className={styles.heroTitle}>
-            One Standard Interface for <span className={styles.gradient}>Robots, Avatars, and AI Services</span>
+            <span className={styles.gradient}>OpenRoIS</span>: One Standard Interface for Robots,
+            Avatars, and AI Services
           </Heading>
           <p className={styles.heroLead}>
-            OpenRoIS is a community-driven open-source middleware implementing the OMG Robotic
-            Interaction Service
-            (RoIS) Framework 2.0. Service applications control physical robots, virtual avatars,
-            and AI services through standard, symbolic interfaces, locally or over the internet.
+            A community-driven open-source middleware implementing the OMG Robotic Interaction
+            Service (RoIS) Framework 2.0. Service applications control physical robots, virtual
+            avatars, and AI services through standard, symbolic interfaces, locally or over the
+            internet.
           </p>
           <div className={styles.heroButtons}>
             <Link className={clsx('button button--primary button--lg', styles.cta)} to="/docs/getting-started/quickstart">
