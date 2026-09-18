@@ -65,8 +65,9 @@ TypeScript proof of concept is retired.
 
 ### Phase 5: Hardening the Core
 
-Graceful shutdown, reconnection behavior, loading component packages from a local path or
-a Git URL, and minimal health and status endpoints.
+- **Done:** control-plane [latency benchmarks](../reference/benchmarks.md).
+- **Planned:** graceful shutdown, reconnection behavior, loading component packages from a
+  local path or a Git URL, and minimal health and status endpoints.
 
 ### Phase 6: Gateway Process
 
