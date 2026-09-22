@@ -14,9 +14,9 @@ import styles from './index.module.css';
 const GITHUB_ORG = 'https://github.com/openrois';
 const GITHUB_REPO = 'https://github.com/openrois/openrois';
 const ROIS_SPEC = 'https://www.omg.org/spec/RoIS/2.0';
-// The arXiv abstract URL of the paper. Empty until the preprint is announced
-// (submitted 2026-09-17 as arXiv:submit/8095926), which renders "coming soon".
-const PAPER_URL = '';
+// The arXiv abstract URL of the paper (arXiv:2609.21178, announced 2026-09-21).
+// Keep in sync with docusaurus.config.ts.
+const PAPER_URL = 'https://arxiv.org/abs/2609.21178';
 
 const APP_CODE = `import { RoISClient } from "@openrois/sdk";
 
@@ -208,15 +208,20 @@ const STATUS: StatusGroup[] = [
 const STANDARDS = ['OMG RoIS 2.0', 'JSON-RPC 2.0', 'WebSocket', 'JSON Schema', 'ROS 2', 'Unity'];
 
 const PAPER_BIBTEX = `@misc{carrera2026openrois,
-  author    = {Carrera Villalobos, Sebastian and Arellano, Christopher Nolan and
-               Hitzmann, Arne and Morais Brito, Edilson and Utsumi, Akira and
-               Horikawa, Yukiko and Miyashita, Takahiro and El Hafi, Lotfi},
-  title     = {{OpenRoIS}: A Community-Driven Open-Source Middleware Implementing
-               the Robotic Interaction Service ({RoIS}) Framework for Physical
-               Robots and Virtual Agents},
-  year      = {2026},
-  note      = {Submitted to the 2027 IEEE/SICE International Symposium on
-               System Integration (SII 2027). Preprint on arXiv, forthcoming.}
+  author        = {Carrera Villalobos, Sebastian and Arellano, Christopher Nolan and
+                   Hitzmann, Arne and Morais Brito, Edilson and Utsumi, Akira and
+                   Horikawa, Yukiko and Miyashita, Takahiro and El Hafi, Lotfi},
+  title         = {{OpenRoIS}: A Community-Driven Open-Source Middleware Implementing
+                   the Robotic Interaction Service ({RoIS}) Framework for Physical
+                   Robots and Virtual Agents},
+  year          = {2026},
+  eprint        = {2609.21178},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO},
+  doi           = {10.48550/arXiv.2609.21178},
+  url           = {https://arxiv.org/abs/2609.21178},
+  note          = {Submitted to the 2027 IEEE/SICE International Symposium on
+                   System Integration (SII 2027)}
 }`;
 
 const BIBTEX = `@software{openrois,
@@ -265,18 +270,10 @@ function HeroLinks(): ReactNode {
         <GitHubIcon />
         <span>OpenRoIS GitHub Organization</span>
       </Link>
-      {PAPER_URL ? (
-        <Link className={styles.heroLink} href={PAPER_URL}>
-          <PaperIcon />
-          <span>OpenRoIS arXiv Preprint</span>
-        </Link>
-      ) : (
-        <span className={clsx(styles.heroLink, styles.heroLinkSoon)} title="The preprint has been submitted to arXiv and will be linked here once it is announced.">
-          <PaperIcon />
-          <span>OpenRoIS arXiv Preprint</span>
-          <em>Coming Soon</em>
-        </span>
-      )}
+      <Link className={styles.heroLink} href={PAPER_URL}>
+        <PaperIcon />
+        <span>OpenRoIS arXiv Preprint</span>
+      </Link>
       <Link className={styles.heroLink} href={ROIS_SPEC}>
         <SpecIcon />
         <span>OMG RoIS Specification</span>
@@ -633,16 +630,11 @@ function Community(): ReactNode {
           <span className={styles.kicker}>Cite OpenRoIS</span>
           <Heading as="h3">Using OpenRoIS in Your Research?</Heading>
           <p>
-            The position paper describing OpenRoIS was submitted to SII 2027 and is under review.{' '}
-            {PAPER_URL ? (
-              <>
-                Read the <Link href={PAPER_URL}>OpenRoIS arXiv preprint</Link>.
-              </>
-            ) : (
-              <>The preprint is on its way to arXiv and will be linked here.</>
-            )}{' '}
-            Until the paper is published, please cite the software, or the preprint once it
-            appears. The repository also provides a CITATION.cff file.
+            The position paper describing OpenRoIS was submitted to SII 2027 and is under
+            review. Its preprint is on arXiv as{' '}
+            <Link href={PAPER_URL}>arXiv:2609.21178</Link>. Until the paper is published,
+            please cite the preprint, or the software. The repository also provides a
+            CITATION.cff file.
           </p>
           <CodeBlock language="bibtex">{PAPER_BIBTEX}</CodeBlock>
           <CodeBlock language="bibtex">{BIBTEX}</CodeBlock>

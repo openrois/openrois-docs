@@ -139,28 +139,6 @@ a.eyebrowItem:hover {
   flex: none;
 }
 
-.heroLinkSoon {
-  cursor: default;
-  color: var(--openrois-muted);
-}
-
-.heroLinkSoon:hover {
-  border-color: var(--openrois-border);
-  color: var(--openrois-muted);
-}
-
-.heroLinkSoon em {
-  font-style: normal;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 0.15rem 0.45rem;
-  border-radius: 999px;
-  background: var(--openrois-surface-2);
-  border: 1px solid var(--openrois-border);
-}
-
 .window {
   border-radius: 14px;
   overflow: hidden;

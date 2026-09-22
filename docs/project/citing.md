@@ -9,19 +9,26 @@ description: How to cite OpenRoIS in academic work, and the license and trademar
 ## Citing OpenRoIS
 
 The position paper describing OpenRoIS was submitted to SII 2027 and is under review. Its
-preprint has been submitted to arXiv and will be linked here once it is announced.
+preprint is on arXiv as [arXiv:2609.21178](https://arxiv.org/abs/2609.21178), with the DOI
+[10.48550/arXiv.2609.21178](https://doi.org/10.48550/arXiv.2609.21178). Until the paper is
+published, please cite the preprint.
 
 ```bibtex
 @misc{carrera2026openrois,
-  author    = {Carrera Villalobos, Sebastian and Arellano, Christopher Nolan and
-               Hitzmann, Arne and Morais Brito, Edilson and Utsumi, Akira and
-               Horikawa, Yukiko and Miyashita, Takahiro and El Hafi, Lotfi},
-  title     = {{OpenRoIS}: A Community-Driven Open-Source Middleware Implementing
-               the Robotic Interaction Service ({RoIS}) Framework for Physical
-               Robots and Virtual Agents},
-  year      = {2026},
-  note      = {Submitted to the 2027 IEEE/SICE International Symposium on
-               System Integration (SII 2027). Preprint on arXiv, forthcoming.}
+  author        = {Carrera Villalobos, Sebastian and Arellano, Christopher Nolan and
+                   Hitzmann, Arne and Morais Brito, Edilson and Utsumi, Akira and
+                   Horikawa, Yukiko and Miyashita, Takahiro and El Hafi, Lotfi},
+  title         = {{OpenRoIS}: A Community-Driven Open-Source Middleware Implementing
+                   the Robotic Interaction Service ({RoIS}) Framework for Physical
+                   Robots and Virtual Agents},
+  year          = {2026},
+  eprint        = {2609.21178},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO},
+  doi           = {10.48550/arXiv.2609.21178},
+  url           = {https://arxiv.org/abs/2609.21178},
+  note          = {Submitted to the 2027 IEEE/SICE International Symposium on
+                   System Integration (SII 2027)}
 }
 ```
 

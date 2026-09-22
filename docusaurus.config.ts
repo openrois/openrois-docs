@@ -6,9 +6,9 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const GITHUB_ORG = 'https://github.com/openrois';
 const GITHUB_REPO = 'https://github.com/openrois/openrois';
-// The arXiv abstract URL of the paper. Empty until the preprint is announced
-// (submitted 2026-09-17 as arXiv:submit/8095926). Keep in sync with src/pages/index.tsx.
-const PAPER_URL = '';
+// The arXiv abstract URL of the paper (arXiv:2609.21178, announced 2026-09-21).
+// Keep in sync with src/pages/index.tsx.
+const PAPER_URL = 'https://arxiv.org/abs/2609.21178';
 const ROIS_SPEC = 'https://www.omg.org/spec/RoIS/2.0';
 
 // The documentation used to live in a single "White Paper" folder. These
@@ -155,7 +155,7 @@ const config: Config = {
         {to: '/docs/getting-started/quickstart', label: 'Quickstart', position: 'left'},
         {to: '/docs/reference/wire-protocol', label: 'Protocol', position: 'left'},
         {to: '/docs/project/roadmap', label: 'Roadmap', position: 'left'},
-        ...(PAPER_URL ? [{href: PAPER_URL, label: 'arXiv Preprint', position: 'right' as const}] : []),
+        {href: PAPER_URL, label: 'arXiv Preprint', position: 'right'},
         {
           href: ROIS_SPEC,
           label: 'RoIS Specification',
@@ -202,7 +202,7 @@ const config: Config = {
           items: [
             {label: 'OpenRoIS GitHub Organization', href: GITHUB_ORG},
             {label: 'Issues', href: `${GITHUB_REPO}/issues`},
-            ...(PAPER_URL ? [{label: 'OpenRoIS arXiv Preprint', href: PAPER_URL}] : []),
+            {label: 'OpenRoIS arXiv Preprint', href: PAPER_URL},
             {label: 'OMG RoIS Specification', href: ROIS_SPEC},
           ],
         },
