@@ -61,7 +61,7 @@ on the [roadmap](project/roadmap.md).
 
 ## Where to Go Next
 
-- **Try it:** the [quickstart](getting-started/quickstart.md) runs an engine and a
+- **Try it:** the [quick start](getting-started/quickstart.md) runs an engine and a
   browser-based inspector in a few minutes.
 - **Understand it:** start with the [RoIS overview](concepts/rois-overview.md) and the
   [architecture](concepts/architecture.md).

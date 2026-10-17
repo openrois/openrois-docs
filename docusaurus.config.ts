@@ -19,6 +19,10 @@ const SIBLING_URL = 'https://openrosde.org/';
 const FIRST_YEAR = 2026;
 const CURRENT_YEAR = new Date().getFullYear();
 const COPYRIGHT_YEARS = CURRENT_YEAR > FIRST_YEAR ? `${FIRST_YEAR}-${CURRENT_YEAR}` : `${FIRST_YEAR}`;
+// A project of the family with its logo, for the Open Source dropdown and the footer.
+// static/img/openrosde-logo.svg is a copy of static/img/logo.svg of openrosde/openrosde-docs.
+const projectWithLogo = (logo: string, name: string): string =>
+  `<span class="sibling-project"><img src="${logo}" alt="" width="20" height="20">${name}</span>`;
 
 // The documentation used to live in a single "White Paper" folder. These
 // redirects keep links to the old pages working after the restructure.
@@ -165,6 +169,7 @@ const config: Config = {
         {to: '/docs/getting-started/quickstart', label: 'Quick Start', position: 'left'},
         {to: '/docs/reference/wire-protocol', label: 'Protocol', position: 'left'},
         {to: '/docs/project/roadmap', label: 'Roadmap', position: 'left'},
+        {to: '/docs/project/contributing', label: 'Contributing', position: 'left'},
         {href: PAPER_URL, label: 'Paper', position: 'right'},
         {
           href: ROIS_SPEC,
@@ -176,8 +181,8 @@ const config: Config = {
           label: 'Open Source',
           position: 'right',
           items: [
-            {to: '/', label: 'OpenRoIS', activeBaseRegex: '^/'},
-            {href: SIBLING_URL, label: 'OpenRoSDE'},
+            {to: '/', html: projectWithLogo('/img/logo.svg', 'OpenRoIS'), activeBaseRegex: '^/'},
+            {href: SIBLING_URL, html: projectWithLogo('/img/openrosde-logo.svg', 'OpenRoSDE')},
             {href: COAROBO_URL, label: 'Led by Coarobo GK', className: 'sibling-dropdown-lead'},
           ],
         },
@@ -195,8 +200,8 @@ const config: Config = {
         alt: 'OpenRoIS logo',
         src: 'img/logo.svg',
         href: '/',
-        width: 40,
-        height: 40,
+        width: 64,
+        height: 64,
       },
       links: [
         {
@@ -204,32 +209,34 @@ const config: Config = {
           items: [
             {label: 'Introduction', to: '/docs/intro'},
             {label: 'Quick Start', to: '/docs/getting-started/quickstart'},
-            {label: 'Architecture', to: '/docs/concepts/architecture'},
             {label: 'Wire Protocol', to: '/docs/reference/wire-protocol'},
+            {label: 'Architecture', to: '/docs/concepts/architecture'},
           ],
         },
         {
           title: 'Project',
           items: [
             {label: 'Roadmap', to: '/docs/project/roadmap'},
-            {label: 'Related Work', to: '/docs/project/related-work'},
             {label: 'Contributing', to: '/docs/project/contributing'},
             {label: 'Citing OpenRoIS', to: '/docs/project/citing'},
+            {label: 'Related Work', to: '/docs/project/related-work'},
           ],
         },
         {
           title: 'Community',
           items: [
-            {label: 'OpenRoIS GitHub Organization', href: GITHUB_ORG},
+            {label: 'GitHub Organization', href: GITHUB_ORG},
             {label: 'Issues', href: `${GITHUB_REPO}/issues`},
-            {label: 'OpenRoIS arXiv Preprint', href: PAPER_URL},
+            {label: 'arXiv Preprint', href: PAPER_URL},
             {label: 'OMG RoIS Specification', href: ROIS_SPEC},
           ],
         },
         {
           title: 'Open Source',
           items: [
-            {label: 'OpenRoSDE', href: SIBLING_URL},
+            {
+              html: `<a class="footer__link-item" href="${SIBLING_URL}" target="_blank" rel="noopener noreferrer">${projectWithLogo('/img/openrosde-logo.svg', 'OpenRoSDE')}</a>`,
+            },
             {label: 'Led by Coarobo GK', href: COAROBO_URL},
           ],
         },

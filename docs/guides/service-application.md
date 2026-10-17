@@ -9,7 +9,7 @@ description: Use the OpenRoIS TypeScript SDK to discover, query, command, and re
 A service application uses a client SDK to talk to the gateway. This guide uses the
 TypeScript SDK, `@openrois/sdk`, which runs in browsers and in Node.js. See
 [installation](../getting-started/installation.md) to add it to a project, and the
-[quickstart](../getting-started/quickstart.md) for an engine to test against.
+[quick start](../getting-started/quickstart.md) for an engine to test against.
 
 ## Connect
 

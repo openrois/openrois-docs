@@ -50,9 +50,9 @@ const sidebars: SidebarsConfig = {
       collapsed: false,
       items: [
         'project/roadmap',
-        'project/related-work',
         'project/contributing',
         'project/citing',
+        'project/related-work',
       ],
     },
   ],

@@ -1,5 +1,5 @@
 /**
- * OpenRoIS palette and content styles.
+ * OpenRoIS palette and figure styles.
  *
  * The colors come from the OpenRoIS logo (static/img/logo.svg): #0070C0 is
  * the primary color in light mode, #3EA2EA the primary color in dark mode,
@@ -16,9 +16,9 @@
  *
  * Everything that this site shares with openrosde.org, from the fonts to the
  * header, the footer, and the hero, lives in src/css/sibling.css, which loads
- * before this file and lists the variables below. Keep this file to the
- * colors of OpenRoIS and to the styles of its own content: figures and
- * status pills.
+ * before this file and lists the variables below, along with the status
+ * pills that both sites use. Keep this file to the colors of OpenRoIS and to
+ * the styles of its own figures.
  */
 
 :root {
@@ -33,6 +33,8 @@
   --sibling-primary-rgb: 0, 112, 192;
   --sibling-accent: #00b0f0;
   --sibling-accent-rgb: 0, 176, 240;
+  --sibling-brand-gradient: linear-gradient(90deg, #0070c0 0%, #00b0f0 55%, #57d2ff 100%);
+  --sibling-brand-rgb: 0, 112, 192;
   --sibling-hero-gradient: linear-gradient(90deg, #0070c0 0%, #0086cf 55%, #009ee0 100%);
   --sibling-announcement-background: linear-gradient(90deg, #0b3b64, #0070c0);
 
@@ -96,55 +98,4 @@
   text-align: center;
   font-size: 0.88rem;
   color: var(--sibling-muted);
-}
-
-/* Status pills, usable from Markdown via the Status component. */
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.1rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  white-space: nowrap;
-  border: 1px solid transparent;
-}
-
-.status-pill::before {
-  content: '';
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: currentColor;
-}
-
-.status-pill--available {
-  color: #1f7a3a;
-  background: rgba(46, 160, 67, 0.12);
-  border-color: rgba(46, 160, 67, 0.3);
-}
-
-.status-pill--progress {
-  color: #9a6700;
-  background: rgba(212, 167, 44, 0.14);
-  border-color: rgba(212, 167, 44, 0.35);
-}
-
-.status-pill--planned {
-  color: #4a5a6e;
-  background: rgba(110, 125, 145, 0.12);
-  border-color: rgba(110, 125, 145, 0.3);
-}
-
-[data-theme='dark'] .status-pill--available {
-  color: #56d364;
-}
-
-[data-theme='dark'] .status-pill--progress {
-  color: #e3b341;
-}
-
-[data-theme='dark'] .status-pill--planned {
-  color: #9aa8ba;
 }

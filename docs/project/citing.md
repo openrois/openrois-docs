@@ -1,6 +1,6 @@
 ---
 sidebar_label: Citing and License
-sidebar_position: 4
+sidebar_position: 3
 description: How to cite OpenRoIS in academic work, and the license and trademarks that apply.
 ---
 

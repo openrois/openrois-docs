@@ -1,6 +1,6 @@
 ---
 sidebar_label: Related Work
-sidebar_position: 2
+sidebar_position: 4
 description: How OpenRoIS relates to ROS 2, Open-RMF, RT-Middleware, RSNP, and the RoIS specification itself.
 ---
 

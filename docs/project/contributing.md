@@ -1,6 +1,6 @@
 ---
 sidebar_label: Contributing
-sidebar_position: 3
+sidebar_position: 2
 description: How to contribute to OpenRoIS, from reporting issues to adding components for new robots.
 ---
 

@@ -268,11 +268,11 @@ function HeroLinks(): ReactNode {
     <div className="sibling-hero__links">
       <Link className="sibling-hero__link" href={GITHUB_ORG}>
         <GitHubIcon />
-        <span>OpenRoIS GitHub Organization</span>
+        <span>OpenRoIS on GitHub</span>
       </Link>
       <Link className="sibling-hero__link" href={PAPER_URL}>
         <PaperIcon />
-        <span>OpenRoIS arXiv Preprint</span>
+        <span>arXiv Preprint</span>
       </Link>
       <Link className="sibling-hero__link" href={ROIS_SPEC}>
         <SpecIcon />
@@ -363,9 +363,9 @@ function Hero(): ReactNode {
                 OMG RoIS 2.0
               </a>
               <span className="sibling-hero__eyebrow-dot" />
-              <span className="sibling-hero__eyebrow-item">Apache-2.0</span>
-              <span className="sibling-hero__eyebrow-dot" />
               <span className="sibling-hero__eyebrow-item">Alpha</span>
+              <span className="sibling-hero__eyebrow-dot" />
+              <span className="sibling-hero__eyebrow-item">Apache-2.0</span>
             </div>
           </div>
           <Heading as="h1" className="sibling-hero__title">
@@ -548,7 +548,7 @@ function Code(): ReactNode {
             <li>Python adapter SDK with ROS 2 support</li>
           </ul>
           <Link className="button button--primary" to="/docs/getting-started/quickstart">
-            Run the Quickstart
+            Run the Quick Start
           </Link>
         </div>
         <div className={styles.codeTabs}>

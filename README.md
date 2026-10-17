@@ -29,15 +29,16 @@ npm run serve      # serve the production build locally
 
 ## Structure
 
-| Path                   | Contents                                                                              |
-| ---------------------- | ------------------------------------------------------------------------------------- |
-| `src/pages/index.tsx`  | Homepage                                                                              |
-| `src/css/sibling.css`  | Fonts, header, footer, hero, and cards, shared word for word with `openrosde.org`     |
-| `src/css/custom.css`   | Palette of OpenRoIS, taken from its logo, and the figure and status pill styles       |
-| `docs/`                | Documentation, organized as Getting started, Concepts, Guides, Reference, and Project |
-| `sidebars.ts`          | Documentation navigation                                                              |
-| `static/img/`          | Logo, diagrams (light and dark variants), and screenshots                             |
-| `docusaurus.config.ts` | Site configuration, including redirects from former URLs                              |
+| Path                                | Contents                                                                                             |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `src/pages/index.tsx`               | Homepage                                                                                             |
+| `src/css/sibling.css`               | Fonts, header, footer, hero, cards, and status pills, shared word for word with `openrosde.org`      |
+| `src/theme/Footer/Layout/index.tsx` | Layout of the footer, shared word for word with `openrosde.org`                                      |
+| `src/css/custom.css`                | Palette of OpenRoIS, taken from its logo, and the figure styles                                      |
+| `docs/`                             | Documentation, organized as Getting started, Concepts, Guides, Reference, and Project                |
+| `sidebars.ts`                       | Documentation navigation                                                                             |
+| `static/img/`                       | Logo, the logo of OpenRoSDE for the links to it, diagrams (light and dark variants), and screenshots |
+| `docusaurus.config.ts`              | Site configuration, including redirects from former URLs                                             |
 
 ## Writing Guidelines
 
@@ -48,6 +49,10 @@ npm run serve      # serve the production build locally
 - Avoid em dashes, en dashes, and semicolons in prose.
 - Keep diagrams consistent with the colors of the OpenRoIS publications: blue for
   applications, green for the OpenRoIS core, amber for adapters, and gray for hosts.
+- Keep `static/img/openrosde-logo.svg` a copy of `static/img/logo.svg` of
+  [openrosde/openrosde-docs](https://github.com/openrosde/openrosde-docs), and change
+  `src/css/sibling.css` and `src/theme/Footer/Layout/index.tsx` in the same way there,
+  since both sites share them word for word.
 
 ## License
 

@@ -1,12 +1,12 @@
 ---
-sidebar_label: Quickstart
+sidebar_label: Quick Start
 sidebar_position: 1
 description: Run a RoIS engine with simulated components and inspect it from your browser in a few minutes.
 ---
 
-# Quickstart
+# Quick Start
 
-This quickstart runs a RoIS engine with simulated components and connects the
+This quick start runs a RoIS engine with simulated components and connects the
 OpenRoIS HRI Client, a browser-based inspector, to it. No robot is required.
 
 You will need [Node.js](https://nodejs.org/) 22 or later and Git.
