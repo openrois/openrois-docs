@@ -265,16 +265,16 @@ function SpecIcon(): ReactNode {
 
 function HeroLinks(): ReactNode {
   return (
-    <div className={styles.heroLinks}>
-      <Link className={styles.heroLink} href={GITHUB_ORG}>
+    <div className="sibling-hero__links">
+      <Link className="sibling-hero__link" href={GITHUB_ORG}>
         <GitHubIcon />
         <span>OpenRoIS GitHub Organization</span>
       </Link>
-      <Link className={styles.heroLink} href={PAPER_URL}>
+      <Link className="sibling-hero__link" href={PAPER_URL}>
         <PaperIcon />
         <span>OpenRoIS arXiv Preprint</span>
       </Link>
-      <Link className={styles.heroLink} href={ROIS_SPEC}>
+      <Link className="sibling-hero__link" href={ROIS_SPEC}>
         <SpecIcon />
         <span>OMG RoIS Specification</span>
       </Link>
@@ -351,43 +351,47 @@ function DemoVideo(): ReactNode {
 }
 
 function Hero(): ReactNode {
+  const logoUrl = useBaseUrl('/img/logo.svg');
   return (
-    <header className={styles.hero}>
-      <div className={clsx('container', styles.heroInner)}>
-        <div className={styles.heroText}>
-          <div className={styles.eyebrow}>
-            <a href={ROIS_SPEC} className={styles.eyebrowItem}>
-              OMG RoIS 2.0
-            </a>
-            <span className={styles.eyebrowDot} />
-            <span className={styles.eyebrowItem}>Apache-2.0</span>
-            <span className={styles.eyebrowDot} />
-            <span className={styles.eyebrowItem}>Alpha</span>
+    <header className="sibling-hero">
+      <div className="container sibling-hero__inner">
+        <div className="sibling-hero__text">
+          <div className="sibling-hero__brand">
+            <img className="sibling-hero__logo" src={logoUrl} alt="OpenRoIS logo" width={64} height={64} />
+            <div className="sibling-hero__eyebrow">
+              <a href={ROIS_SPEC} className="sibling-hero__eyebrow-item">
+                OMG RoIS 2.0
+              </a>
+              <span className="sibling-hero__eyebrow-dot" />
+              <span className="sibling-hero__eyebrow-item">Apache-2.0</span>
+              <span className="sibling-hero__eyebrow-dot" />
+              <span className="sibling-hero__eyebrow-item">Alpha</span>
+            </div>
           </div>
-          <Heading as="h1" className={styles.heroTitle}>
-            <span className={styles.gradient}>OpenRoIS</span>: One Standard Interface for Robots,
+          <Heading as="h1" className="sibling-hero__title">
+            <span className="sibling-hero__name">OpenRoIS</span>: One Standard Interface for Robots,
             Avatars, and AI Services
           </Heading>
-          <p className={styles.heroLead}>
+          <p className="sibling-hero__lead">
             A community-driven open-source middleware implementing the OMG Robotic Interaction
             Service (RoIS) Framework 2.0. Service applications control physical robots, virtual
             avatars, and AI services through standard, symbolic interfaces, locally or over the
             internet.
           </p>
-          <div className={styles.heroButtons}>
-            <Link className={clsx('button button--primary button--lg', styles.cta)} to="/docs/getting-started/quickstart">
+          <div className="sibling-buttons">
+            <Link className="button button--primary button--lg sibling-cta" to="/docs/getting-started/quickstart">
               Get Started
             </Link>
-            <Link className={clsx('button button--secondary button--lg', styles.ctaSecondary)} to="/docs/intro">
+            <Link className="button button--secondary button--lg sibling-cta-secondary" to="/docs/intro">
               Documentation
             </Link>
           </div>
           <HeroLinks />
         </div>
-        <div className={styles.heroCode}>
-          <figure className={styles.heroVideo}>
-            <div className={styles.window}>
-              <div className={styles.windowBar}>
+        <div className="sibling-hero__media">
+          <figure className="sibling-hero__figure">
+            <div className="sibling-window">
+              <div className="sibling-window__bar">
                 <span />
                 <span />
                 <span />
@@ -395,7 +399,7 @@ function Hero(): ReactNode {
               </div>
               <DemoVideo />
             </div>
-            <figcaption>
+            <figcaption className="sibling-hero__caption">
               The HRI client against the mock engine, no robot attached.{' '}
               <Link to="/docs/getting-started/quickstart">Run It Yourself →</Link>
             </figcaption>
@@ -408,10 +412,10 @@ function Hero(): ReactNode {
 
 function Why(): ReactNode {
   return (
-    <section className={styles.section}>
+    <section className="sibling-section">
       <div className="container">
-        <div className={styles.sectionHead}>
-          <span className={styles.kicker}>Why OpenRoIS</span>
+        <div className="sibling-section__head">
+          <span className="sibling-kicker">Why OpenRoIS</span>
           <Heading as="h2">Write the Application Once. Integrate Each Platform Once.</Heading>
           <p>
             Service applications for human-robot interaction are usually written against the
@@ -436,19 +440,19 @@ function Why(): ReactNode {
 
 function Features(): ReactNode {
   return (
-    <section className={clsx(styles.section, styles.sectionAlt)}>
+    <section className="sibling-section sibling-section--alt">
       <div className="container">
-        <div className={styles.sectionHead}>
-          <span className={styles.kicker}>What OpenRoIS Provides</span>
+        <div className="sibling-section__head">
+          <span className="sibling-kicker">What OpenRoIS Provides</span>
           <Heading as="h2">The Building Blocks for Putting RoIS to Work</Heading>
         </div>
-        <div className={styles.featureGrid}>
+        <div className="sibling-card-grid">
           {FEATURES.map((f) => (
-            <Link key={f.title} to={f.to} className={styles.featureCard}>
-              <span className={styles.tag}>{f.tag}</span>
+            <Link key={f.title} to={f.to} className="sibling-card">
+              <span className="sibling-tag">{f.tag}</span>
               <Heading as="h3">{f.title}</Heading>
               <p>{f.body}</p>
-              <span className={styles.more}>Learn more →</span>
+              <span className="sibling-card__more">Learn more →</span>
             </Link>
           ))}
         </div>
@@ -459,10 +463,10 @@ function Features(): ReactNode {
 
 function Interfaces(): ReactNode {
   return (
-    <section className={styles.section}>
+    <section className="sibling-section">
       <div className="container">
-        <div className={styles.sectionHead}>
-          <span className={styles.kicker}>The Five RoIS Interfaces</span>
+        <div className="sibling-section__head">
+          <span className="sibling-kicker">The Five RoIS Interfaces</span>
           <Heading as="h2">Standard Operations over <span className={styles.nowrap}>JSON-RPC 2.0</span></Heading>
           <p>
             RoIS 2.0 defines what a service application can ask of an HRI Engine. OpenRoIS maps each
@@ -488,7 +492,7 @@ function Interfaces(): ReactNode {
             </div>
           ))}
         </div>
-        <div className={styles.centerLink}>
+        <div className="sibling-center-link">
           <Link to="/docs/reference/wire-protocol">Read the Wire Protocol Reference →</Link>
         </div>
       </div>
@@ -498,10 +502,10 @@ function Interfaces(): ReactNode {
 
 function Architecture(): ReactNode {
   return (
-    <section className={clsx(styles.section, styles.sectionAlt)}>
+    <section className="sibling-section sibling-section--alt">
       <div className="container">
-        <div className={styles.sectionHead}>
-          <span className={styles.kicker}>Architecture</span>
+        <div className="sibling-section__head">
+          <span className="sibling-kicker">Architecture</span>
           <Heading as="h2">The RoIS Model, Realized as Processes You Can Deploy</Heading>
           <p>
             The gateway hosts the main HRI Engine. Each adapter hosts a sub HRI Engine for one robot,
@@ -518,7 +522,7 @@ function Architecture(): ReactNode {
             }}
           />
         </figure>
-        <div className={styles.centerLink}>
+        <div className="sibling-center-link">
           <Link to="/docs/concepts/architecture">Explore the Architecture →</Link>
         </div>
       </div>
@@ -528,10 +532,10 @@ function Architecture(): ReactNode {
 
 function Code(): ReactNode {
   return (
-    <section className={styles.section}>
+    <section className="sibling-section">
       <div className={clsx('container', styles.codeSection)}>
         <div className={styles.codeText}>
-          <span className={styles.kicker}>For Developers</span>
+          <span className="sibling-kicker">For Developers</span>
           <Heading as="h2">Build on Either Side of the Standard</Heading>
           <p>
             Application developers use an SDK to address any platform through the RoIS interfaces.
@@ -567,10 +571,10 @@ function Code(): ReactNode {
 
 function Status(): ReactNode {
   return (
-    <section className={clsx(styles.section, styles.sectionAlt)}>
+    <section className="sibling-section sibling-section--alt">
       <div className="container">
-        <div className={styles.sectionHead}>
-          <span className={styles.kicker}>Project Status</span>
+        <div className="sibling-section__head">
+          <span className="sibling-kicker">Project Status</span>
           <Heading as="h2">Built in the Open, One Capability at a Time</Heading>
           <p>
             OpenRoIS is alpha software with an unstable API. The foundations are in place and
@@ -589,7 +593,7 @@ function Status(): ReactNode {
             </div>
           ))}
         </div>
-        <div className={styles.centerLink}>
+        <div className="sibling-center-link">
           <Link to="/docs/project/roadmap">See the Full Roadmap →</Link>
         </div>
       </div>
@@ -599,10 +603,10 @@ function Status(): ReactNode {
 
 function Community(): ReactNode {
   return (
-    <section className={styles.section}>
-      <div className={clsx('container', styles.communityGrid)}>
-        <div className={styles.communityCard}>
-          <span className={styles.kicker}>Get Involved</span>
+    <section className="sibling-section">
+      <div className="container sibling-community">
+        <div className="sibling-community__card">
+          <span className="sibling-kicker">Get Involved</span>
           <Heading as="h2">Help Carry RoIS into Practice</Heading>
           <p>
             OpenRoIS is community-driven and developed in the open under the Apache License 2.0.
@@ -610,14 +614,14 @@ function Community(): ReactNode {
             are the natural entry point, and the roadmap lists work that can be picked up in
             parallel.
           </p>
-          <div className={styles.standards}>
+          <div className="sibling-chips">
             {STANDARDS.map((s) => (
-              <span key={s} className={styles.chip}>
+              <span key={s} className="sibling-chip">
                 {s}
               </span>
             ))}
           </div>
-          <div className={styles.heroButtons}>
+          <div className="sibling-buttons">
             <Link className="button button--primary" href={GITHUB_REPO}>
               Contribute on GitHub
             </Link>
@@ -626,8 +630,8 @@ function Community(): ReactNode {
             </Link>
           </div>
         </div>
-        <div className={styles.communityCard}>
-          <span className={styles.kicker}>Cite OpenRoIS</span>
+        <div className="sibling-community__card">
+          <span className="sibling-kicker">Cite OpenRoIS</span>
           <Heading as="h3">Using OpenRoIS in Your Research?</Heading>
           <p>
             The position paper describing OpenRoIS was submitted to SII 2027 and is under

@@ -1,9 +1,24 @@
 /**
- * OpenRoIS theme.
+ * OpenRoIS palette and content styles.
  *
- * Colors come from the OpenRoIS logo (#0070C0 to #57D2FF). The role colors
- * used in diagrams (application, core, adapter, host) match the figures of
- * the OpenRoIS paper so that the website and the publications read as one.
+ * The colors come from the OpenRoIS logo (static/img/logo.svg): #0070C0 is
+ * the primary color in light mode, #3EA2EA the primary color in dark mode,
+ * and #00B0F0 and #57D2FF the accents. The shades of the primary color follow
+ * the color generator of Docusaurus, which darkens by 10%, 15%, and 30% and
+ * lightens by the same steps.
+ *
+ * Links meet WCAG 2.2 AA (4.5:1): #0070C0 on white is 5.15:1, and #3EA2EA on
+ * the dark background #0b1017 is 6.87:1.
+ *
+ * The role colors used in diagrams (application, core, adapter, host) match
+ * the figures of the OpenRoIS paper so that the website and the publications
+ * read as one.
+ *
+ * Everything that this site shares with openrosde.org, from the fonts to the
+ * header, the footer, and the hero, lives in src/css/sibling.css, which loads
+ * before this file and lists the variables below. Keep this file to the
+ * colors of OpenRoIS and to the styles of its own content: figures and
+ * status pills.
  */
 
 :root {
@@ -11,192 +26,57 @@
   --ifm-color-primary-dark: #0065ad;
   --ifm-color-primary-darker: #005fa3;
   --ifm-color-primary-darkest: #004e86;
-  --ifm-color-primary-light: #0a7ed2;
-  --ifm-color-primary-lighter: #1f8ad8;
-  --ifm-color-primary-lightest: #4ba3e3;
+  --ifm-color-primary-light: #007bd3;
+  --ifm-color-primary-lighter: #0081dd;
+  --ifm-color-primary-lightest: #0092fa;
 
-  --openrois-accent: #00b0f0;
-  --openrois-accent-soft: #57d2ff;
-  --openrois-ink: #0b1f33;
-  --openrois-muted: #56657a;
-  --openrois-surface: #ffffff;
-  --openrois-surface-2: #f6f8fb;
-  --openrois-border: #e3e8ef;
-  --openrois-grid: rgba(0, 112, 192, 0.06);
+  --sibling-primary-rgb: 0, 112, 192;
+  --sibling-accent: #00b0f0;
+  --sibling-accent-rgb: 0, 176, 240;
+  --sibling-hero-gradient: linear-gradient(90deg, #0070c0 0%, #0086cf 55%, #009ee0 100%);
+  --sibling-announcement-background: linear-gradient(90deg, #0b3b64, #0070c0);
+
+  --sibling-ink: #0b1f33;
+  --sibling-muted: #56657a;
+  --sibling-surface: #ffffff;
+  --sibling-surface-2: #f6f8fb;
+  --sibling-border: #e3e8ef;
+  --sibling-window-dot: #d8dee7;
+  --sibling-shadow-rgb: 11, 31, 51;
+
+  --sibling-footer-background: #07111c;
+  --sibling-footer-border: #16273a;
+  --sibling-footer-link: #b5c3d4;
+  --sibling-footer-muted: #7f91a6;
 
   --openrois-role-app: #2e5c8a;
   --openrois-role-core: #4e7a38;
   --openrois-role-adapter: #a6821a;
   --openrois-role-host: #707070;
-
-  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
-    sans-serif;
-  --ifm-font-family-monospace: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
-    monospace;
-  --ifm-heading-font-weight: 650;
-  --ifm-code-font-size: 88%;
-  --ifm-line-height-base: 1.65;
-  --ifm-navbar-height: 64px;
-  --ifm-global-radius: 8px;
-  --ifm-code-border-radius: 6px;
-  --ifm-card-border-radius: 12px;
-  --ifm-toc-border-color: var(--openrois-border);
-  --ifm-hr-border-color: var(--openrois-border);
-  --docusaurus-highlighted-code-line-bg: rgba(0, 112, 192, 0.1);
-  --docusaurus-announcement-bar-height: auto;
 }
 
 [data-theme='dark'] {
-  --ifm-color-primary: #4ba3e3;
-  --ifm-color-primary-dark: #3497df;
-  --ifm-color-primary-darker: #2891dd;
-  --ifm-color-primary-darkest: #1e78ba;
-  --ifm-color-primary-light: #62afe7;
-  --ifm-color-primary-lighter: #6eb5e9;
-  --ifm-color-primary-lightest: #92c8ef;
+  --ifm-color-primary: #3ea2ea;
+  --ifm-color-primary-dark: #2395e7;
+  --ifm-color-primary-darker: #198ee3;
+  --ifm-color-primary-darkest: #1475bb;
+  --ifm-color-primary-light: #59afed;
+  --ifm-color-primary-lighter: #66b5ee;
+  --ifm-color-primary-lightest: #8ec9f3;
 
-  --openrois-ink: #e8eef6;
-  --openrois-muted: #9aa8ba;
-  --openrois-surface: #111823;
-  --openrois-surface-2: #0c121b;
-  --openrois-border: #243142;
-  --openrois-grid: rgba(75, 163, 227, 0.07);
+  --sibling-primary-rgb: 62, 162, 234;
+  --sibling-hero-gradient: linear-gradient(90deg, #3ea2ea 0%, #4abaf4 55%, #57d2ff 100%);
+
+  --sibling-ink: #e8eef6;
+  --sibling-muted: #9aa8ba;
+  --sibling-surface: #111823;
+  --sibling-surface-2: #0c121b;
+  --sibling-border: #243142;
+  --sibling-window-dot: #2c3a4c;
 
   --ifm-background-color: #0b1017;
   --ifm-background-surface-color: #0f1620;
   --ifm-navbar-background-color: rgba(11, 16, 23, 0.85);
-  --docusaurus-highlighted-code-line-bg: rgba(75, 163, 227, 0.18);
-}
-
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-h1,
-h2,
-h3 {
-  letter-spacing: -0.015em;
-}
-
-/* Navbar */
-.navbar {
-  backdrop-filter: saturate(180%) blur(10px);
-  -webkit-backdrop-filter: saturate(180%) blur(10px);
-  background-color: rgba(255, 255, 255, 0.85);
-  border-bottom: 1px solid var(--openrois-border);
-  box-shadow: none;
-}
-
-[data-theme='dark'] .navbar {
-  background-color: var(--ifm-navbar-background-color);
-}
-
-.navbar__title {
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-
-.navbar__logo {
-  height: 1.9rem;
-}
-
-.navbar__link {
-  font-weight: 500;
-  font-size: 0.94rem;
-}
-
-.header-github-link::before {
-  content: '';
-  width: 22px;
-  height: 22px;
-  display: flex;
-  background-color: var(--ifm-navbar-link-color);
-  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
-  mask-repeat: no-repeat;
-  mask-size: contain;
-  transition: background-color var(--ifm-transition-fast);
-}
-
-.header-github-link:hover::before {
-  background-color: var(--ifm-color-primary);
-}
-
-/* Announcement bar */
-.theme-announcement-bar {
-  background: linear-gradient(90deg, #0b3b64, #0070c0);
-  color: #eaf5ff;
-  font-size: 0.88rem;
-  border-bottom: none;
-}
-
-.theme-announcement-bar a {
-  color: #ffffff;
-  font-weight: 600;
-}
-
-/* Docs content */
-.markdown {
-  --ifm-h1-font-size: 2.35rem;
-  --ifm-h2-font-size: 1.6rem;
-  --ifm-h3-font-size: 1.2rem;
-}
-
-.markdown h1:first-child {
-  margin-bottom: 1rem;
-}
-
-.markdown > p:first-of-type {
-  font-size: 1.08rem;
-  color: var(--openrois-muted);
-}
-
-.markdown table {
-  display: table;
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.93rem;
-}
-
-.markdown table thead tr {
-  background: var(--openrois-surface-2);
-  border-bottom: 1px solid var(--openrois-border);
-}
-
-.markdown table th,
-.markdown table td {
-  border: 1px solid var(--openrois-border);
-  padding: 0.55rem 0.8rem;
-}
-
-.markdown table tr:nth-child(2n) {
-  background: transparent;
-}
-
-.markdown img {
-  border-radius: 12px;
-}
-
-.theme-doc-sidebar-menu .menu__link {
-  font-size: 0.93rem;
-}
-
-.menu__list-item-collapsible .menu__link--sublist {
-  font-weight: 600;
-}
-
-.theme-admonition {
-  border-radius: 10px;
-}
-
-code {
-  border: 1px solid var(--openrois-border);
-  background-color: var(--openrois-surface-2);
-}
-
-.prism-code {
-  font-size: 0.86rem;
 }
 
 /* Diagrams keep a white card in dark mode so their role colors stay legible. */
@@ -215,7 +95,7 @@ code {
   margin-top: 0.6rem;
   text-align: center;
   font-size: 0.88rem;
-  color: var(--openrois-muted);
+  color: var(--sibling-muted);
 }
 
 /* Status pills, usable from Markdown via the Status component. */
@@ -267,25 +147,4 @@ code {
 
 [data-theme='dark'] .status-pill--planned {
   color: #9aa8ba;
-}
-
-/* Footer */
-.footer--dark {
-  --ifm-footer-background-color: #07111c;
-  --ifm-footer-link-color: #b5c3d4;
-  --ifm-footer-title-color: #ffffff;
-  border-top: 1px solid #16273a;
-}
-
-.footer__copyright {
-  font-size: 0.8rem;
-  color: #7f91a6;
-  line-height: 1.6;
-}
-
-/* Inline code inside code blocks must not inherit the inline-code border. */
-pre code,
-.prism-code code {
-  border: none;
-  background: transparent;
 }

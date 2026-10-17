@@ -29,14 +29,15 @@ npm run serve      # serve the production build locally
 
 ## Structure
 
-| Path | Contents |
-|------|----------|
-| `src/pages/index.tsx` | Homepage |
-| `src/css/custom.css` | Theme: colors, typography, status pills |
-| `docs/` | Documentation, organized as Getting started, Concepts, Guides, Reference, and Project |
-| `sidebars.ts` | Documentation navigation |
-| `static/img/` | Logo, diagrams (light and dark variants), and screenshots |
-| `docusaurus.config.ts` | Site configuration, including redirects from former URLs |
+| Path                   | Contents                                                                              |
+| ---------------------- | ------------------------------------------------------------------------------------- |
+| `src/pages/index.tsx`  | Homepage                                                                              |
+| `src/css/sibling.css`  | Fonts, header, footer, hero, and cards, shared word for word with `openrosde.org`     |
+| `src/css/custom.css`   | Palette of OpenRoIS, taken from its logo, and the figure and status pill styles       |
+| `docs/`                | Documentation, organized as Getting started, Concepts, Guides, Reference, and Project |
+| `sidebars.ts`          | Documentation navigation                                                              |
+| `static/img/`          | Logo, diagrams (light and dark variants), and screenshots                             |
+| `docusaurus.config.ts` | Site configuration, including redirects from former URLs                              |
 
 ## Writing Guidelines
 

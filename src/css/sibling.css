@@ -1,0 +1,701 @@
+/**
+ * Sibling kit of openrosde.org and openrois.org.
+ *
+ * OpenRoSDE and OpenRoIS are sibling open-source projects led by Coarobo GK.
+ * Their two sites share this file word for word, so that they read as twins:
+ * the same fonts, header, footer, hero, cards, radii, and spacing, each in the
+ * colors of its own logo.
+ *
+ * This file is shared word for word with the other site:
+ *   https://github.com/openrosde/openrosde-docs/blob/main/src/css/sibling.css
+ *   https://github.com/openrois/openrois-docs/blob/main/src/css/sibling.css
+ * Change it in both repositories in the same way, and keep the colors of a
+ * project out of it.
+ *
+ * Each site sets its palette in src/css/custom.css, which loads after this
+ * file and defines the following variables, in light and in dark mode:
+ *
+ *   --ifm-color-primary and its six shades   links, buttons, and highlights
+ *   --sibling-primary-rgb                    the primary color as "r, g, b", for tints
+ *   --sibling-accent, --sibling-accent-rgb   the second color of the logo
+ *   --sibling-hero-gradient                  the name of the project in the hero
+ *   --sibling-announcement-background        the announcement bar, if the site has one
+ *   --sibling-ink, --sibling-muted           text
+ *   --sibling-surface, --sibling-surface-2   cards and alternate sections
+ *   --sibling-border                         borders and rules
+ *   --sibling-window-dot                     the three dots of the window in the hero
+ *   --sibling-shadow-rgb                     shadows, as "r, g, b"
+ *   --sibling-footer-background, --sibling-footer-border,
+ *   --sibling-footer-link, --sibling-footer-muted   the dark footer
+ */
+
+:root {
+  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+    sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
+  --ifm-heading-font-weight: 650;
+  --ifm-code-font-size: 88%;
+  --ifm-line-height-base: 1.65;
+  --ifm-navbar-height: 64px;
+  --ifm-global-radius: 8px;
+  --ifm-code-border-radius: 6px;
+  --ifm-card-border-radius: 12px;
+  --ifm-toc-border-color: var(--sibling-border);
+  --ifm-hr-border-color: var(--sibling-border);
+  --docusaurus-highlighted-code-line-bg: rgba(var(--sibling-primary-rgb), 0.1);
+  --docusaurus-announcement-bar-height: auto;
+
+  --sibling-radius-tag: 6px;
+  --sibling-radius-card: 14px;
+  --sibling-radius-panel: 16px;
+  --sibling-radius-pill: 999px;
+  --sibling-space-section: 5.5rem;
+  --sibling-space-section-narrow: 3.5rem;
+  --sibling-grid: rgba(var(--sibling-primary-rgb), 0.06);
+}
+
+[data-theme='dark'] {
+  --docusaurus-highlighted-code-line-bg: rgba(var(--sibling-primary-rgb), 0.18);
+  --sibling-grid: rgba(var(--sibling-primary-rgb), 0.07);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.015em;
+}
+
+/* Navbar */
+.navbar {
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  background-color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid var(--sibling-border);
+  box-shadow: none;
+}
+
+[data-theme='dark'] .navbar {
+  background-color: var(--ifm-navbar-background-color);
+}
+
+.navbar__logo {
+  height: 2rem;
+}
+
+.navbar__title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.navbar__link {
+  font-weight: 500;
+  font-size: 0.94rem;
+  white-space: nowrap;
+}
+
+/* Between the mobile menu and wide screens, tighten the navbar so that every item stays on one line. */
+@media screen and (min-width: 997px) and (max-width: 1199px) {
+  .navbar {
+    --ifm-navbar-item-padding-horizontal: 0.5rem;
+  }
+
+  .navbar__link {
+    font-size: 0.88rem;
+  }
+}
+
+/* The Open Source dropdown lists both sibling sites, then Coarobo GK below a rule. */
+.navbar .dropdown__menu {
+  min-width: 12rem;
+  border: 1px solid var(--sibling-border);
+  border-radius: 12px;
+  box-shadow: 0 18px 40px -20px rgba(var(--sibling-shadow-rgb), 0.45);
+}
+
+.navbar .dropdown__link {
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.navbar .dropdown__link.sibling-dropdown-lead {
+  margin-top: 0.35rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--sibling-border);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  font-size: 0.85rem;
+  color: var(--sibling-muted);
+}
+
+.menu__link.sibling-dropdown-lead {
+  font-size: 0.9rem;
+  color: var(--sibling-muted);
+}
+
+.header-github-link::before {
+  content: '';
+  width: 22px;
+  height: 22px;
+  display: flex;
+  background-color: var(--ifm-navbar-link-color);
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  transition: background-color var(--ifm-transition-fast);
+}
+
+.header-github-link:hover::before {
+  background-color: var(--ifm-color-primary);
+}
+
+/* Announcement bar */
+.theme-announcement-bar {
+  background: var(--sibling-announcement-background);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.88rem;
+  border-bottom: none;
+}
+
+.theme-announcement-bar a {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Docs content */
+.markdown {
+  --ifm-h1-font-size: 2.35rem;
+  --ifm-h2-font-size: 1.6rem;
+  --ifm-h3-font-size: 1.2rem;
+}
+
+.markdown h1:first-child {
+  margin-bottom: 1rem;
+}
+
+.markdown > p:first-of-type {
+  font-size: 1.08rem;
+  color: var(--sibling-muted);
+}
+
+.markdown table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.93rem;
+}
+
+/* Wide tables scroll on narrow screens. */
+@media screen and (max-width: 996px) {
+  .markdown table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* On wider screens, long links and code in table cells may break anywhere, so that a table never runs under the table of contents. */
+@media screen and (min-width: 997px) {
+  .markdown td a,
+  .markdown td code {
+    overflow-wrap: anywhere;
+  }
+}
+
+.markdown table thead tr {
+  background: var(--sibling-surface-2);
+  border-bottom: 1px solid var(--sibling-border);
+}
+
+.markdown table th,
+.markdown table td {
+  border: 1px solid var(--sibling-border);
+  padding: 0.55rem 0.8rem;
+}
+
+.markdown table tr:nth-child(2n) {
+  background: transparent;
+}
+
+.markdown img {
+  border-radius: 12px;
+}
+
+.theme-doc-sidebar-menu .menu__link {
+  font-size: 0.93rem;
+}
+
+.menu__list-item-collapsible .menu__link--sublist {
+  font-weight: 600;
+}
+
+.theme-admonition {
+  border-radius: 10px;
+}
+
+code {
+  border: 1px solid var(--sibling-border);
+  background-color: var(--sibling-surface-2);
+}
+
+.prism-code {
+  font-size: 0.86rem;
+}
+
+/* Inline code inside code blocks must not inherit the inline-code border. */
+pre code,
+.prism-code code {
+  border: none;
+  background: transparent;
+}
+
+/* Footer */
+.footer--dark {
+  --ifm-footer-background-color: var(--sibling-footer-background);
+  --ifm-footer-link-color: var(--sibling-footer-link);
+  --ifm-footer-link-hover-color: #ffffff;
+  --ifm-footer-title-color: #ffffff;
+  border-top: 1px solid var(--sibling-footer-border);
+}
+
+.footer {
+  padding-top: 3.5rem;
+}
+
+.footer__title {
+  margin-bottom: 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer__item {
+  font-size: 0.92rem;
+}
+
+/* Docusaurus sizes footer links to their content, so cap them to let long labels wrap. */
+.footer__link-item {
+  max-width: 100%;
+}
+
+.footer__bottom {
+  margin-top: 1.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--sibling-footer-border);
+}
+
+.footer__logo {
+  width: auto;
+  height: 2.5rem;
+  margin-top: 0;
+}
+
+.footer__copyright {
+  font-size: 0.8rem;
+  color: var(--sibling-footer-muted);
+  line-height: 1.7;
+}
+
+/* Home page: hero */
+.sibling-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 4.5rem 0 4.75rem;
+  background:
+    radial-gradient(60rem 30rem at 85% -10%, rgba(var(--sibling-accent-rgb), 0.18), transparent 60%),
+    radial-gradient(50rem 30rem at -10% 110%, rgba(var(--sibling-primary-rgb), 0.14), transparent 60%),
+    var(--ifm-background-color);
+  border-bottom: 1px solid var(--sibling-border);
+}
+
+.sibling-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--sibling-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--sibling-grid) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at 60% 40%, black 30%, transparent 75%);
+  pointer-events: none;
+}
+
+.sibling-hero__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.sibling-hero__text,
+.sibling-hero__media {
+  min-width: 0;
+}
+
+/* The logo and the eyebrow share one row above the heading. */
+.sibling-hero__brand {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem 1.1rem;
+  margin-bottom: 1.4rem;
+}
+
+.sibling-hero__logo {
+  display: block;
+  flex: none;
+  width: auto;
+  height: 4rem;
+}
+
+.sibling-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0.85rem;
+  border: 1px solid var(--sibling-border);
+  border-radius: var(--sibling-radius-pill);
+  background: var(--sibling-surface);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--sibling-muted);
+}
+
+.sibling-hero__eyebrow-item {
+  color: inherit;
+}
+
+a.sibling-hero__eyebrow-item:hover {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.sibling-hero__eyebrow-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--sibling-accent);
+}
+
+.sibling-hero__title {
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  color: var(--sibling-ink);
+  margin-bottom: 1.1rem;
+}
+
+.sibling-hero__name {
+  background: var(--sibling-hero-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sibling-hero__lead {
+  max-width: 37.5rem;
+  margin-bottom: 1.75rem;
+  font-size: 1.04rem;
+  line-height: 1.6;
+  color: var(--sibling-muted);
+  text-wrap: pretty;
+}
+
+.sibling-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem 1rem;
+}
+
+.sibling-cta {
+  box-shadow: 0 8px 24px -10px rgba(var(--sibling-primary-rgb), 0.6);
+}
+
+.sibling-cta-secondary {
+  background: var(--sibling-surface);
+  border: 1px solid var(--sibling-border);
+  color: var(--sibling-ink);
+}
+
+.sibling-hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.6rem;
+  margin-top: 1.1rem;
+}
+
+.sibling-hero__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.8rem;
+  border: 1px solid var(--sibling-border);
+  border-radius: var(--sibling-radius-pill);
+  background: var(--sibling-surface);
+  color: var(--sibling-ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.sibling-hero__link:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.sibling-hero__link svg {
+  flex: none;
+}
+
+.sibling-hero__figure {
+  margin: 0;
+}
+
+.sibling-hero__caption {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--sibling-muted);
+  text-wrap: pretty;
+}
+
+.sibling-hero__caption a {
+  white-space: nowrap;
+}
+
+.sibling-window {
+  border-radius: var(--sibling-radius-card);
+  overflow: hidden;
+  border: 1px solid var(--sibling-border);
+  background: var(--sibling-surface);
+  box-shadow:
+    0 30px 60px -25px rgba(var(--sibling-shadow-rgb), 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.sibling-window__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--sibling-border);
+  background: var(--sibling-surface-2);
+}
+
+.sibling-window__bar span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--sibling-window-dot);
+}
+
+.sibling-window__bar em {
+  margin-left: 0.5rem;
+  font-style: normal;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.78rem;
+  color: var(--sibling-muted);
+}
+
+/* Home page: sections */
+.sibling-section {
+  padding: var(--sibling-space-section) 0;
+}
+
+.sibling-section--alt {
+  background: var(--sibling-surface-2);
+  border-top: 1px solid var(--sibling-border);
+  border-bottom: 1px solid var(--sibling-border);
+}
+
+.sibling-section__head {
+  max-width: 48rem;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.sibling-section__head h2 {
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  letter-spacing: -0.025em;
+  margin-bottom: 1rem;
+  color: var(--sibling-ink);
+}
+
+.sibling-section__head p {
+  font-size: 1.05rem;
+  color: var(--sibling-muted);
+  margin: 0;
+}
+
+.sibling-kicker {
+  display: inline-block;
+  margin-bottom: 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ifm-color-primary);
+}
+
+.sibling-center-link {
+  margin-top: 2.2rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Home page: cards */
+.sibling-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.sibling-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem 1.6rem 1.3rem;
+  border-radius: var(--sibling-radius-card);
+  border: 1px solid var(--sibling-border);
+  background: var(--sibling-surface);
+  color: inherit;
+  transition: border-color 0.15s ease;
+}
+
+a.sibling-card:hover {
+  text-decoration: none;
+  color: inherit;
+  border-color: rgba(var(--sibling-primary-rgb), 0.45);
+}
+
+.sibling-card h3 {
+  font-size: 1.12rem;
+  margin: 0.9rem 0 0.5rem;
+  color: var(--sibling-ink);
+}
+
+.sibling-card p {
+  flex: 1;
+  margin-bottom: 1rem;
+  color: var(--sibling-muted);
+  font-size: 0.95rem;
+}
+
+.sibling-card__more {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+}
+
+.sibling-tag {
+  align-self: flex-start;
+  padding: 0.12rem 0.55rem;
+  border-radius: var(--sibling-radius-tag);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--ifm-color-primary);
+  background: rgba(var(--sibling-primary-rgb), 0.08);
+  border: 1px solid rgba(var(--sibling-primary-rgb), 0.2);
+}
+
+/* Home page: community */
+.sibling-community {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+.sibling-community__card {
+  min-width: 0;
+  padding: 2.2rem;
+  border-radius: var(--sibling-radius-panel);
+  border: 1px solid var(--sibling-border);
+  background: var(--sibling-surface);
+}
+
+.sibling-community__card h2,
+.sibling-community__card h3 {
+  color: var(--sibling-ink);
+  letter-spacing: -0.02em;
+}
+
+.sibling-community__card p {
+  color: var(--sibling-muted);
+}
+
+.sibling-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.2rem 0 1.8rem;
+}
+
+.sibling-chip {
+  padding: 0.25rem 0.7rem;
+  border-radius: var(--sibling-radius-pill);
+  font-size: 0.82rem;
+  font-weight: 500;
+  border: 1px solid var(--sibling-border);
+  background: var(--sibling-surface-2);
+  color: var(--sibling-ink);
+}
+
+/* Responsive */
+@media screen and (max-width: 996px) {
+  .sibling-hero {
+    padding: 3rem 0 3.5rem;
+  }
+
+  .sibling-hero__inner,
+  .sibling-community {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  .sibling-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sibling-section {
+    padding: var(--sibling-space-section-narrow) 0;
+  }
+
+  .footer__links > .footer__col {
+    --ifm-col-width: 50%;
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .sibling-hero__logo {
+    height: 3.25rem;
+  }
+
+  .sibling-hero__lead {
+    font-size: 1rem;
+  }
+
+  .sibling-buttons .button--lg {
+    padding: 0.6rem 1.25rem;
+    font-size: 1rem;
+  }
+
+  .sibling-card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sibling-community__card {
+    padding: 1.5rem;
+  }
+}

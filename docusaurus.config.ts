@@ -10,6 +10,15 @@ const GITHUB_REPO = 'https://github.com/openrois/openrois';
 // Keep in sync with src/pages/index.tsx.
 const PAPER_URL = 'https://arxiv.org/abs/2609.21178';
 const ROIS_SPEC = 'https://www.omg.org/spec/RoIS/2.0';
+const COAROBO_URL = 'https://coarobo.com/';
+// The sibling site, which shares src/css/sibling.css and the layout of the
+// header, the hero, and the footer with this one.
+const SIBLING_URL = 'https://openrosde.org/';
+// The first year of OpenRoIS, that of the first commit of its repositories
+// (2026-06-25), which starts the copyright line of the footer.
+const FIRST_YEAR = 2026;
+const CURRENT_YEAR = new Date().getFullYear();
+const COPYRIGHT_YEARS = CURRENT_YEAR > FIRST_YEAR ? `${FIRST_YEAR}-${CURRENT_YEAR}` : `${FIRST_YEAR}`;
 
 // The documentation used to live in a single "White Paper" folder. These
 // redirects keep links to the old pages working after the restructure.
@@ -108,7 +117,8 @@ const config: Config = {
         },
         blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          // sibling.css is shared word for word with openrosde.org, and custom.css holds the palette of OpenRoIS.
+          customCss: ['./src/css/sibling.css', './src/css/custom.css'],
         },
       } satisfies Preset.Options,
     ],
@@ -152,14 +162,24 @@ const config: Config = {
       },
       items: [
         {type: 'docSidebar', sidebarId: 'docsSidebar', position: 'left', label: 'Documentation'},
-        {to: '/docs/getting-started/quickstart', label: 'Quickstart', position: 'left'},
+        {to: '/docs/getting-started/quickstart', label: 'Quick Start', position: 'left'},
         {to: '/docs/reference/wire-protocol', label: 'Protocol', position: 'left'},
         {to: '/docs/project/roadmap', label: 'Roadmap', position: 'left'},
-        {href: PAPER_URL, label: 'arXiv Preprint', position: 'right'},
+        {href: PAPER_URL, label: 'Paper', position: 'right'},
         {
           href: ROIS_SPEC,
           label: 'RoIS Specification',
           position: 'right',
+        },
+        {
+          type: 'dropdown',
+          label: 'Open Source',
+          position: 'right',
+          items: [
+            {to: '/', label: 'OpenRoIS', activeBaseRegex: '^/'},
+            {href: SIBLING_URL, label: 'OpenRoSDE'},
+            {href: COAROBO_URL, label: 'Led by Coarobo GK', className: 'sibling-dropdown-lead'},
+          ],
         },
         {
           href: GITHUB_REPO,
@@ -175,15 +195,15 @@ const config: Config = {
         alt: 'OpenRoIS logo',
         src: 'img/logo.svg',
         href: '/',
-        width: 36,
-        height: 36,
+        width: 40,
+        height: 40,
       },
       links: [
         {
           title: 'Documentation',
           items: [
             {label: 'Introduction', to: '/docs/intro'},
-            {label: 'Quickstart', to: '/docs/getting-started/quickstart'},
+            {label: 'Quick Start', to: '/docs/getting-started/quickstart'},
             {label: 'Architecture', to: '/docs/concepts/architecture'},
             {label: 'Wire Protocol', to: '/docs/reference/wire-protocol'},
           ],
@@ -193,8 +213,8 @@ const config: Config = {
           items: [
             {label: 'Roadmap', to: '/docs/project/roadmap'},
             {label: 'Related Work', to: '/docs/project/related-work'},
-            {label: 'Citing OpenRoIS', to: '/docs/project/citing'},
             {label: 'Contributing', to: '/docs/project/contributing'},
+            {label: 'Citing OpenRoIS', to: '/docs/project/citing'},
           ],
         },
         {
@@ -206,8 +226,19 @@ const config: Config = {
             {label: 'OMG RoIS Specification', href: ROIS_SPEC},
           ],
         },
+        {
+          title: 'Open Source',
+          items: [
+            {label: 'OpenRoSDE', href: SIBLING_URL},
+            {label: 'Led by Coarobo GK', href: COAROBO_URL},
+          ],
+        },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Coarobo GK. Developed by Coarobo GK and the OpenRoIS community under the Apache License 2.0.<br>OpenRoIS is a trademark of Coarobo GK. RoIS is a trademark of the Object Management Group.`,
+      copyright: [
+        `© ${COPYRIGHT_YEARS} Coarobo GK and the OpenRoIS community.`,
+        'Licensed under the Apache License 2.0.',
+        'OpenRoIS is a trademark of Coarobo GK. RoIS is a trademark of the Object Management Group.',
+      ].join('<br>'),
     },
     prism: {
       theme: prismThemes.github,
