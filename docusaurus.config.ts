@@ -19,10 +19,14 @@ const SIBLING_URL = 'https://openrosde.org/';
 const FIRST_YEAR = 2026;
 const CURRENT_YEAR = new Date().getFullYear();
 const COPYRIGHT_YEARS = CURRENT_YEAR > FIRST_YEAR ? `${FIRST_YEAR}-${CURRENT_YEAR}` : `${FIRST_YEAR}`;
-// A project of the family with its logo, for the Open Source dropdown and the footer.
+// A project of the family with its number and its logo, for the Open Source dropdown and the footer.
+// The numbers are those of coarobo.com, OpenRoSDE first since it came first, then OpenRoIS.
 // static/img/openrosde-logo.svg is a copy of static/img/logo.svg of openrosde/openrosde-docs.
-const projectWithLogo = (logo: string, name: string): string =>
-  `<span class="sibling-project"><img src="${logo}" alt="" width="20" height="20">${name}</span>`;
+const familyProject = (slug: string, number: string, logo: string, name: string): string =>
+  `<span class="sibling-project"><span class="sibling-number sibling-number--${slug}">${number}</span>` +
+  `<img src="${logo}" alt="" width="20" height="20">${name}</span>`;
+const OPENROSDE = familyProject('openrosde', '01', '/img/openrosde-logo.svg', 'OpenRoSDE');
+const OPENROIS = familyProject('openrois', '02', '/img/logo.svg', 'OpenRoIS');
 
 // The documentation used to live in a single "White Paper" folder. These
 // redirects keep links to the old pages working after the restructure.
@@ -137,6 +141,11 @@ const config: Config = {
     ],
   ],
 
+  // The place of the site in the family, which the shared footer shows beside its name.
+  customFields: {
+    sibling: {slug: 'openrois', number: '02'},
+  },
+
   themeConfig: {
     image: 'img/openrois-social-card.jpg',
     metadata: [
@@ -181,8 +190,8 @@ const config: Config = {
           label: 'Open Source',
           position: 'right',
           items: [
-            {to: '/', html: projectWithLogo('/img/logo.svg', 'OpenRoIS'), activeBaseRegex: '^/'},
-            {href: SIBLING_URL, html: projectWithLogo('/img/openrosde-logo.svg', 'OpenRoSDE')},
+            {href: SIBLING_URL, html: OPENROSDE},
+            {to: '/', html: OPENROIS, activeBaseRegex: '^/'},
             {href: COAROBO_URL, label: 'Led by Coarobo GK', className: 'sibling-dropdown-lead'},
           ],
         },
@@ -235,8 +244,9 @@ const config: Config = {
           title: 'Open Source',
           items: [
             {
-              html: `<a class="footer__link-item" href="${SIBLING_URL}" target="_blank" rel="noopener noreferrer">${projectWithLogo('/img/openrosde-logo.svg', 'OpenRoSDE')}</a>`,
+              html: `<a class="footer__link-item" href="${SIBLING_URL}" target="_blank" rel="noopener noreferrer">${OPENROSDE}</a>`,
             },
+            {html: `<a class="footer__link-item" href="/">${OPENROIS}</a>`},
             {label: 'Led by Coarobo GK', href: COAROBO_URL},
           ],
         },

@@ -10,7 +10,8 @@
  *   https://github.com/openrosde/openrosde-docs/blob/main/src/css/sibling.css
  *   https://github.com/openrois/openrois-docs/blob/main/src/css/sibling.css
  * Change it in both repositories in the same way, and keep the colors of a
- * project out of it. The layout of the footer lives in
+ * project out of it, apart from the numbers of the family, which show each
+ * project in its own color on both sites. The layout of the footer lives in
  * src/theme/Footer/Layout/index.tsx, which both sites share word for word too.
  *
  * Each site sets its palette in src/css/custom.css, which loads after this
@@ -97,6 +98,11 @@ h3 {
   pointer-events: none;
 }
 
+/* The mobile menu opens inside the navbar, so the bar leaves while it is open rather than cross it. */
+.navbar.navbar-sidebar--show::after {
+  display: none;
+}
+
 [data-theme='dark'] .navbar {
   background-color: var(--ifm-navbar-background-color);
 }
@@ -175,6 +181,51 @@ h3 {
   flex: none;
   width: 1.25rem;
   height: 1.25rem;
+}
+
+/*
+ * The numbers of the family, as coarobo.com numbers its communities: OpenRoSDE 01, since it came first, and OpenRoIS 02.
+ * The number follows a short bar that leans like the chevrons of the Coarobo isotype (226 over 439), in the color of the logo of its project.
+ */
+.sibling-number {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--sibling-number-ink);
+}
+
+.sibling-number::before {
+  content: '';
+  flex: none;
+  width: 0.777em;
+  height: 1.143em;
+  background: var(--sibling-number-bar);
+  clip-path: polygon(0 100%, 24.27% 100%, 100% 0, 75.73% 0);
+}
+
+.sibling-number--openrosde {
+  --sibling-number-bar: #5e5fc2;
+  --sibling-number-ink: #4a4bab;
+}
+
+.sibling-number--openrois {
+  --sibling-number-bar: #0070c0;
+  --sibling-number-ink: #015391;
+}
+
+[data-theme='dark'] .sibling-number--openrosde,
+.footer--dark .sibling-number--openrosde {
+  --sibling-number-ink: #9a9bf2;
+}
+
+[data-theme='dark'] .sibling-number--openrois,
+.footer--dark .sibling-number--openrois {
+  --sibling-number-ink: #00b0f0;
 }
 
 .header-github-link::before {
@@ -399,6 +450,13 @@ pre code,
 
 .sibling-footer__identity {
   min-width: 0;
+}
+
+.sibling-footer__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.65rem;
 }
 
 .sibling-footer__name {
