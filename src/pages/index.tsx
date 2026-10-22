@@ -365,7 +365,7 @@ function Hero(): ReactNode {
               <span className="sibling-hero__eyebrow-dot" />
               <span className="sibling-hero__eyebrow-item">Alpha</span>
               <span className="sibling-hero__eyebrow-dot" />
-              <span className="sibling-hero__eyebrow-item">Apache-2.0</span>
+              <span className="sibling-hero__eyebrow-item">Apache License 2.0</span>
             </div>
           </div>
           <Heading as="h1" className="sibling-hero__title">
@@ -652,7 +652,7 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title="Open-source middleware for the OMG RoIS Framework 2.0"
-      description="OpenRoIS implements the OMG Robotic Interaction Service (RoIS) Framework 2.0. Control physical robots, virtual avatars, and AI services through standard interfaces. Apache-2.0.">
+      description="OpenRoIS implements the OMG Robotic Interaction Service (RoIS) Framework 2.0. Control physical robots, virtual avatars, and AI services through standard interfaces. Apache License 2.0.">
       <Hero />
       <main>
         <Why />

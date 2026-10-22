@@ -45,7 +45,8 @@ npm run serve      # serve the production build locally
 - Write in a technical, precise voice. State what the software does, and mark anything
   not yet implemented as in progress or planned.
 - Use "OpenRoIS" for the project, "RoIS 2.0" or "OMG RoIS Framework 2.0" for the
-  specification, and "Apache-2.0" for the license.
+  specification, and "Apache License 2.0" in prose. Use the SPDX identifier
+  "Apache-2.0" in machine-readable metadata.
 - Avoid em dashes, en dashes, and semicolons in prose.
 - Keep diagrams consistent with the colors of the OpenRoIS publications: blue for
   applications, green for the OpenRoIS core, amber for adapters, and gray for hosts.
