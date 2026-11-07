@@ -49,10 +49,12 @@ with gRPC and ROS 2 backends.
 
 ### Phase 3: Client SDKs and First End-to-End Demonstration
 
-- **Done:** the TypeScript SDK, the profile-driven web client, the mock engine, and an
-  end-to-end demonstration of a web application controlling a physical robot through the
-  gateway and an adapter.
-- **Done:** the C# client SDK for Unity (`RoISClient`, callbacks on the main thread).
+- **Done:** the profile-driven web client, and an end-to-end demonstration of a web
+  application controlling a physical robot through the gateway and an adapter.
+- **Released:** the first alpha of the client SDKs, on 2026-11-07: the JavaScript SDK
+  (`@openrois/sdk` on npm), the Python SDK (`openrois-sdk` on PyPI), and the Unity SDK
+  (`org.openrois.sdk` by Git URL). All three pass one conformance list against the same
+  gateway and engine versions.
 - **Exit:** tagged release `v0.1.0`.
 
 ### Phase 4: Recursive Core in Python
