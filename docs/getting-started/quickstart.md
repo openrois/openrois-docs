@@ -1,15 +1,16 @@
 ---
 sidebar_label: Quick Start
 sidebar_position: 1
-description: Run a RoIS engine with simulated components and inspect it from your browser in a few minutes.
+description: Run a gateway with simulated components and inspect it from your browser in a few minutes.
 ---
 
 # Quick Start
 
-This quick start runs a RoIS engine with simulated components and connects the
+This quick start runs a gateway with simulated components behind it, and connects the
 OpenRoIS HRI Client, a browser-based inspector, to it. No robot is required.
 
-You will need [Node.js](https://nodejs.org/) 22 or later and Git.
+You will need [Docker](https://docs.docker.com/get-started/get-docker/) with Compose,
+[Node.js](https://nodejs.org/) 22.12 or later, and Git.
 
 ## 1. Get the Source
 
@@ -18,32 +19,24 @@ git clone https://github.com/openrois/openrois.git
 cd openrois
 ```
 
-## 2. Build the TypeScript Types and SDK
+## 2. Start a Gateway
 
-The HRI Client depends on the generated RoIS types and on the TypeScript SDK, which are
-built from source during the alpha.
+The gateway listens on `ws://127.0.0.1:8765`, with the mock adapter behind it. The mock
+adapter is an engine of its own that serves simulated components: Navigation,
+PersonDetection, SystemInformation, and a test fixture.
+
+```bash
+docker compose up --build
+```
+
+## 3. Open the Inspector
+
+In a second terminal, build the types and the JavaScript SDK, which the HRI Client uses from
+the repository, then start it:
 
 ```bash
 (cd interfaces/typescript && npm install && npm run build)
-(cd sdk/typescript && npm install && npm run build)
-```
-
-## 3. Start an Engine
-
-The mock engine is a RoIS engine test double. It exposes three simulated components
-(PersonDetection, Navigation, and SystemInformation) on `ws://127.0.0.1:8765`.
-
-```bash
-cd examples/mock-engine
-npm install
-npm start
-```
-
-## 4. Open the Inspector
-
-In a second terminal, start the HRI Client:
-
-```bash
+(cd sdk/javascript && npm install && npm run build)
 cd examples/hri-client
 npm install
 npm run dev
@@ -64,7 +57,8 @@ in the browser's network inspector.
 
 ## What Just Happened
 
-- The engine published an **HRI Engine profile** describing its components.
+- The gateway published an **HRI Engine profile** describing the components of every engine
+  behind it.
 - The client discovered the components at runtime instead of hardcoding them. This is
   what lets one RoIS application work with any robot behind the gateway.
 - Commands followed the RoIS reservation lifecycle: `bind`, then `execute`, then
@@ -74,5 +68,5 @@ in the browser's network inspector.
 
 - Read how the pieces fit together in the [architecture](../concepts/architecture.md).
 - Write your own [service application](../guides/service-application.md) with the
-  TypeScript SDK.
+  JavaScript, Python or Unity SDK.
 - Connect a real platform by writing a [component and adapter](../guides/components-and-adapters.md).

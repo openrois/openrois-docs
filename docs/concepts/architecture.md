@@ -21,7 +21,7 @@ Components are classes hosted by adapters.
 
 | RoIS concept | OpenRoIS realization |
 |--------------|----------------------|
-| Service Application | Your application, built with the TypeScript or C# SDK |
+| Service Application | Your application, built with the JavaScript, Python or Unity SDK |
 | Main HRI Engine | The **gateway**: an `Engine` with child engines, behind a WebSocket server |
 | Sub HRI Engine | An **adapter**: an `Engine` with local components, connected to the gateway |
 | HRI Component | A class decorated with `@component`, hosted by an adapter |

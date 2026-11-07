@@ -54,10 +54,10 @@ OpenRoIS provides them, developed in the open under the Apache License 2.0.
 ## Project Status
 
 OpenRoIS is **alpha software with an unstable API**. The interface types, the recursive
-engine, the adapter SDK, the TypeScript SDK, and reference components for a
-commercial robot are available and have been demonstrated with a physical robot.
-Media transport, published packages, and the full component library are
-on the [roadmap](project/roadmap.md).
+engine, the adapter SDK, and reference components for a commercial robot are available
+and have been demonstrated with a physical robot. The JavaScript, Python and Unity client
+SDKs have their first alpha releases, on npm, on PyPI and by Git URL. Media transport and
+the full component library are on the [roadmap](project/roadmap.md).
 
 ## Where to Go Next
 

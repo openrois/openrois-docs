@@ -1,91 +1,83 @@
 ---
 sidebar_label: Installation
 sidebar_position: 2
-description: Install the OpenRoIS packages from source for Python, TypeScript, and C#.
+description: Install the OpenRoIS client SDKs for JavaScript, Python and Unity, and the gateway and component packages.
 ---
 
 # Installation
 
-OpenRoIS is distributed as source during the alpha. Publication to PyPI, npm, NuGet, and
-the Unity Package Manager is [planned](../project/roadmap.md). The package names below
-are reserved for that purpose.
+OpenRoIS publishes alpha packages to npm and PyPI, and the Unity package installs by Git
+URL. Every package is **Alpha, pre-1.0, unstable API**.
 
 ## Requirements
 
 | Stack | Version |
 |-------|---------|
+| JavaScript | Node.js 22.12 or later, or a browser with a global `WebSocket` |
 | Python | 3.12 or later |
-| Node.js | 22 or later |
-| .NET | .NET Standard 2.1 (Unity 6.5 or later) |
+| Unity | 6000.0 or later |
 | ROS 2 (optional) | Jazzy Jalisco, for ROS 2 based components |
 
-## Python
+## Client SDKs
 
-The Python packages provide the RoIS types, the recursive engine, and the component
-framework. Install them into a virtual environment from a clone of the repository.
+A service application uses one of the three client SDKs. They have the same surface, with
+one method per operation of the RoIS method catalog.
 
-```bash
-git clone https://github.com/openrois/openrois.git
-cd openrois
-python3 -m venv .venv
-source .venv/bin/activate
-
-pip install ./interfaces/python      # openrois-interfaces: RoIS types
-pip install ./core                   # openrois-core: Engine, WsServer, WsClient
-pip install ./components/core        # openrois-components-core: component decorators
-```
-
-Reference components are separate packages, for example
-`pip install ./components/kachaka`.
-
-## TypeScript
-
-The TypeScript SDK depends on the generated TypeScript types. Build both, then reference
-the SDK from your project.
+### JavaScript
 
 ```bash
-(cd interfaces/typescript && npm install && npm run build)
-(cd sdk/typescript && npm install && npm run build)
+npm install @openrois/sdk
 ```
 
-```json title="package.json"
-{
-  "dependencies": {
-    "@openrois/sdk": "file:../openrois/sdk/typescript"
-  }
-}
+`@openrois/sdk` is one ES module build, written in TypeScript with its types included, for
+browsers and Node.js. `require` loads it from Node.js 22.12.
+
+### Python
+
+```bash
+pip install openrois-sdk
 ```
 
-The SDK ships both ESM and CommonJS builds and runs in browsers and in Node.js.
+`openrois-sdk` is an asyncio client in the `openrois.sdk` module.
 
-## C#
+### Unity
 
-The generated C# types target .NET Standard 2.1. Reference the project directly:
-
-```xml title="MyApp.csproj"
-<ItemGroup>
-  <ProjectReference Include="../openrois/interfaces/csharp/src/OpenRoIS.Interfaces/OpenRoIS.Interfaces.csproj" />
-</ItemGroup>
-```
-
-The C# client SDK for Unity installs from a Git URL:
+Add the package by Git URL in the Package Manager window (**Install package from git URL**),
+or in `Packages/manifest.json`:
 
 ```json title="Packages/manifest.json"
 {
   "dependencies": {
-    "org.openrois.sdk": "https://github.com/openrois/openrois.git?path=sdk/csharp"
+    "org.openrois.sdk": "https://github.com/openrois/openrois.git?path=sdk/unity#sdk-unity-v0.1.0-alpha.1"
   }
 }
 ```
 
-## Package Names
+The [GitHub release](https://github.com/openrois/openrois/releases/tag/sdk-unity-v0.1.0-alpha.1)
+also carries the package as a tarball, for **Install package from tarball**. It is not
+signed, so Unity 6000.3 and later note that in the Package Manager.
+
+## Gateway and Components
+
+The gateway and the component SDK are Python packages:
+
+```bash
+pip install openrois-gateway          # the gateway process
+pip install openrois-components-core  # the SDK for writing components and adapters
+```
+
+To try a client without a robot, run the gateway with the mock adapter from a clone of the
+repository, as the [quick start](quickstart.md) shows.
+
+## Packages
 
 | Package | Registry | Contents |
 |---------|----------|----------|
-| `openrois-interfaces` | PyPI | RoIS types (source of truth) |
-| `openrois-core` | PyPI | Recursive engine, WebSocket server and client |
-| `openrois-components-core` | PyPI | Component decorators and result helpers |
-| `@openrois/interfaces` | npm | Generated TypeScript types with runtime validation |
-| `@openrois/sdk` | npm | TypeScript client SDK |
-| `OpenRoIS.Interfaces` | NuGet | Generated C# types |
-| `org.openrois.sdk` | UPM | C# client SDK for Unity |
+| `@openrois/sdk` | npm | JavaScript client SDK |
+| `openrois-sdk` | PyPI | Python client SDK |
+| `org.openrois.sdk` | Git URL, release tarball | Unity client SDK, with the RoIS types for C# bundled |
+| `openrois-interfaces` | PyPI | RoIS types, the source of truth |
+| `@openrois/interfaces` | npm | RoIS types and runtime validators for JavaScript and TypeScript |
+| `openrois-engine` | PyPI | The recursive RoIS HRI Engine, WebSocket server and client |
+| `openrois-components-core` | PyPI | Component and adapter SDK |
+| `openrois-gateway` | PyPI | The gateway process |
