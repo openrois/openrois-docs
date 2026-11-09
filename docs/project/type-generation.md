@@ -1,10 +1,10 @@
 ---
-sidebar_label: Type Pipeline
-sidebar_position: 6
+sidebar_label: How the Types Are Generated
+sidebar_position: 3
 description: How OpenRoIS authors RoIS types once in Python and generates consistent TypeScript and C# types from JSON Schema.
 ---
 
-# The Type Pipeline
+# How the Types Are Generated
 
 A middleware that spans three languages can easily end up with three slightly different
 definitions of the same message. OpenRoIS avoids this with a single source of truth: RoIS

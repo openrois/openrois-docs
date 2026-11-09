@@ -246,7 +246,7 @@ whatever the transport needs to attach to the media, for example a `media_url` f
 endpoint or an SDP answer. The gateway then routes the stream's `notify_stream_status`
 events to the application that connected it, as `rois.stream.notify_status`. The media
 itself never crosses the gateway: it flows on the data plane between the application and
-the component's host. See [transports and media](../concepts/transports-and-media.md).
+the component's host. See [media](../concepts/deployment.md#media).
 
 ## Gateway to Adapter
 
