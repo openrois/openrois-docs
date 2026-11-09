@@ -6,8 +6,8 @@ description: Install the OpenRoIS client SDKs for JavaScript, Python and Unity, 
 
 # Installation
 
-OpenRoIS publishes alpha packages to npm and PyPI, and the Unity package installs by Git
-URL. Every package is **Alpha, pre-1.0, unstable API**.
+OpenRoIS publishes its packages to npm and PyPI, and the Unity package installs by Git
+URL. Every package is at version 0.1.0, and is **alpha, pre-1.0, with an unstable API**.
 
 ## Requirements
 
@@ -48,12 +48,12 @@ or in `Packages/manifest.json`:
 ```json title="Packages/manifest.json"
 {
   "dependencies": {
-    "org.openrois.sdk": "https://github.com/openrois/openrois.git?path=sdk/unity#sdk-unity-v0.1.0-alpha.1"
+    "org.openrois.sdk": "https://github.com/openrois/openrois.git?path=sdk/unity#sdk-unity-v0.1.0"
   }
 }
 ```
 
-The [GitHub release](https://github.com/openrois/openrois/releases/tag/sdk-unity-v0.1.0-alpha.1)
+The [GitHub release](https://github.com/openrois/openrois/releases/tag/sdk-unity-v0.1.0)
 also carries the package as a tarball, for **Install package from tarball**. It is not
 signed, so Unity 6000.3 and later note that in the Package Manager.
 
