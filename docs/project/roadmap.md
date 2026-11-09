@@ -1,134 +1,53 @@
 ---
 sidebar_label: Roadmap
 sidebar_position: 1
-description: The phased roadmap of OpenRoIS, from the interface types to version 1.0 and the component registry.
+description: What OpenRoIS has built and what comes next, layer by layer, from the interface types to version 1.0.
 ---
 
 # Roadmap
 
-OpenRoIS is built in phases. Each phase delivers a coherent capability with explicit exit
-criteria. Until version 1.0, releases are **alpha, with an unstable API**.
+What OpenRoIS has built and what comes next, layer by layer, for an open-source middleware
+implementing the [OMG RoIS Framework 2.0](https://www.omg.org/spec/RoIS/2.0). The
+[roadmap in the repository](https://github.com/openrois/openrois/blob/dev/docs/roadmap.md)
+is the status of record, and this page copies it.
 
-## Overview
+Until `v1.0`, OpenRoIS is **alpha, pre-1.0, with an unstable API**.
 
-| Phase | Theme | Status |
-|-------|-------|--------|
-| 0 | Paradigm-neutral interface types | <span className="status-pill status-pill--available">Done</span> |
-| 1 | Engine and sub HRI Engine proof of concept | <span className="status-pill status-pill--available">Done</span> |
-| 2 | Adapter framework and reference components | <span className="status-pill status-pill--available">Done</span> |
-| 3 | Client SDKs and first end-to-end demonstration | <span className="status-pill status-pill--progress">In Progress</span> |
-| 4 | Recursive core in Python | <span className="status-pill status-pill--available">Done</span> |
-| 5 | Hardening the core | <span className="status-pill status-pill--progress">In Progress</span> |
-| 6 | Gateway process | <span className="status-pill status-pill--available">Done</span> |
-| 7 | Adapter process | <span className="status-pill status-pill--planned">Planned</span> |
-| 8 | Open reference platform and mixed paradigms | <span className="status-pill status-pill--progress">In Progress</span> |
-| 9 | Authentication, security, and media | <span className="status-pill status-pill--progress">In Progress</span> |
-| 10 | Full component library (v1.0) | <span className="status-pill status-pill--planned">Planned</span> |
-| 11 | Component registry and Hub | <span className="status-pill status-pill--planned">After 1.0</span> |
+## The Stack, Bottom Up
 
-Phase 3 continues alongside phases 5 and 6. Phases 8 and 9 can proceed in parallel once the gateway and adapter processes exist.
+Each layer builds on the one below it.
 
-## Phase Details
+| Layer | Packages | In `v0.1.0` | Next |
+|-------|----------|-------------|------|
+| **Interfaces** | `openrois-interfaces` (PyPI), `@openrois/interfaces` (npm), C# types inside the Unity package | The RoIS types and method catalog, authored in Python and generated through JSON Schema into TypeScript and C#. All 18 normative profiles and an XML profile codec, cross-checked against the OMG machine-readable files | The cross-check running in CI |
+| **Engine** | `openrois-engine` | One recursive engine for the main and sub HRI Engine roles. The RoIS interfaces, profiles and common messages (CP1 to CP3) as [rois-reference §16](https://github.com/openrois/openrois/blob/dev/docs/rois-reference.md#16-known-normative-divergences) records them: sessions, binds, full command sequences with concurrent branches, timeouts, events and the error channel. `WsServer` and `WsClient`, a gateway under a gateway | Components declared by XML profiles at run time (CP4). Sessions told when an engine stops, subscriptions restored after an adapter reconnects |
+| **Engine processes** | `openrois-gateway`; the adapter process | The gateway process: YAML, environment and flag configuration, a container image, and Docker Compose with a mock adapter. Adapters configured by `adapter.yaml` | A packaged adapter process that needs no hand-written script. Health and status endpoints. Component packages loaded from a local path or a Git URL |
+| **Components** | `openrois-components-core`, `openrois-components-common`; each robot's package in its adapter repository | The component SDK: `@component`, `@query`, `@invoke`, `@subscribe`, resources, the RoIS_Common default, ROS 2 support. SystemInformation. The Reachy Mini adapter with PersonDetection, Reaction, SpeechSynthesis and SystemInformation, run on the real robot and in simulation | Components for a virtual agent. More of the 17 basic components |
+| **Client SDKs** | `@openrois/sdk` (npm), `openrois-sdk` (PyPI), `org.openrois.sdk` (Unity, by Git URL) | One conformance list passed by all three SDKs. The Unity SDK run in Linux players and the Editor | Unity on Windows, macOS, Android and VR headsets. Readable error reasons |
+| **Applications** | `openrois-mcp`; the HRI client | An MCP server that lets AI agents drive the robots behind a gateway. A profile-driven web client | The HRI client as an application with command sequences. A Hub for operators, after `v1.0` |
 
-### Phase 0: Paradigm-Neutral Interface Types
+## Milestones
 
-RoIS types authored as Python models, exported to JSON Schema, and generated into
-TypeScript and C#, with tests against the normative RoIS files. Definition of the
-five-method Component Contract.
-
-### Phase 1: Engine and Sub HRI Engine Proof of Concept
-
-A TypeScript engine that routes RoIS calls to sub HRI Engines over WebSocket, aggregates their
-profiles, tracks reservations, and broadcasts profile changes.
-
-### Phase 2: Adapter Framework and Reference Components
-
-The decorator-based component framework, component-owned backend connections, and
-reference Navigation and System Information components for the Preferred Robotics Kachaka
-with gRPC and ROS 2 backends.
-
-### Phase 3: Client SDKs and First End-to-End Demonstration
-
-- **Done:** the profile-driven web client, and an end-to-end demonstration of a web
-  application controlling a physical robot through the gateway and an adapter.
-- **Released:** the first alpha of the client SDKs, on 2026-11-07: the JavaScript SDK
-  (`@openrois/sdk` on npm), the Python SDK (`openrois-sdk` on PyPI), and the Unity SDK
-  (`org.openrois.sdk` by Git URL). All three pass one conformance list against the same
-  gateway and engine versions.
-- **Exit:** tagged release `v0.1.0`.
-
-### Phase 4: Recursive Core in Python
-
-The `openrois-core` package: the recursive `Engine`, the component registry and the child
-engine proxy implementing the typed Component Contract, the WebSocket server and client,
-every Command, Query, and Event operation except streaming, command completion and error
-notifications, and a regression test suite with a gateway plus adapter round trip. The
-TypeScript proof of concept is retired.
-
-### Phase 5: Hardening the Core
-
-- **Done:** control-plane [latency benchmarks](../reference/benchmarks.md) on loopback with the
-  mock adapter; LAN and Kachaka numbers are still to be measured.
-- **Done:** a `GET /health` liveness endpoint on the gateway port.
-- **Planned:** graceful shutdown, reconnection behavior, and loading component packages
-  from a local path or a Git URL.
-
-### Phase 6: Gateway Process
-
-- **Done:** the `openrois-gateway` process and its container image, composed from `Engine`
-  and `WsServer`, with command-line configuration, logging, signal handling, and
-  `docker compose up`.
-- **Done:** a YAML configuration file (`--config`, `OPENROIS_GATEWAY_CONFIG`) below the
-  command line and the environment in precedence, and `GET /health` as the container's
-  health check.
-
-### Phase 7: Adapter Process
-
-A standalone adapter process composed from `Engine`, `WsClient`, and a backend bridge,
-configured by the adapter profile.
-
-### Phase 8: Open Reference Platform and Mixed Paradigms
-
-- **Done:** the mixed-paradigm demonstration, `examples/mixed-paradigm`: a simulated robot
-  and a text-based virtual agent behind one gateway, driven by one application with
-  identical calls. See [deployment topologies](../concepts/deployment-topologies.md#physical-robots-and-virtual-agents-together).
-- **In progress:** a reference platform based on the open-source Pollen Robotics Reachy
-  Mini, shipped with OpenRoIS so anyone can try the full stack on affordable hardware. The
-  adapter, a simulated backend, and a one-command bring-up pass the conformance suite in
-  simulation; verification on a robot is pending.
-- **Planned:** the demonstration repeated with that robot and a rendered avatar.
-
-### Phase 9: Authentication, Security, and Media
-
-- **Planned, in a later release:** JWT authentication at the WebSocket upgrade and
-  role-based authorization per RoIS operation. Until then, a reverse proxy in front of the
-  gateway terminates TLS.
-- **Planned, as a release of its own:** media for the AudioStreaming and VideoStreaming
-  components. OpenRoIS does not prescribe a media transport: a streaming component returns
-  a descriptor of its stream, and an optional WebRTC integration, with a choice of
-  signaling and media infrastructure, serves deployments that have none.
-- **Planned:** DDS Security for ROS 2 based adapters.
-See [security](../concepts/security.md) and [transports and media](../concepts/transports-and-media.md).
-
-### Phase 10: Full Component Library
-
-All 17 basic RoIS HRI Components, for physical robots and virtual avatars, and packages
-published to PyPI, npm, and the Unity Package Manager. First stable release with
-semantic versioning guarantees: **v1.0**.
-
-### Phase 11: Component Registry and Hub
-
-A registry of community components and adapters for additional platforms, and a Hub web
-application that visualizes connected adapters, components, and their status. This phase
-is gated on adoption and follows version 1.0.
+| Milestone | What it delivers |
+|-----------|------------------|
+| **`v0.1.0`** (November 2026) | Every package above at `0.1.0`, released together. A physical Reachy Mini and a simulated one behind one gateway, driven by one application and by an AI agent |
+| **`v0.2`** | A physical robot and a virtual agent behind one gateway, controlled by one application that does not know which is which. Components declared by XML profiles at run time, and a RoIS conformance claim |
+| **`v0.3`** | Authentication at the WebSocket upgrade and authorization per RoIS operation. Until then, a reverse proxy in front of the gateway terminates TLS ([Security](../concepts/security.md)) |
+| **`v0.4`** | Media for the AudioStreaming and VideoStreaming components. OpenRoIS does not prescribe a media transport: a streaming component returns a descriptor of its stream, and an optional WebRTC integration serves deployments that have none ([Transports and Media](../concepts/transports-and-media.md)) |
+| **`v1.0`** | All 17 basic RoIS HRI Components, for physical robots and virtual agents. The first release with semantic versioning guarantees |
+| After `v1.0` | A registry of community components and adapters, and a Hub that shows operators the adapters, sessions and health of a deployment |
 
 ## Versioning
 
-- `0.x` releases are pre-releases. Breaking changes may happen without notice.
-- `1.0` is the first release with semantic versioning guarantees.
+- The packages share their major and minor version and are released together under a
+  project tag such as `v0.1.0`. A package may carry its own pre-release or patch number
+  in between.
+- `0.x` releases may break the API without notice.
+- `v1.0` is the first release with semantic versioning guarantees.
 
-## Contributing to the Roadmap
+## Contributing
 
-Many items above can be picked up in parallel, and reference components for new robots
-are the natural entry point. See [contributing](contributing.md), or open an issue to
-propose a change to the roadmap.
+An adapter for a new robot, with its components in its own repository, is the natural
+entry point. See [Contributing](contributing.md), or open an issue to propose a change to
+the roadmap. All work is released under the
+[Apache-2.0](https://github.com/openrois/openrois/blob/dev/LICENSE) license.
