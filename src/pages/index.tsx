@@ -220,8 +220,8 @@ const PAPER_BIBTEX = `@misc{carrera2026openrois,
   primaryClass  = {cs.RO},
   doi           = {10.48550/arXiv.2609.21178},
   url           = {https://arxiv.org/abs/2609.21178},
-  note          = {Submitted to the 2027 IEEE/SICE International Symposium on
-                   System Integration (SII 2027)}
+  note          = {Accepted at the 2027 IEEE/SICE International Symposium on
+                   System Integration (SII 2027), to appear}
 }`;
 
 const BIBTEX = `@software{openrois,
@@ -635,11 +635,10 @@ function Community(): ReactNode {
           <span className="sibling-kicker">Cite OpenRoIS</span>
           <Heading as="h3">Using OpenRoIS in Your Research?</Heading>
           <p>
-            The position paper describing OpenRoIS was submitted to SII 2027 and is under
-            review. Its preprint is on arXiv as{' '}
-            <Link href={PAPER_URL}>arXiv:2609.21178</Link>. Until the paper is published,
-            please cite the preprint, or the software. The repository also provides a
-            CITATION.cff file.
+            The position paper describing OpenRoIS is accepted at SII 2027. Until it appears in
+            the proceedings, please cite its preprint,{' '}
+            <Link href={PAPER_URL}>arXiv:2609.21178</Link>, or the software. The repository
+            also provides a CITATION.cff file.
           </p>
           <CodeBlock language="bibtex">{PAPER_BIBTEX}</CodeBlock>
           <CodeBlock language="bibtex">{BIBTEX}</CodeBlock>
