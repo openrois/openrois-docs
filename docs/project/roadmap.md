@@ -97,8 +97,6 @@ configured by the adapter profile.
   adapter, a simulated backend, and a one-command bring-up pass the conformance suite in
   simulation; verification on a robot is pending.
 - **Planned:** the demonstration repeated with that robot and a rendered avatar.
-  Completing this phase starts the transfer of OpenRoIS to a neutral open-source
-  foundation.
 
 ### Phase 9: Authentication, Security, and Media
 
