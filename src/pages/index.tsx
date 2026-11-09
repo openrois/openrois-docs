@@ -168,6 +168,7 @@ const INTERFACES: RoisInterface[] = [
     name: 'Streaming',
     ns: 'rois.stream.*',
     ops: ['connect_stream', 'suspend_stream', 'notify_status'],
+    planned: true,
   },
 ];
 
@@ -179,27 +180,25 @@ const STATUS: StatusGroup[] = [
     kind: 'available',
     items: [
       'RoIS interface types in Python, JSON Schema, TypeScript, and C#',
-      'Recursive engine, gateway process, WebSocket server and client, and adapter SDK (Python)',
-      'TypeScript client SDK and profile-driven web inspector',
-      'C# client SDK for Unity and .NET',
-      'Reference components for the Preferred Robotics Kachaka (gRPC, ROS 2)',
-      'Authentication (JWT), authorization (RBAC), and TLS at the gateway',
-      'Streaming Interface control plane',
-      'Gateway configuration file and health endpoint',
+      'Recursive engine, gateway process, and component SDK (Python), on PyPI',
+      'Client SDKs for JavaScript (npm), Python (PyPI), and Unity, passing one conformance list',
+      'Profile-driven web client, and an MCP server that lets AI agents drive robots',
+      'Reachy Mini adapter, run on the real robot and in simulation',
     ],
   },
   {
     label: 'In Progress',
     kind: 'progress',
     items: [
-      'Open reference platform on the Pollen Robotics Reachy Mini (simulated first)',
+      'A physical robot and a virtual agent behind one gateway',
     ],
   },
   {
     label: 'Planned',
     kind: 'planned',
     items: [
-      'Packages on PyPI, npm, NuGet, and UPM',
+      'Run-time XML component profiles and a RoIS conformance claim',
+      'Authentication, authorization, and WebRTC media',
       'All 17 basic RoIS HRI Components (v1.0)',
     ],
   },
@@ -543,9 +542,10 @@ function Code(): ReactNode {
             own stack, and the adapter framework handles the rest.
           </p>
           <ul className={styles.checkList}>
-            <li>TypeScript SDK for web and Node.js applications</li>
-            <li>C# SDK for Unity and .NET applications</li>
-            <li>Python adapter SDK with ROS 2 support</li>
+            <li>JavaScript SDK for web and Node.js applications</li>
+            <li>Python SDK for scripts and services</li>
+            <li>Unity SDK for desktop, mobile, and VR applications</li>
+            <li>Python component SDK for adapters, with ROS 2 support</li>
           </ul>
           <Link className="button button--primary" to="/docs/getting-started/quickstart">
             Run the Quick Start

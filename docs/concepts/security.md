@@ -1,98 +1,49 @@
 ---
 sidebar_label: Security
 sidebar_position: 9
-description: Authentication at the WebSocket upgrade, role-based authorization per RoIS operation, and TLS at the OpenRoIS gateway.
+description: How to secure an OpenRoIS v0.1.0 gateway with a TLS reverse proxy, and when authentication and authorization arrive.
 ---
 
 # Security
 
-:::caution Status
-Authentication, authorization, and TLS are **available and off by default** in the alpha:
-a gateway started without `--auth-key` trusts every connection. Turn them on before
-exposing a gateway beyond a trusted network. Token issuance (an identity provider) is
-outside OpenRoIS; DDS Security and media encryption remain planned. See the
+:::info Status
+`v0.1.0` keeps access control out of the middleware: the gateway does not authenticate
+or authorize connections and serves plain WebSocket. Authentication and authorization
+come in a later release, once the RoIS interfaces are validated. See the
 [roadmap](../project/roadmap.md).
 :::
 
 The RoIS `connect` operation takes no credentials, because the specification assumes a
-trusted network. OpenRoIS targets remote operation over the internet, so it adds security
-around the RoIS interfaces without changing them. The gateway is the only process exposed
-to the network, which makes it the single enforcement point.
+trusted network. OpenRoIS follows it: a deployment secures the gateway from the outside,
+and the gateway makes that easy.
 
-## Authentication
+- It listens on `127.0.0.1` by default, and the Docker Compose quickstart publishes its
+  port on loopback only. Bound to any other address, it logs a warning.
+- Adapters connect on `/adapter`, and service applications on any other path, so a proxy
+  can tell them apart.
 
-Clients authenticate **before** any RoIS message is processed, at the WebSocket upgrade,
-with a JSON Web Token (JWT). A connection without a valid token is refused with HTTP 401,
-and a token without the right role for the path (`/adapter` needs the `adapter` role) with
-HTTP 403. The token travels as an `Authorization: Bearer` header, or as the `token` query
-parameter from a browser, which cannot set upgrade headers. The gateway verifies the
-signature (HS256 with a shared secret, or RS256 and ES256 with a public key), the expiry,
-and, when configured, the issuer and audience.
+## Remote Access Through a Reverse Proxy
 
-```bash
-openrois-gateway --auth-key "$SECRET" --auth-issuer my-issuer --tls-cert cert.pem --tls-key key.pem
+Keep the gateway on loopback and let a reverse proxy terminate TLS in front of it. With
+[Caddy](https://caddyserver.com/), which obtains certificates on its own and proxies
+WebSocket connections without extra configuration:
+
+```text
+gateway.example.org {
+	# Adapters run next to the gateway, so the internet may not register one.
+	@adapter path /adapter
+	respond @adapter 403
+
+	reverse_proxy 127.0.0.1:8765
+}
 ```
 
-The same options can live in a configuration file (`openrois-gateway --config gateway.yaml`),
-which keeps secrets and key paths out of the process list:
-
-```yaml
-auth:
-  key: /run/secrets/jwt-public.pem
-  algorithm: RS256
-  issuer: my-issuer
-tls:
-  cert: /etc/openrois/cert.pem
-  key: /etc/openrois/key.pem
-```
-
-```ts
-const client = await RoISClient.connect("wss://gateway.example.org", { token });
-```
-
-Who issues tokens is up to the deployment: any identity provider that signs JWTs with the
-`roles` and `scope` claims below works. OpenRoIS does not ship one.
-
-```mermaid
-sequenceDiagram
-    participant Client
-    participant Gateway
-    Client->>Gateway: Obtain an access token (JWT)
-    Gateway-->>Client: access_token
-    Client->>Gateway: WebSocket upgrade, Authorization: Bearer token
-    Gateway-->>Client: 101 Switching Protocols, or 401
-    Client->>Gateway: rois.system.connect
-    Gateway-->>Client: return_code OK
-```
-
-## Authorization
-
-Authorization uses role-based access control (RBAC), enforced per RoIS operation from the
-`roles` claim, and a `scope` claim of component ref patterns (`["robot_1/*"]`) that limits
-what the token may see and address. A call outside the token's rights answers with the
-`ERROR` return code and a `rois.system.notify_error`; `search` and `get_profile` only list
-components inside the scope.
-
-| Role | May call |
-|------|----------|
-| `administrator` | Every operation |
-| `operator` | Everything a viewer may, plus `bind`, `bind_any`, `release`, `set_parameter`, `execute` |
-| `viewer` | `connect`, `get_profile`, `search`, `query`, `subscribe`, the detail queries, stream control |
-| `maintenance` | The viewer's operations without stream control; scope it to `*/SystemInformation` |
-| `adapter` | Nothing on the client path; required to connect on `/adapter` |
-
-## Defense in Depth
-
-1. TLS on every connection that leaves a host (`--tls-cert`, `--tls-key`).
-2. JWT authentication at the WebSocket upgrade.
-3. RBAC authorization for each RoIS operation, with scopes.
-4. DDS Security or separate DDS domains inside ROS 2 based adapters (planned).
-5. DTLS and SRTP encryption for WebRTC media (planned, with the media data plane).
+Clients then connect to `wss://gateway.example.org`. To decide who may connect, add
+authentication at the proxy (client certificates, or `forward_auth` to your identity
+provider) or use a VPN. Any proxy that forwards WebSocket upgrades works the same way.
 
 ## Reporting a Vulnerability
 
 Please report security issues privately by email to **info@coarobo.com** with the subject
-"OpenRoIS security report", rather than in public issues. GitHub private vulnerability
-reporting will be enabled together with authentication and session management (Phase 9),
-since the alpha implements the message-passing framework only. See the
+"OpenRoIS security report", rather than in public issues. See the
 [security policy](https://github.com/openrois/openrois/blob/dev/SECURITY.md).
