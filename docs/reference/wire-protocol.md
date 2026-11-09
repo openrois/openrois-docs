@@ -207,7 +207,7 @@ If another application already holds the reservation, the result is
 { "jsonrpc": "2.0", "id": 4, "result": { "return_code": "OK", "command_id": "nav-1" } }
 ```
 
-:::note Implementation note
+:::note[Implementation note]
 RoIS allows a `CommandUnitSequence` to combine sequential commands with concurrent groups.
 The engine runs the whole sequence: its items in order, and the branches of a
 `ConcurrentCommands` item in parallel. A command that fails aborts the rest of its branch
