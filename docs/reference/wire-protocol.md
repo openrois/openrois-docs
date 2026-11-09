@@ -17,7 +17,7 @@ client act as a RoIS service application.
 |------|-----------|-------|
 | Request | Application to gateway | `{"jsonrpc": "2.0", "id": 1, "method": "rois.query.query", "params": {...}}` |
 | Response | Gateway to application | `{"jsonrpc": "2.0", "id": 1, "result": {"return_code": "OK", ...}}` |
-| Notification | Gateway to application | `{"jsonrpc": "2.0", "method": "rois.event.notify", "params": {...}}` |
+| Notification | Gateway to application | `{"jsonrpc": "2.0", "method": "rois.event.notify_event", "params": {...}}` |
 
 Every result carries a RoIS `return_code`: `OK`, `ERROR`, `BAD_PARAMETER`, `UNSUPPORTED`,
 `OUT_OF_RESOURCES`, or `TIMEOUT`. A RoIS-level failure is a normal response with a return
@@ -70,23 +70,25 @@ specification and on the [roadmap](../project/roadmap.md).
 
 ### Streaming Interface
 
-| Method | Params | Result | Status |
-|--------|--------|--------|--------|
-| `rois.stream.connect_stream` | `component_ref`, `parameters` | `return_code`, `stream_id`, `results` (transport descriptor) | <span className="status-pill status-pill--available">Available</span> |
-| `rois.stream.disconnect_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.stream.suspend_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.stream.resume_stream` | `stream_id` | `return_code` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.stream.query_stream_status` | `stream_id` | `return_code`, `status` | <span className="status-pill status-pill--available">Available</span> |
+Streaming has no JSON-RPC methods of its own. AudioStreaming and VideoStreaming are
+ordinary components, so an application controls a stream with the methods above:
+`connect_stream`, `disconnect_stream`, `suspend_stream`, and `resume_stream` are commands
+sent with `rois.command.execute`, `get_stream_status` is a query, and
+`notify_stream_status` is an event to subscribe to. The engine answers any `rois.stream.*`
+method with the JSON-RPC error `METHOD_NOT_FOUND`.
+
+No streaming component ships yet. Media is
+<span className="status-pill status-pill--planned">Planned</span> on the
+[roadmap](../project/roadmap.md).
 
 ### Notifications
 
 | Method | Carries | Status |
 |--------|---------|--------|
-| `rois.event.notify` | `event_id`, `subscribe_id`, `component_ref`, `event_type`, `expire`, `results` | <span className="status-pill status-pill--available">Available</span> |
+| `rois.event.notify_event` | `event_id`, `event_type`, `subscribe_id`, `expire`, `results` (the payload, an OpenRoIS extension that saves one `get_event_detail` call) | <span className="status-pill status-pill--available">Available</span> |
 | `rois.system.profile_changed` | none (OpenRoIS extension: refresh the profile) | <span className="status-pill status-pill--available">Available</span> |
-| `rois.command.completed` | `command_id`, `status`, `results` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.system.notify_error` | `error_id`, `error_type`, `command_id`, `message` | <span className="status-pill status-pill--available">Available</span> |
-| `rois.stream.notify_status` | `stream_id`, `status`, `timestamp`, `component_ref` | <span className="status-pill status-pill--available">Available</span> |
+| `rois.command.completed` | `command_id`, `status` | <span className="status-pill status-pill--available">Available</span> |
+| `rois.system.notify_error` | `error_id`, `error_type` | <span className="status-pill status-pill--available">Available</span> |
 
 ## Data Types
 
@@ -123,8 +125,8 @@ sequenceDiagram
     GW->>AD: rois.command.execute
     AD-->>GW: command_id
     GW-->>App: command_id
-    AD-->>GW: rois.event.notify (reached_target)
-    GW-->>App: rois.event.notify (reached_target)
+    AD-->>GW: rois.event.notify_event (reached_target)
+    GW-->>App: rois.event.notify_event (reached_target)
     App->>GW: rois.command.release
     GW-->>App: OK
 ```
@@ -221,11 +223,10 @@ with the ids filled in. See
 ```json title="Notification"
 {
   "jsonrpc": "2.0",
-  "method": "rois.event.notify",
+  "method": "rois.event.notify_event",
   "params": {
     "event_id": "8b0c6d1e-5f4a-4b2e-9d3c-1a2b3c4d5e6f",
     "subscribe_id": "sub-3f2a91c0",
-    "component_ref": "Navigation",
     "event_type": "reached_target",
     "expire": "",
     "results": [
@@ -238,20 +239,20 @@ with the ids filled in. See
 
 ## Streaming
 
-The stream operations act on a streaming component (`AudioStreaming`, `VideoStreaming`)
-through the messages its normative profile declares: `connect_stream`, `disconnect_stream`,
-`suspend_stream`, and `resume_stream` are its commands, `get_stream_status` its query, and
-`notify_stream_status` its event. `connect_stream` answers a `stream_id` and, in `results`,
-whatever the transport needs to attach to the media, for example a `media_url` for a WHEP
-endpoint or an SDP answer. The gateway then routes the stream's `notify_stream_status`
-events to the application that connected it, as `rois.stream.notify_status`. The media
-itself never crosses the gateway: it flows on the data plane between the application and
-the component's host. See [media](../concepts/deployment.md#media).
+A streaming component (`AudioStreaming`, `VideoStreaming`) is driven through the messages
+its normative profile declares: `connect_stream`, `disconnect_stream`, `suspend_stream`,
+and `resume_stream` are its commands, `get_stream_status` its query, and
+`notify_stream_status` its event. `connect_stream` answers a `stream_id` and, in its
+results, whatever the transport needs to attach to the media, for example a media URL or
+an SDP answer. An application follows the stream by subscribing to `notify_stream_status`,
+which arrives as `rois.event.notify_event` like any other event. The media itself never
+crosses the gateway: it flows on the data plane between the application and the
+component's host. See [media](../concepts/deployment.md#media).
 
 ## Gateway to Adapter
 
 The gateway speaks the same JSON-RPC methods to adapters, over the connection that each
 adapter opens on `/adapter`. When an adapter connects, the gateway sends
 `rois.system.get_profile` to learn its engine identifier and components, then forwards
-queries, commands, and subscriptions to it. Adapters push `rois.event.notify`
+queries, commands, and subscriptions to it. Adapters push `rois.event.notify_event`
 notifications, which the gateway delivers to the subscribed applications.

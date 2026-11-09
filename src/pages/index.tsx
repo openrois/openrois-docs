@@ -72,10 +72,12 @@ const WIRE_CODE = `// Service application to gateway
 { "jsonrpc": "2.0", "id": 7, "result": { "return_code": "OK" } }
 
 // Gateway to service application, pushed when the robot arrives
-{ "jsonrpc": "2.0", "method": "rois.event.notify",
+{ "jsonrpc": "2.0", "method": "rois.event.notify_event",
   "params": {
-    "subscribe_id": "sub-3f2a",
+    "event_id": "evt-8b0c",
     "event_type": "reached_target",
+    "subscribe_id": "sub-3f2a",
+    "expire": "",
     "results": [
       { "name": "target", "data_type_ref": "string", "value": "kitchen" },
       { "name": "is_final_target", "data_type_ref": "bool", "value": "true" }
@@ -159,11 +161,11 @@ const INTERFACES: RoisInterface[] = [
   {name: 'System', ns: 'rois.system.*', ops: ['connect', 'disconnect', 'get_profile']},
   {name: 'Command', ns: 'rois.command.*', ops: ['search', 'bind', 'set_parameter', 'execute', 'release']},
   {name: 'Query', ns: 'rois.query.*', ops: ['query']},
-  {name: 'Event', ns: 'rois.event.*', ops: ['subscribe', 'unsubscribe', 'notify']},
+  {name: 'Event', ns: 'rois.event.*', ops: ['subscribe', 'unsubscribe', 'notify_event']},
   {
     name: 'Streaming',
-    ns: 'rois.stream.*',
-    ops: ['connect_stream', 'suspend_stream', 'notify_status'],
+    ns: 'streaming components',
+    ops: ['connect_stream', 'suspend_stream', 'notify_stream_status'],
     planned: true,
   },
 ];
