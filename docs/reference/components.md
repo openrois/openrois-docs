@@ -31,8 +31,8 @@ inexpensive to write.
 | Speech Recognition | Speech-to-text model | Same model | Identical |
 | Gesture Recognition | Pose model | Same model | Identical |
 | Speech Synthesis | Text to speech on a speaker | Text to speech with lip sync | Output differs |
-| Audio Streaming | Microphone to WebRTC | Synthesized audio to WebRTC | Source differs |
-| Video Streaming | Camera to WebRTC | Rendered frames to WebRTC | Source differs |
+| Audio Streaming | Microphone stream | Synthesized audio stream | Source differs |
+| Video Streaming | Camera stream | Rendered frames stream | Source differs |
 | System Information | Battery, pose, and health | Frame rate and avatar state | State differs |
 | Reaction | LEDs or gestures | Animations and expressions | Paradigm-specific |
 | Navigation | Navigation stack, for example Nav2 | Navigation mesh | Paradigm-specific |

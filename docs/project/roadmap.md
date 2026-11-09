@@ -100,13 +100,14 @@ configured by the adapter profile.
 
 ### Phase 9: Authentication, Security, and Media
 
-- **Done:** JWT authentication at the WebSocket upgrade, role-based authorization per RoIS
-  operation with scopes, and TLS at the gateway.
-- **Done:** the Streaming Interface control plane: `rois.stream.*` operations routed to
-  streaming components, stream status events routed back to the application that
-  connected the stream, and stream methods in the TypeScript and C# SDKs.
-- **Planned:** WebRTC media on the data plane, with the transport descriptor exchanged
-  through `connect_stream` results, and DDS Security for ROS 2 based adapters.
+- **Planned, in a later release:** JWT authentication at the WebSocket upgrade and
+  role-based authorization per RoIS operation. Until then, a reverse proxy in front of the
+  gateway terminates TLS.
+- **Planned, as a release of its own:** media for the AudioStreaming and VideoStreaming
+  components. OpenRoIS does not prescribe a media transport: a streaming component returns
+  a descriptor of its stream, and an optional WebRTC integration, with a choice of
+  signaling and media infrastructure, serves deployments that have none.
+- **Planned:** DDS Security for ROS 2 based adapters.
 See [security](../concepts/security.md) and [transports and media](../concepts/transports-and-media.md).
 
 ### Phase 10: Full Component Library
