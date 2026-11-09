@@ -62,14 +62,17 @@ A component is the translation layer between RoIS and one platform. It exposes R
 queries, commands, and events, and owns its connection to the platform: a ROS 2 node, a
 gRPC client, or a cloud API client, created in `connect()` and closed in `disconnect()`.
 
-## Four Contracts at Four Boundaries
+## One Protocol at Every Hop
 
-| Boundary | Contract | Transport |
-|----------|----------|-----------|
-| Application to gateway | The five RoIS interfaces | WebSocket, JSON-RPC 2.0 |
-| Gateway to adapter | The [Component Contract](component-contract.md) | WebSocket, JSON-RPC 2.0 |
-| Adapter to component | Decorated handler methods | In process |
+| Hop | Protocol | Transport |
+|-----|----------|-----------|
+| Application to gateway | The RoIS method catalog | WebSocket, JSON-RPC 2.0 |
+| Gateway to adapter | The same RoIS method catalog, the requests a client sends | WebSocket, JSON-RPC 2.0 |
+| Engine to component | The same RoIS operations and models, handled by `@command`, `@query` and `@event` | In process |
 | Component to platform | Whatever the platform requires | ROS 2, gRPC, IPC, HTTP, and others |
+
+On the gateway-to-adapter hop, the gateway is the adapter's only client: it connects first,
+holds the bindings itself, and sends each command as its own one-command `execute`.
 
 Only the first three are middleware boundaries. The last one belongs to the component, and
 OpenRoIS deliberately takes no position on it.

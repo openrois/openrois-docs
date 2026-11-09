@@ -46,7 +46,7 @@ OpenRoIS provides them, developed in the open under the Apache License 2.0.
 | Contribution | Summary |
 |--------------|---------|
 | [Recursive engine](concepts/recursive-engine.md) | One `Engine` class realizes both the main and the sub HRI Engine roles of RoIS, so the gateway and every adapter share one dispatch implementation. |
-| [Component Contract](concepts/component-contract.md) | A five-method internal contract (`discover`, `invoke`, `query`, `subscribe`, `unsubscribe`) that keeps the engine independent of ROS 2, gRPC, game engines, or any other middleware. |
+| [One protocol at every hop](concepts/architecture.md#one-protocol-at-every-hop) | The RoIS method catalog from application to gateway, from gateway to adapter, and from engine to component, which keeps the engine independent of ROS 2, gRPC, game engines, or any other middleware. |
 | [Wire protocol](reference/wire-protocol.md) | A mapping of the five RoIS interfaces onto JSON-RPC 2.0 over WebSocket, usable from browsers and across the internet. |
 | [Type pipeline](concepts/type-pipeline.md) | RoIS types authored once as Python models, exported to JSON Schema, and generated into TypeScript and C#. |
 | [SDKs](reference/sdks.md) | Client SDKs for JavaScript, Python and Unity, and a Python component SDK for adapters with ROS 2 support. |

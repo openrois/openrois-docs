@@ -41,33 +41,29 @@ await client.setParameter(nav, [
 await client.execute(nav, { command_type: "start" });
 await client.release(nav);`;
 
-const COMPONENT_CODE = `from openrois.interfaces.bus import InvokeResponse
-from openrois.interfaces.hri import ReturnCode
-from openrois_components_core import component, invoke, query, results, subscribe
+const COMPONENT_CODE = `from openrois.components.core import Component, command, component, event
+from openrois.interfaces.components import NAVIGATION_PROFILE
 
 
-@component("Navigation", function="actuation")
-class Navigation:
+@component(NAVIGATION_PROFILE)
+class Navigation(Component):
     """Translates RoIS Navigation into calls to your robot's own API."""
 
-    def __init__(self, config: dict) -> None:
-        self._robot_url = config["robot_url"]
+    def __init__(self, robot_url: str) -> None:
+        self._robot_url = robot_url
 
     async def connect(self) -> None:
         self._robot = await MyRobotClient.open(self._robot_url)
 
-    @query("component_status")
-    async def status(self):
-        return results.status("BUSY" if self._robot.moving else "READY")
+    @command("start")
+    async def start(self) -> None:
+        target = self.parameters["target_positions"][0]
+        await self._robot.go_to(target)
+        self.emit("reached_target", target=target, is_final_target=True)
 
-    @invoke("start")
-    async def start(self, parameters):
-        await self._robot.go_to(parameters)
-        return InvokeResponse(return_code=ReturnCode.OK, command_id="nav-1")
-
-    @subscribe("reached_target")
-    async def on_reached_target(self):
-        """Registers the event. Emit it with self.parent.emit_async(...)."""`;
+    @event("reached_target")
+    async def reached_target(self) -> None:
+        pass  # start emits the event when the robot arrives.`;
 
 const WIRE_CODE = `// Service application to gateway
 { "jsonrpc": "2.0", "id": 7, "method": "rois.command.bind",
@@ -100,15 +96,15 @@ const FEATURES: Feature[] = [
     to: '/docs/concepts/recursive-engine',
   },
   {
-    tag: 'Contract',
-    title: 'Five-Method Component Contract',
+    tag: 'Architecture',
+    title: 'One RoIS Protocol at Every Hop',
     body: (
       <>
-        <code>discover</code>, <code>invoke</code>, <code>query</code>, <code>subscribe</code>,
-        and <code>unsubscribe</code>. ROS 2, gRPC, and game engines stay inside adapters.
+        The RoIS method catalog from application to gateway, from gateway to adapter, and from
+        engine to component. ROS 2, gRPC, and game engines stay inside adapters.
       </>
     ),
-    to: '/docs/concepts/component-contract',
+    to: '/docs/concepts/architecture#one-protocol-at-every-hop',
   },
   {
     tag: 'Protocol',
@@ -148,9 +144,9 @@ const FEATURES: Feature[] = [
     title: 'Decorator-Based Components',
     body: (
       <>
-        Declare a component with <code>@component</code>, <code>@query</code>,{' '}
-        <code>@invoke</code>, and <code>@subscribe</code>. Write only the code that talks to
-        your robot.
+        Declare a component with <code>@component</code>, and mark its RoIS messages with{' '}
+        <code>@command</code>, <code>@query</code>, and <code>@event</code>. Write only the
+        code that talks to your robot.
       </>
     ),
     to: '/docs/guides/components-and-adapters',

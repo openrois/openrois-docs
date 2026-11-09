@@ -70,7 +70,7 @@ The Python packages that run next to a platform are separate from the client SDK
 
 | Package | Purpose |
 |---------|---------|
-| `openrois-components-core` | Write components: `@component(profile)`, `@invoke`, `@query`, `@subscribe`, resources and status |
+| `openrois-components-core` | Write components: `@component(profile)`, `@command`, `@query`, `@event`, resources and status |
 | `openrois-engine` | The recursive engine that hosts components in an adapter or a gateway |
 | `openrois-gateway` | The gateway process |
 | `openrois-interfaces` | RoIS types, the source of truth |

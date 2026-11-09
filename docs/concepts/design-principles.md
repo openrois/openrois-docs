@@ -15,8 +15,9 @@ ROS 2, DDS, gRPC, and game engines stay out of the core engine and the client SD
 paradigm-specific code lives in adapters and their components. Adding support for a new
 kind of platform is therefore an additional adapter, never a change to the core.
 
-The engine depends only on the five-method [Component Contract](component-contract.md),
-which makes accidental coupling structurally difficult: there is simply no place in the
+The engine speaks one protocol, the RoIS method catalog, at every hop: to applications, to
+its child engines, and to its own components ([architecture](architecture.md#one-protocol-at-every-hop)).
+That makes accidental coupling structurally difficult: there is simply no place in the
 engine to put a DDS quality-of-service setting or a game-engine call.
 
 ## Specification Traceability

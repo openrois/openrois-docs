@@ -8,36 +8,41 @@ description: How a single Engine class realizes both the main and the sub HRI En
 
 RoIS 2.0 distinguishes a **main HRI Engine**, the single entry point for applications, from
 **sub HRI Engines**, which manage the components of individual units. OpenRoIS realizes
-both roles with one class, `Engine`, from the `openrois-core` package.
+both roles with one class, `Engine`, from the `openrois-engine` package.
 
-## One Class, Two Registries
+## One Class, Two Kinds of Component
 
-An `Engine` holds two registries, and either can be populated:
+An `Engine` answers the RoIS method catalog for the sessions connected to it, and reaches
+two kinds of component, either of which can be populated:
 
-| Registry | Holds | Typically populated in |
-|----------|-------|------------------------|
-| Component registry | Local components, dispatched in process | Adapters (sub HRI Engines) |
-| Child engine registry | Proxies for child engines, reached over WebSocket | The gateway (main HRI Engine) |
+| Components | Reached with | Typically populated in |
+|------------|--------------|------------------------|
+| Components of its own process | The RoIS operations and models, as calls in process | Adapters (sub HRI Engines) |
+| Components of its child engines | The RoIS method catalog over WebSocket, the requests a client sends | The gateway (main HRI Engine) |
 
-It also tracks reservations made with `bind` and `release`, and aggregates the profiles of
-local components and child engines into a single HRI Engine profile.
+It also holds the sessions, the bindings made with `bind` and `release`, the command
+sequences and the command ids, and aggregates the profiles of its own components and its
+child engines into a single HRI Engine profile.
 
 ```mermaid
 flowchart TB
-    subgraph Engine["Engine (openrois-core)"]
+    subgraph Engine["Engine (openrois-engine)"]
         direction TB
-        CR["Component registry<br/>local components"]
-        SR["Child engine registry<br/>child engines"]
-        B["Reservations<br/>bind and release"]
+        C["RoIS method catalog<br/>sessions, bindings, sequences, ids"]
+        L["Components of this process"]
+        K["Child engines"]
         P["Profile aggregation"]
-        CR --> P
-        SR --> P
+        C --> L
+        C --> K
+        L --> P
+        K --> P
     end
 ```
 
-When a call arrives, the engine resolves the component reference. A local component is
-dispatched directly. A reference such as `robot_1/Navigation` is forwarded to the child
-engine `robot_1`.
+When a call arrives, the engine selects the component and checks the call against its
+profile. A component of its own process is called directly. A reference such as
+`robot_1/navigation` is passed on to the child engine `robot_1`, with the same RoIS
+operation.
 
 ## Processes Are Compositions
 
@@ -47,52 +52,60 @@ compositions of the same class:
 | Process | Composition |
 |---------|-------------|
 | Gateway | `Engine` + `WsServer`, accepting clients and adapters on one port |
-| Adapter | `Engine` + local components + `WsClient`, connecting to the gateway |
+| Adapter | `Engine` + its components + `WsClient`, connecting to the gateway |
 
 ```python title="gateway.py"
 import asyncio
 
-from openrois_core import Engine, WsServer
+from openrois.engine import Engine, WsServer
 
 
 async def main() -> None:
-    server = WsServer(Engine(enforce_bindings=True))
-    await server.start("0.0.0.0", 8765)
-    # start() returns once the server is listening, so keep the loop alive.
-    await asyncio.Event().wait()
+    engine = Engine("gateway")
+    server = WsServer(engine)
+    await engine.start()
+    await server.start("127.0.0.1", 8765)
+    try:
+        await asyncio.Event().wait()
+    finally:
+        await server.stop()
+        await engine.stop()
 
 
 asyncio.run(main())
 ```
 
 ```python title="adapter.py"
-from openrois_core import Engine, WsClient
+from openrois.engine import Engine, WsClient
 
-engine = Engine(engine_id="robot_1", platform="my_robot")
-engine.register_component("Navigation", navigation, navigation_meta)
+engine = Engine("robot_1")
+engine.add_component("navigation", Navigation("http://192.168.0.10:8080"))
 WsClient(engine, "ws://gateway.example.org:8765").run()
 ```
 
-The gateway enforces reservations (`enforce_bindings=True`): only the application that
-bound an actuation component may command it. Adapters trust the gateway and skip the
-redundant check, consistent with RoIS, which consolidates resource ownership in the HRI
-Engine.
+The standalone gateway process, `openrois-gateway`, runs exactly this composition with
+configuration and signal handling, and adapters read their settings from `adapter.yaml`
+(see [write components and adapters](../guides/components-and-adapters.md)).
+
+The engine an application calls holds its bindings: only the session that bound an
+actuation component may command it. The gateway is the only client of each adapter, so
+the adapter skips the check the gateway already made, consistent with RoIS, which
+consolidates resource ownership in the HRI Engine.
 
 ## Why It Matters
 
-Without this model, the dispatch logic that turns RoIS calls into component calls would
-exist twice: once in the gateway and once in every adapter framework, possibly in
-different languages. A recursive engine gives one implementation, one set of tests, and
-one behavior. It also matches the specification literally, since a sub HRI Engine is an
-engine, not a passive backend.
+A recursive engine gives the dispatch logic that turns RoIS calls into component calls
+one implementation, one set of tests, and one behavior, in the gateway and in every
+adapter. It also matches the specification literally, since a sub HRI Engine is an engine,
+not a passive backend.
 
 Nothing in the design limits the depth of the hierarchy: a child engine can itself have
 child engines. Current deployments use one gateway and one level of adapters.
 
-## Discovery and Registration
+## Discovery
 
-When an adapter connects to the gateway on the `/adapter` path, the gateway asks it for
-its components, registers it as a child engine, and broadcasts
-`rois.system.profile_changed` to connected applications. When the adapter disconnects,
-its components and any reservations on them are removed, and applications are notified
-again.
+When an adapter connects to the gateway on the `/adapter` path, the gateway connects to it
+with `rois.system.connect`, reads its profile with `rois.system.get_profile`, adds it as a
+child engine, and broadcasts `rois.system.profile_changed` to connected applications. When
+the adapter disconnects, its components and any bindings on them are removed, and
+applications are notified again.
