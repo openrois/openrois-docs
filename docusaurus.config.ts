@@ -36,7 +36,7 @@ const whitePaperRedirects: Array<{from: string; to: string}> = [
   ['architectural-decisions', '/docs/concepts/design-principles'],
   ['recursive-engine', '/docs/concepts/recursive-engine'],
   ['layered-architecture', '/docs/concepts/architecture'],
-  ['component-contract', '/docs/concepts/component-contract'],
+  ['component-contract', '/docs/concepts/architecture'],
   ['type-pipeline', '/docs/concepts/type-pipeline'],
   ['developer-experience', '/docs/guides/service-application'],
   ['wire-protocol', '/docs/reference/wire-protocol'],
@@ -136,7 +136,10 @@ const config: Config = {
     [
       '@docusaurus/plugin-client-redirects',
       {
-        redirects: whitePaperRedirects,
+        redirects: [
+          ...whitePaperRedirects,
+          {from: '/docs/concepts/component-contract', to: '/docs/concepts/architecture'},
+        ],
       },
     ],
   ],

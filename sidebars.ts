@@ -20,7 +20,6 @@ const sidebars: SidebarsConfig = {
         'concepts/architecture',
         'concepts/design-principles',
         'concepts/recursive-engine',
-        'concepts/component-contract',
         'concepts/type-pipeline',
         'concepts/transports-and-media',
         'concepts/deployment-topologies',
