@@ -33,17 +33,17 @@ const OPENROIS = familyProject('openrois', '02', '/img/logo.svg', 'OpenRoIS');
 const whitePaperRedirects: Array<{from: string; to: string}> = [
   ['introduction', '/docs/intro'],
   ['background', '/docs/concepts/rois-overview'],
-  ['architectural-decisions', '/docs/concepts/design-principles'],
-  ['recursive-engine', '/docs/concepts/recursive-engine'],
+  ['architectural-decisions', '/docs/concepts/architecture'],
+  ['recursive-engine', '/docs/concepts/architecture'],
   ['layered-architecture', '/docs/concepts/architecture'],
   ['component-contract', '/docs/concepts/architecture'],
-  ['type-pipeline', '/docs/concepts/type-pipeline'],
+  ['type-pipeline', '/docs/project/type-generation'],
   ['developer-experience', '/docs/guides/service-application'],
   ['wire-protocol', '/docs/reference/wire-protocol'],
-  ['deployment-topologies', '/docs/concepts/deployment-topologies'],
-  ['transport-strategy', '/docs/concepts/transports-and-media'],
-  ['control-data-plane', '/docs/concepts/transports-and-media'],
-  ['security-architecture', '/docs/concepts/security'],
+  ['deployment-topologies', '/docs/concepts/deployment'],
+  ['transport-strategy', '/docs/concepts/deployment'],
+  ['control-data-plane', '/docs/concepts/deployment'],
+  ['security-architecture', '/docs/concepts/deployment'],
   ['component-library-package-management', '/docs/reference/components'],
   ['roadmap-maturity', '/docs/project/roadmap'],
   ['hub-marketplace', '/docs/project/roadmap'],
@@ -138,7 +138,25 @@ const config: Config = {
       {
         redirects: [
           ...whitePaperRedirects,
-          {from: '/docs/concepts/component-contract', to: '/docs/concepts/architecture'},
+          // Pages that merged into another page in the restructure for v0.1.0.
+          {
+            from: [
+              '/docs/concepts/component-contract',
+              '/docs/concepts/recursive-engine',
+              '/docs/concepts/design-principles',
+            ],
+            to: '/docs/concepts/architecture',
+          },
+          {
+            from: [
+              '/docs/concepts/deployment-topologies',
+              '/docs/concepts/transports-and-media',
+              '/docs/concepts/security',
+            ],
+            to: '/docs/concepts/deployment',
+          },
+          {from: '/docs/concepts/type-pipeline', to: '/docs/project/type-generation'},
+          {from: '/docs/reference/benchmarks', to: '/docs/project/roadmap'},
         ],
       },
     ],

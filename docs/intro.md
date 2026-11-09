@@ -2,7 +2,7 @@
 slug: /intro
 sidebar_label: Introduction
 sidebar_position: 1
-description: OpenRoIS is a community-driven open-source middleware implementing the OMG Robotic Interaction Service (RoIS) Framework 2.0 for physical robots, virtual avatars, and AI services.
+description: OpenRoIS is a community-driven open-source middleware implementing the OMG Robotic Interaction Service (RoIS) Framework 2.0 for physical robots, digital avatars, and AI services.
 ---
 
 import ThemedImage from '@theme/ThemedImage';
@@ -11,7 +11,7 @@ import ThemedImage from '@theme/ThemedImage';
 
 OpenRoIS is a community-driven open-source middleware that implements the
 [OMG Robotic Interaction Service (RoIS) Framework 2.0](https://www.omg.org/spec/RoIS/2.0).
-It lets service applications control physical robots, virtual avatars, and AI services
+It lets service applications control physical robots, digital avatars, and AI services
 through the standard RoIS interfaces, on a single machine, across a local network, or
 over the internet.
 
@@ -43,27 +43,35 @@ OpenRoIS provides them, developed in the open under the Apache License 2.0.
 
 ## What OpenRoIS Provides
 
-| Contribution | Summary |
-|--------------|---------|
-| [Recursive engine](concepts/recursive-engine.md) | One `Engine` class realizes both the main and the sub HRI Engine roles of RoIS, so the gateway and every adapter share one dispatch implementation. |
-| [One protocol at every hop](concepts/architecture.md#one-protocol-at-every-hop) | The RoIS method catalog from application to gateway, from gateway to adapter, and from engine to component, which keeps the engine independent of ROS 2, gRPC, game engines, or any other middleware. |
-| [Wire protocol](reference/wire-protocol.md) | A mapping of the five RoIS interfaces onto JSON-RPC 2.0 over WebSocket, usable from browsers and across the internet. |
-| [Type pipeline](concepts/type-pipeline.md) | RoIS types authored once as Python models, exported to JSON Schema, and generated into TypeScript and C#. |
-| [SDKs](reference/sdks.md) | Client SDKs for JavaScript, Python and Unity, and a Python component SDK for adapters with ROS 2 support. |
+| Part | What it is |
+|------|------------|
+| [Gateway](concepts/architecture.md) | The process applications connect to. It presents every robot behind it through the RoIS interfaces, as one engine profile. |
+| [Adapters and the component SDK](guides/components-and-adapters.md) | An adapter connects one robot to the gateway. You write its components in Python with `@component`, `@command`, `@query` and `@event`. |
+| [Client SDKs](reference/sdks.md) | JavaScript, Python and Unity SDKs with one method per RoIS operation, checked against one conformance list. |
+| [Inspector](guides/inspector.md) | A browser application that shows the engines and components behind a gateway and drives them, with every message in view. |
+| [MCP server](guides/ai-agents.md) | Gives an AI agent the robots behind a gateway through the Model Context Protocol. |
+| [Wire protocol](reference/wire-protocol.md) | The five RoIS interfaces mapped onto JSON-RPC 2.0 over WebSocket, usable from browsers and across the internet. |
+
+Two design choices hold these together. One `Engine` class realizes both the main and the
+sub HRI Engine roles of RoIS, so the gateway and every adapter behave alike. And the engine
+speaks [one protocol at every hop](concepts/architecture.md#one-protocol-at-every-hop), the
+RoIS method catalog, which keeps it independent of ROS 2, gRPC, game engines, or any other
+middleware.
 
 ## Project Status
 
-OpenRoIS is **alpha software with an unstable API**. The interface types, the recursive
-engine, the adapter SDK, and reference components for a commercial robot are available
-and have been demonstrated with a physical robot. The JavaScript, Python and Unity client
-SDKs have their first alpha releases, on npm, on PyPI and by Git URL. Media transport and
-the full component library are on the [roadmap](project/roadmap.md).
+OpenRoIS is **alpha software with an unstable API**. Release `v0.1.0` runs end to end: a
+real Reachy Mini and a simulated one behind one gateway, driven by an application and by
+an AI agent. The gateway does not authenticate connections yet, no digital avatar adapter
+exists yet, and media streaming is not carried yet. The [roadmap](project/roadmap.md)
+lists what comes next, in order.
 
 ## Where to Go Next
 
-- **Try it:** the [quick start](getting-started/quickstart.md) runs an engine and a
-  browser-based inspector in a few minutes.
-- **Understand it:** start with the [RoIS overview](concepts/rois-overview.md) and the
+- **Try it:** the [quick start](getting-started/quickstart.md) runs a gateway, a mock
+  adapter and the Inspector with Docker in a few minutes.
+- **Build with it:** write a [service application](guides/service-application.md), connect
+  an [AI agent](guides/ai-agents.md), or write the
+  [components and adapter](guides/components-and-adapters.md) for your robot.
+- **Understand it:** read [RoIS in brief](concepts/rois-overview.md) and the
   [architecture](concepts/architecture.md).
-- **Build with it:** write a [service application](guides/service-application.md) or a
-  [component for your robot](guides/components-and-adapters.md).

@@ -15,7 +15,7 @@ description: The OpenRoIS client SDKs for JavaScript, Python and Unity, and the 
 
 The three client SDKs share one surface and one [conformance list](https://github.com/openrois/openrois/blob/dev/testing/conformance/README.md),
 which each passes against the same gateway and engine versions. They share the RoIS types of
-the [type pipeline](../concepts/type-pipeline.md), so a message has the same fields in
+the [generated types](../project/type-generation.md), so a message has the same fields in
 every language. See [installation](../getting-started/installation.md) to add one to a
 project.
 

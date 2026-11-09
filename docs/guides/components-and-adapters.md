@@ -1,10 +1,10 @@
 ---
-sidebar_label: Write Components and Adapters
-sidebar_position: 2
-description: Connect a robot, avatar, or service to OpenRoIS by writing Python components and an adapter.
+sidebar_label: Write Components and an Adapter
+sidebar_position: 4
+description: Connect a robot, digital avatar, or service to OpenRoIS by writing Python components and an adapter.
 ---
 
-# Write Components and Adapters
+# Write Components and an Adapter
 
 A **component** implements one RoIS component type, such as Navigation, by calling your
 platform. An **adapter** is the process that hosts your components in a sub HRI Engine and

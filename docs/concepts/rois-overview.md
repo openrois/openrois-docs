@@ -97,4 +97,4 @@ RoIS defines messages, not transport. Its platform-specific models cover C++, CO
 XML profiles, and implementations may carry the messages over CORBA, OMG RTC, ROS 2 and
 DDS, WebSocket, or any other transport. RoIS standardizes stream **control** but not
 media encoding or transport. These open choices are exactly where OpenRoIS makes
-[explicit implementation decisions](design-principles.md).
+[explicit implementation decisions](architecture.md#design-principles).
