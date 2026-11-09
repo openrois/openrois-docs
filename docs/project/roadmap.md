@@ -114,7 +114,7 @@ See [security](../concepts/security.md) and [transports and media](../concepts/t
 ### Phase 10: Full Component Library
 
 All 17 basic RoIS HRI Components, for physical robots and virtual avatars, and packages
-published to PyPI, npm, NuGet, and the Unity Package Manager. First stable release with
+published to PyPI, npm, and the Unity Package Manager. First stable release with
 semantic versioning guarantees: **v1.0**.
 
 ### Phase 11: Component Registry and Hub
