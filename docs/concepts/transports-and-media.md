@@ -47,7 +47,7 @@ this:
 Keeping media off the control plane lets the gateway scale like any other WebSocket
 service, whatever transport carries the media.
 
-:::note Status
+:::note[Status]
 The engine serves the AudioStreaming and VideoStreaming profiles like any other component.
 No streaming component ships yet, and media is [planned](../project/roadmap.md) as a
 release of its own.

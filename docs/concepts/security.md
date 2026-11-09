@@ -6,7 +6,7 @@ description: How to secure an OpenRoIS v0.1.0 gateway with a TLS reverse proxy, 
 
 # Security
 
-:::info Status
+:::info[Status]
 `v0.1.0` keeps access control out of the middleware: the gateway does not authenticate
 or authorize connections and serves plain WebSocket. Authentication and authorization
 come in a later release, once the RoIS interfaces are validated. See the
