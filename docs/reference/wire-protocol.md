@@ -209,9 +209,11 @@ If another application already holds the reservation, the result is
 
 :::note Implementation note
 RoIS allows a `CommandUnitSequence` to combine sequential commands with concurrent groups.
-The current engine executes the first command unit. It also accepts the shorthand
-`{"component_ref": ..., "command_type": "start", "parameters": [...]}`, which the
-TypeScript SDK uses. Full sequences are on the [roadmap](../project/roadmap.md).
+The engine runs the whole sequence: its items in order, and the branches of a
+`ConcurrentCommands` item in parallel. A command that fails aborts the rest of its branch
+and every later item. The engine assigns every command id itself and returns the sequence
+with the ids filled in. See
+[Commands, Ids and Status](https://github.com/openrois/openrois/blob/dev/docs/rois-reference.md#177-commands-ids-and-status).
 :::
 
 ### Receive an Event

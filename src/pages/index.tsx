@@ -198,7 +198,8 @@ const STATUS: StatusGroup[] = [
     kind: 'planned',
     items: [
       'Run-time XML component profiles and a RoIS conformance claim',
-      'Authentication, authorization, and WebRTC media',
+      'Authentication and authorization',
+      'Media streaming, transport-neutral, with an optional WebRTC integration',
       'All 17 basic RoIS HRI Components (v1.0)',
     ],
   },

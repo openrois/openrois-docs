@@ -24,10 +24,17 @@ mapping is in the [wire protocol reference](../reference/wire-protocol.md).
 
 ## Media on a Separate Data Plane
 
-RoIS 2.0 standardizes stream **control** through the Streaming Interface, but leaves
-media encoding and transport to implementations. In OpenRoIS, the engine never touches
-media: it has no media or WebRTC dependencies and opens no media ports. Audio and video
-flow directly between the source and the consumer over WebRTC.
+RoIS 2.0 standardizes stream **control** through the AudioStreaming and VideoStreaming
+components, and leaves media encoding and transport to implementations. OpenRoIS keeps it
+that way: it does not prescribe a media transport. A streaming component returns a
+descriptor of its stream (its protocol, its endpoint, and what a client needs to connect),
+and the engine routes it like any other result. The engine has no media dependencies and
+opens no media ports, and media flows directly between the source and the consumer.
+
+An adapter that already publishes RTSP, WHEP, a ROS 2 topic or a managed video service
+returns that. For deployments with no media stack of their own, an optional WebRTC
+integration is planned as the default. With it, the RoIS messages map onto WebRTC like
+this:
 
 | RoIS stream control | WebRTC counterpart |
 |---------------------|--------------------|
@@ -38,15 +45,12 @@ flow directly between the source and the consumer over WebRTC.
 | `disconnect_stream` | Peer connection closed |
 
 Keeping media off the control plane lets the gateway scale like any other WebSocket
-service. Peer-to-peer WebRTC is sufficient for a handful of robots, and a selective
-forwarding unit can serve larger fleets without any change to the RoIS interface.
+service, whatever transport carries the media.
 
 :::note Status
-The control plane is available: the engine routes every `rois.stream.*` operation to the
-streaming component and its `notify_stream_status` events back to the application, and
-the SDKs expose them. WebRTC media on the data plane is
-[planned](../project/roadmap.md): today the mock adapter's `VideoStreaming` answers a
-placeholder `media_url` and no reference component moves real media yet.
+The engine serves the AudioStreaming and VideoStreaming profiles like any other component.
+No streaming component ships yet, and media is [planned](../project/roadmap.md) as a
+release of its own.
 :::
 
 ## Commands Versus Streams
