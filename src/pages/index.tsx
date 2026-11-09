@@ -281,9 +281,9 @@ function HeroLinks(): ReactNode {
 function DemoVideo(): ReactNode {
   const ref = useRef<HTMLVideoElement>(null);
   const [blocked, setBlocked] = useState(false);
-  const poster = useBaseUrl('/video/hri-client-demo-poster.jpg');
-  const webm = useBaseUrl('/video/hri-client-demo.webm');
-  const mp4 = useBaseUrl('/video/hri-client-demo.mp4');
+  const poster = useBaseUrl('/video/inspector-demo-poster.jpg');
+  const webm = useBaseUrl('/video/inspector-demo.webm');
+  const mp4 = useBaseUrl('/video/inspector-demo.mp4');
 
   // Browsers only autoplay muted media, and React does not always reflect the
   // muted prop as an attribute after hydration or client-side navigation, so
@@ -330,7 +330,7 @@ function DemoVideo(): ReactNode {
         playsInline
         preload="auto"
         poster={poster}
-        aria-label="Screen recording of the OpenRoIS HRI Client connecting to the mock engine, querying components, subscribing to events, and executing a command."
+        aria-label="Screen recording of the OpenRoIS Inspector connecting to the gateway, binding mock/navigation, and running a command sequence with a concurrent group of two branches until every command ends OK."
         onError={() => setBlocked(true)}>
         <source src={mp4} type="video/mp4" />
         <source src={webm} type="video/webm" />
@@ -391,12 +391,12 @@ function Hero(): ReactNode {
                 <span />
                 <span />
                 <span />
-                <em>examples/hri-client</em>
+                <em>localhost:8080 · OpenRoIS Inspector</em>
               </div>
               <DemoVideo />
             </div>
             <figcaption className="sibling-hero__caption">
-              The HRI client against the mock engine, no robot attached.{' '}
+              The OpenRoIS Inspector against the mock adapter, no robot attached.{' '}
               <Link to="/docs/getting-started/quickstart">Run It Yourself →</Link>
             </figcaption>
           </figure>
