@@ -196,7 +196,7 @@ const STATUS: StatusGroup[] = [
     label: 'Planned',
     kind: 'planned',
     items: [
-      'A physical robot and a digital avatar behind one gateway',
+      'A physical robot and a virtual avatar behind one gateway',
       'Authentication and authorization',
       'Media streaming, transport-neutral, with an optional WebRTC integration',
       'A stable API with semantic versioning guarantees (v1.0)',
@@ -373,7 +373,7 @@ function Hero(): ReactNode {
           </Heading>
           <p className="sibling-hero__lead">
             A community-driven open-source middleware implementing the OMG Robotic Interaction
-            Service (RoIS) Framework 2.0. Service applications control physical robots, digital
+            Service (RoIS) Framework 2.0. Service applications control physical robots, virtual
             avatars, and AI services through standard, symbolic interfaces, locally or over the
             internet.
           </p>
@@ -651,7 +651,7 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title="Open-source middleware for the OMG RoIS Framework 2.0"
-      description="OpenRoIS implements the OMG Robotic Interaction Service (RoIS) Framework 2.0. Control physical robots, digital avatars, and AI services through standard interfaces. Apache License 2.0.">
+      description="OpenRoIS implements the OMG Robotic Interaction Service (RoIS) Framework 2.0. Control physical robots, virtual avatars, and AI services through standard interfaces. Apache License 2.0.">
       <Hero />
       <main>
         <Why />

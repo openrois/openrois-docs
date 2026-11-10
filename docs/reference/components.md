@@ -1,15 +1,15 @@
 ---
 sidebar_label: Components
 sidebar_position: 2
-description: The 17 basic RoIS HRI Components, how they map to robots and digital avatars, and what OpenRoIS provides for each today.
+description: The 17 basic RoIS HRI Components, how they map to robots and virtual avatars, and what OpenRoIS provides for each today.
 ---
 
 # Components
 
 RoIS 2.0 defines 17 basic HRI Components. This page shows how each maps to a physical
-robot and to a digital avatar, and what OpenRoIS provides for it today.
+robot and to a virtual avatar, and what OpenRoIS provides for it today.
 
-## Robots and Digital Avatars Share Most Components
+## Robots and Virtual Avatars Share Most Components
 
 Perception and speech components run the same models whether their input comes from a
 robot camera or a webcam. Of the 17 basic components, **13 keep the same interface and
@@ -18,7 +18,7 @@ output device, or coordinate system. Only **4** (Reaction, Navigation, Follow, a
 need implementations specific to the paradigm. The table is an analysis of the
 component definitions, not a measurement of shared code.
 
-| Component | Physical robot | Digital avatar | Across paradigms |
+| Component | Physical robot | Virtual avatar | Across paradigms |
 |-----------|----------------|----------------|------------------|
 | Person Detection | Detector on the robot camera | Detector on a webcam or virtual sensor | Identical |
 | Person Localization | Depth camera and tracker | World position or webcam depth | Coordinate system differs |

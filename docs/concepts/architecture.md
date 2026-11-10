@@ -26,7 +26,7 @@ Components are classes hosted by adapters.
 | Sub HRI Engine | An **adapter**: an `Engine` with local components, connected to the gateway |
 | HRI Component | A class decorated with `@component`, hosted by an adapter |
 | RoIS interfaces | JSON-RPC 2.0 methods in the `rois.*` namespaces |
-| Implementation Layer | The robot, digital avatar, or service behind an adapter, outside OpenRoIS |
+| Implementation Layer | The robot, virtual avatar, or service behind an adapter, outside OpenRoIS |
 
 ## The Layers
 
