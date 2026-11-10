@@ -69,12 +69,12 @@ flowchart LR
     GW -->|WebSocket| RA["Robot adapter"] --> R["Robot"]
 ```
 
-### Robots and Digital Avatars Together
+### Robots and Virtual Avatars Together
 
-Nothing in the gateway or the SDKs is specific to physical robots. A digital avatar
+Nothing in the gateway or the SDKs is specific to physical robots. A virtual avatar
 rendered in a game engine gets its own adapter, and an application addresses it with the
 same calls it uses for a robot. A real Reachy Mini and a simulated one already run behind
-one gateway this way. An adapter for a digital avatar is on the
+one gateway this way. An adapter for a virtual avatar is on the
 [roadmap](../project/roadmap.md).
 
 ## Security

@@ -15,7 +15,7 @@ inside a robot.
 [ROS](https://www.ros.org/) and ROS 2 are the most widely used middleware in research
 robotics. OpenRoIS places ROS 2 behind an adapter: synchronous RoIS operations map to ROS 2
 services, long-running operations to actions, and notifications to topics. A service
-application then addresses ROS 2 robots, robots built on other middleware, and digital
+application then addresses ROS 2 robots, robots built on other middleware, and virtual
 avatars through the same symbolic interface, without depending on ROS 2 itself.
 
 ## Open-RMF

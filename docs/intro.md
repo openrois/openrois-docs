@@ -2,7 +2,7 @@
 slug: /intro
 sidebar_label: Introduction
 sidebar_position: 1
-description: OpenRoIS is a community-driven open-source middleware implementing the OMG Robotic Interaction Service (RoIS) Framework 2.0 for physical robots, digital avatars, and AI services.
+description: OpenRoIS is a community-driven open-source middleware implementing the OMG Robotic Interaction Service (RoIS) Framework 2.0 for physical robots, virtual avatars, and AI services.
 ---
 
 import ThemedImage from '@theme/ThemedImage';
@@ -11,7 +11,7 @@ import ThemedImage from '@theme/ThemedImage';
 
 OpenRoIS is a community-driven open-source middleware that implements the
 [OMG Robotic Interaction Service (RoIS) Framework 2.0](https://www.omg.org/spec/RoIS/2.0).
-It lets service applications control physical robots, digital avatars, and AI services
+It lets service applications control physical robots, virtual avatars, and AI services
 through the standard RoIS interfaces, on a single machine, across a local network, or
 over the internet.
 
@@ -62,7 +62,7 @@ middleware.
 
 OpenRoIS is **alpha software with an unstable API**. Release `v0.1.0` runs end to end: a
 real Reachy Mini and a simulated one behind one gateway, driven by an application and by
-an AI agent. The gateway does not authenticate connections yet, no digital avatar adapter
+an AI agent. The gateway does not authenticate connections yet, no virtual avatar adapter
 exists yet, and media streaming is not carried yet. The [roadmap](project/roadmap.md)
 lists what comes next, in order.
 
