@@ -18,10 +18,11 @@ in the proceedings, please cite its preprint on arXiv,
 @misc{carrera2026openrois,
   author        = {Carrera Villalobos, Sebastian and Arellano, Christopher Nolan and
                    Hitzmann, Arne and Morais Brito, Edilson and Utsumi, Akira and
-                   Horikawa, Yukiko and Miyashita, Takahiro and El Hafi, Lotfi},
+                   Horikawa, Yukiko and Miyashita, Takahiro and Ishiguro, Hiroshi and
+                   El Hafi, Lotfi},
   title         = {{OpenRoIS}: A Community-Driven Open-Source Middleware Implementing
                    the Robotic Interaction Service ({RoIS}) Framework for Physical
-                   Robots and Virtual Agents},
+                   Robots, Virtual Avatars, and {AI} Agents},
   year          = {2026},
   eprint        = {2609.21178},
   archivePrefix = {arXiv},
@@ -35,7 +36,7 @@ in the proceedings, please cite its preprint on arXiv,
 
 If you use OpenRoIS in your research, please also cite the software. The repository provides
 the same information in machine-readable form in
-[`CITATION.cff`](https://github.com/openrois/openrois/blob/dev/CITATION.cff), which GitHub
+[`CITATION.cff`](https://github.com/openrois/openrois/blob/main/CITATION.cff), which GitHub
 turns into a "Cite this repository" button.
 
 ```bibtex

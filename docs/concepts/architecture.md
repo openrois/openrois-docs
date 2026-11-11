@@ -13,7 +13,7 @@ gateway realizes the main HRI Engine, each adapter realizes a sub HRI Engine, an
 Components are classes hosted by adapters.
 
 <figure className="openrois-figure">
-  <ThemedImage alt="OpenRoIS architecture: service applications, the gateway hosting the main HRI Engine, adapters hosting sub HRI Engines, and their hosts." sources={{light: "/img/openrois-architecture.svg", dark: "/img/openrois-architecture-dark.svg"}} />
+  <ThemedImage alt="OpenRoIS architecture: service applications, among them an AI agent through the MCP server, the gateway hosting the main HRI Engine, adapters hosting sub HRI Engines for physical robots, virtual avatars, and digital services, and their hosts." sources={{light: "/img/openrois-architecture.svg", dark: "/img/openrois-architecture-dark.svg"}} />
   <figcaption>Every middleware boundary uses WebSocket and JSON-RPC 2.0. Each adapter reaches its host through the transport that host requires, and media stays on a separate data plane.</figcaption>
 </figure>
 
@@ -26,7 +26,7 @@ Components are classes hosted by adapters.
 | Sub HRI Engine | An **adapter**: an `Engine` with local components, connected to the gateway |
 | HRI Component | A class decorated with `@component`, hosted by an adapter |
 | RoIS interfaces | JSON-RPC 2.0 methods in the `rois.*` namespaces |
-| Implementation Layer | The robot, virtual avatar, or service behind an adapter, outside OpenRoIS |
+| Implementation Layer | The physical robot, virtual avatar, or digital service behind an adapter, outside OpenRoIS |
 
 ## The Layers
 

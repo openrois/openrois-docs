@@ -2,7 +2,7 @@
 slug: /intro
 sidebar_label: Introduction
 sidebar_position: 1
-description: OpenRoIS is a community-driven open-source middleware implementing the OMG Robotic Interaction Service (RoIS) Framework 2.0 for physical robots, virtual avatars, and AI services.
+description: OpenRoIS is a community-driven open-source middleware implementing the OMG Robotic Interaction Service (RoIS) Framework 2.0 for physical robots, virtual avatars, and digital services.
 ---
 
 import ThemedImage from '@theme/ThemedImage';
@@ -11,7 +11,7 @@ import ThemedImage from '@theme/ThemedImage';
 
 OpenRoIS is a community-driven open-source middleware that implements the
 [OMG Robotic Interaction Service (RoIS) Framework 2.0](https://www.omg.org/spec/RoIS/2.0).
-It lets service applications control physical robots, virtual avatars, and AI services
+It lets service applications control physical robots, virtual avatars, and digital services
 through the standard RoIS interfaces, on a single machine, across a local network, or
 over the internet.
 
@@ -24,7 +24,7 @@ practice. The cost grows multiplicatively: integrating N applications with M pla
 means N × M integrations, each built and maintained separately.
 
 <figure className="openrois-figure">
-  <ThemedImage alt="Without a standard interface, N applications and M platforms need N times M integrations. With OpenRoIS, they need N plus M." sources={{light: "/img/openrois-concept.svg", dark: "/img/openrois-concept-dark.svg"}} />
+  <ThemedImage alt="With vendor-specific interfaces, N applications and M platforms, whether physical robots, virtual avatars, or digital services, need N times M integrations. With OpenRoIS, they need N plus M." sources={{light: "/img/openrois-concept.svg", dark: "/img/openrois-concept-dark.svg"}} />
   <figcaption>OpenRoIS mediates applications and platforms through the symbolic interfaces of RoIS, so an application is written once and each platform is integrated once.</figcaption>
 </figure>
 
@@ -50,7 +50,7 @@ OpenRoIS provides them, developed in the open under the Apache License 2.0.
 | [Client SDKs](reference/sdks.md) | JavaScript, Python and Unity SDKs with one method per RoIS operation, checked against one conformance list. |
 | [Inspector](guides/inspector.md) | A browser application that shows the engines and components behind a gateway and drives them, with every message in view. |
 | [MCP server](guides/ai-agents.md) | Gives an AI agent the robots behind a gateway through the Model Context Protocol. |
-| [Wire protocol](reference/wire-protocol.md) | The five RoIS interfaces mapped onto JSON-RPC 2.0 over WebSocket, usable from browsers and across the internet. |
+| [Wire protocol](reference/wire-protocol.md) | The RoIS interfaces mapped onto JSON-RPC 2.0 over WebSocket, usable from browsers and across the internet. |
 
 Two design choices hold these together. One `Engine` class realizes both the main and the
 sub HRI Engine roles of RoIS, so the gateway and every adapter behave alike. And the engine

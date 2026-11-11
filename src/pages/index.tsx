@@ -113,7 +113,7 @@ const FEATURES: Feature[] = [
     title: 'JSON-RPC 2.0 over WebSocket',
     body: (
       <>
-        Every operation of the five RoIS interfaces maps to a namespaced method. The control
+        The System, Command, Query, and Event interfaces of RoIS map to namespaced methods. The control
         plane works from browsers and across the internet.
       </>
     ),
@@ -209,10 +209,11 @@ const STANDARDS = ['OMG RoIS 2.0', 'JSON-RPC 2.0', 'WebSocket', 'JSON Schema', '
 const PAPER_BIBTEX = `@misc{carrera2026openrois,
   author        = {Carrera Villalobos, Sebastian and Arellano, Christopher Nolan and
                    Hitzmann, Arne and Morais Brito, Edilson and Utsumi, Akira and
-                   Horikawa, Yukiko and Miyashita, Takahiro and El Hafi, Lotfi},
+                   Horikawa, Yukiko and Miyashita, Takahiro and Ishiguro, Hiroshi and
+                   El Hafi, Lotfi},
   title         = {{OpenRoIS}: A Community-Driven Open-Source Middleware Implementing
                    the Robotic Interaction Service ({RoIS}) Framework for Physical
-                   Robots and Virtual Agents},
+                   Robots, Virtual Avatars, and {AI} Agents},
   year          = {2026},
   eprint        = {2609.21178},
   archivePrefix = {arXiv},
@@ -368,13 +369,13 @@ function Hero(): ReactNode {
             </div>
           </div>
           <Heading as="h1" className="sibling-hero__title">
-            <span className="sibling-hero__name">OpenRoIS</span>: One Standard Interface for Robots,
-            Avatars, and AI Services
+            <span className="sibling-hero__name">OpenRoIS</span>: One Standard Interface for Physical
+            Robots, Virtual Avatars, and Digital Services
           </Heading>
           <p className="sibling-hero__lead">
             A community-driven open-source middleware implementing the OMG Robotic Interaction
             Service (RoIS) Framework 2.0. Service applications control physical robots, virtual
-            avatars, and AI services through standard, symbolic interfaces, locally or over the
+            avatars, and digital services through standard, symbolic interfaces, locally or over the
             internet.
           </p>
           <div className="sibling-buttons">
@@ -425,7 +426,7 @@ function Why(): ReactNode {
         </div>
         <figure className={styles.figure}>
           <ThemedImage
-            alt="Without a standard interface, N applications and M platforms need N times M integrations. With OpenRoIS, they need N plus M."
+            alt="With vendor-specific interfaces, N applications and M platforms, whether physical robots, virtual avatars, or digital services, need N times M integrations. With OpenRoIS, they need N plus M."
             sources={{
               light: useBaseUrl('/img/openrois-concept.svg'),
               dark: useBaseUrl('/img/openrois-concept-dark.svg'),
@@ -514,7 +515,7 @@ function Architecture(): ReactNode {
         </div>
         <figure className={styles.figure}>
           <ThemedImage
-            alt="OpenRoIS architecture: service applications, the gateway hosting the main HRI Engine, adapters hosting sub HRI Engines, and their hosts."
+            alt="OpenRoIS architecture: service applications, among them an AI agent through the MCP server, the gateway hosting the main HRI Engine, adapters hosting sub HRI Engines for physical robots, virtual avatars, and digital services, and their hosts."
             sources={{
               light: useBaseUrl('/img/openrois-architecture.svg'),
               dark: useBaseUrl('/img/openrois-architecture-dark.svg'),
@@ -651,7 +652,7 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title="Open-source middleware for the OMG RoIS Framework 2.0"
-      description="OpenRoIS implements the OMG Robotic Interaction Service (RoIS) Framework 2.0. Control physical robots, virtual avatars, and AI services through standard interfaces. Apache License 2.0.">
+      description="OpenRoIS implements the OMG Robotic Interaction Service (RoIS) Framework 2.0. Control physical robots, virtual avatars, and digital services through standard interfaces. Apache License 2.0.">
       <Hero />
       <main>
         <Why />

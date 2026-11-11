@@ -1,7 +1,7 @@
 ---
 sidebar_label: Components
 sidebar_position: 2
-description: The 17 basic RoIS HRI Components, how they map to robots and virtual avatars, and what OpenRoIS provides for each today.
+description: The 17 basic RoIS HRI Components, how they map to physical robots and virtual avatars, and what OpenRoIS provides for each today.
 ---
 
 # Components
