@@ -6,7 +6,7 @@ description: The mapping of the five RoIS 2.0 interfaces onto JSON-RPC 2.0 over 
 
 # Wire Protocol
 
-OpenRoIS carries the five RoIS interfaces as [JSON-RPC 2.0](https://www.jsonrpc.org/specification)
+OpenRoIS carries the RoIS interfaces as [JSON-RPC 2.0](https://www.jsonrpc.org/specification)
 messages over WebSocket. RoIS 2.0 leaves transport open, and this mapping is the concrete
 choice OpenRoIS makes. It is what lets browsers, Unity, and any language with a WebSocket
 client act as a RoIS service application.

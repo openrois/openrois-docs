@@ -14,7 +14,7 @@ welcome.
 | Contribution | Where to start |
 |--------------|----------------|
 | Report a bug or request a feature | [Open an issue](https://github.com/openrois/openrois/issues) |
-| Add components for a new robot or virtual avatar | [Write components and adapters](../guides/components-and-adapters.md) |
+| Add components for a new physical robot or virtual avatar | [Write components and adapters](../guides/components-and-adapters.md) |
 | Implement a basic RoIS component | Pick a planned component from the [component status](../reference/components.md) |
 | Improve the SDKs or the engine | Pick an item from the [roadmap](roadmap.md) |
 | Improve this documentation | Use the **Edit this page** link at the bottom of any page |

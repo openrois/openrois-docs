@@ -1,7 +1,7 @@
 ---
 sidebar_label: Write Components and an Adapter
 sidebar_position: 4
-description: Connect a robot, virtual avatar, or service to OpenRoIS by writing Python components and an adapter.
+description: Connect a physical robot, virtual avatar, or digital service to OpenRoIS by writing Python components and an adapter.
 ---
 
 # Write Components and an Adapter

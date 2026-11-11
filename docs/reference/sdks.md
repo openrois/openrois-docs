@@ -9,7 +9,7 @@ description: The OpenRoIS client SDKs for JavaScript, Python and Unity, and the 
 | SDK | For | Package | Status |
 |-----|-----|---------|--------|
 | JavaScript | Browsers and Node.js service applications | `@openrois/sdk` | <span className="status-pill status-pill--progress">Alpha</span> |
-| Python | Asyncio service applications and AI services | `openrois-sdk` | <span className="status-pill status-pill--progress">Alpha</span> |
+| Python | Asyncio service applications and AI agents | `openrois-sdk` | <span className="status-pill status-pill--progress">Alpha</span> |
 | Unity | Desktop, mobile and VR headset applications | `org.openrois.sdk` | <span className="status-pill status-pill--progress">Alpha</span> |
 | Component SDK (Python) | Components and adapters | `openrois-components-core` | <span className="status-pill status-pill--progress">Alpha</span> |
 

@@ -79,5 +79,5 @@ repository, as the [quick start](quickstart.md) shows.
 | `openrois-interfaces` | PyPI | RoIS types, the source of truth |
 | `@openrois/interfaces` | npm | RoIS types and runtime validators for JavaScript and TypeScript |
 | `openrois-engine` | PyPI | The recursive RoIS HRI Engine, WebSocket server and client |
-| `openrois-components-core` | PyPI | Component and adapter SDK |
+| `openrois-components-core` | PyPI | Component SDK |
 | `openrois-gateway` | PyPI | The gateway process |
