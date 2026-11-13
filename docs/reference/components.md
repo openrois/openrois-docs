@@ -52,10 +52,10 @@ Three things exist per component type:
 
 | Component | Profile | Typed messages | Implementations |
 |-----------|---------|----------------|-----------------|
-| System Information | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--available">Available</span> | Reachy Mini, mock |
-| Person Detection | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--available">Available</span> | Reachy Mini, mock |
+| System Information | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--available">Available</span> | Reachy Mini, Kachaka, mock |
+| Person Detection | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--available">Available</span> | Reachy Mini, Kachaka, mock |
 | Reaction | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--available">Available</span> | Reachy Mini |
-| Navigation | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--available">Available</span> | mock |
+| Navigation | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--available">Available</span> | Kachaka, mock |
 | Speech Synthesis | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--planned">Planned</span> | Reachy Mini |
 | Person Localization | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--planned">Planned</span> | |
 | Person Identification | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--planned">Planned</span> | |
@@ -66,15 +66,19 @@ Three things exist per component type:
 | Speech Recognition | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--planned">Planned</span> | |
 | Gesture Recognition | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--planned">Planned</span> | |
 | Follow | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--planned">Planned</span> | |
-| Move | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--planned">Planned</span> | |
+| Move | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--planned">Planned</span> | Kachaka |
 | Audio Streaming | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--planned">Planned</span> | |
 | Video Streaming | <span className="status-pill status-pill--available">Available</span> | <span className="status-pill status-pill--planned">Planned</span> | |
 
-The implementations are in two places:
+The implementations are in three places:
 
 - The [Reachy Mini adapter](https://github.com/openrois/openrois-adapter-reachy-mini), for
   the open-source Pollen Robotics Reachy Mini. It runs on the real robot and in simulation,
   and is the reference for a complete adapter.
+- The [Kachaka adapter](https://github.com/openrois/openrois-adapter-kachaka), for the
+  Preferred Robotics Kachaka, over the gRPC API of the robot. It drives the robot to the
+  locations of its map, moves it in straight lines and turns in place, and reports the
+  people it detects.
 - The [mock adapter](https://github.com/openrois/openrois/tree/dev/testing/mock-adapter)
   of the repository, which simulates its components with no robot. The
   [quick start](../getting-started/quickstart.md) runs it.

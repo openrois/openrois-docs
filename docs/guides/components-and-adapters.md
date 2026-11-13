@@ -211,5 +211,7 @@ callbacks run on the executor's threads, and emit events with the thread-safe
 - Start from the adapter template in
   [`examples/adapter-template`](https://github.com/openrois/openrois/tree/dev/examples/adapter-template).
 - Study a complete adapter:
-  [openrois-adapter-reachy-mini](https://github.com/openrois/openrois-adapter-reachy-mini).
+  [openrois-adapter-reachy-mini](https://github.com/openrois/openrois-adapter-reachy-mini),
+  or [openrois-adapter-kachaka](https://github.com/openrois/openrois-adapter-kachaka) for an
+  adapter over the gRPC API of a robot.
 - Check which RoIS components exist today in the [component reference](../reference/components.md).

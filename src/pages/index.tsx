@@ -182,6 +182,7 @@ const STATUS: StatusGroup[] = [
       'Client SDKs for JavaScript (npm), Python (PyPI), and Unity, passing one conformance list',
       'The OpenRoIS Inspector, and an MCP server that lets AI agents drive robots',
       'Reachy Mini adapter, run on the real robot and in simulation',
+      'Kachaka adapter, run on the real robot, alongside the Reachy Mini behind one gateway',
     ],
   },
   {
@@ -213,7 +214,7 @@ const PAPER_BIBTEX = `@misc{carrera2026openrois,
                    El Hafi, Lotfi},
   title         = {{OpenRoIS}: A Community-Driven Open-Source Middleware Implementing
                    the Robotic Interaction Service ({RoIS}) Framework for Physical
-                   Robots, Virtual Avatars, and {AI} Agents},
+                   Robots, Virtual Avatars, and Digital Services},
   year          = {2026},
   eprint        = {2609.21178},
   archivePrefix = {arXiv},

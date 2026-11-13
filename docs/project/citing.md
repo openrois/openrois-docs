@@ -22,7 +22,7 @@ in the proceedings, please cite its preprint on arXiv,
                    El Hafi, Lotfi},
   title         = {{OpenRoIS}: A Community-Driven Open-Source Middleware Implementing
                    the Robotic Interaction Service ({RoIS}) Framework for Physical
-                   Robots, Virtual Avatars, and {AI} Agents},
+                   Robots, Virtual Avatars, and Digital Services},
   year          = {2026},
   eprint        = {2609.21178},
   archivePrefix = {arXiv},
